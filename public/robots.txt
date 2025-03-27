@@ -1,0 +1,10 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://raytronics.vercel.app/sitemap.xml
+
+# Admin pages not for crawling
+Disallow: /admin/
+Disallow: /api/ 
