@@ -9,6 +9,7 @@ import {
   Users,
   Image as ImageIcon,
   LogOut,
+  MessageSquare,
 } from "lucide-react"
 
 export default function AdminLayout({
@@ -57,6 +58,13 @@ export default function AdminLayout({
             >
               <ImageIcon className="w-5 h-5" />
               <span>Portfolio</span>
+            </Link>
+            <Link
+              href="/admin/dashboard/contact"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-accent transition-colors"
+            >
+              <MessageSquare className="w-5 h-5" />
+              <span>Contact</span>
             </Link>
           </nav>
         </div>

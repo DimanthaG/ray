@@ -18,16 +18,45 @@ export default function ContactPage() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    try {
+      const formData = new FormData(e.currentTarget)
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        company: formData.get('company'),
+        subject: formData.get('subject'),
+        message: formData.get('message'),
+      }
 
-    toast({
-      title: "Message sent!",
-      description: "We'll get back to you as soon as possible.",
-    })
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
 
-    setIsSubmitting(false)
-    ;(e.target as HTMLFormElement).reset()
+      if (!response.ok) {
+        throw new Error('Failed to submit form')
+      }
+
+      toast({
+        title: "Message sent!",
+        description: "We'll get back to you as soon as possible.",
+      })
+
+      ;(e.target as HTMLFormElement).reset()
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -57,27 +86,59 @@ export default function ContactPage() {
             className="bg-card border border-border/50 rounded-2xl p-6 md:p-8"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Name *</Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    placeholder="Your name"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email *</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="your@email.com"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Phone Number</Label>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="Your phone number"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="company">Company</Label>
+                  <Input
+                    id="company"
+                    name="company"
+                    placeholder="Your company name"
+                  />
+                </div>
+              </div>
               <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
+                <Label htmlFor="subject">Subject</Label>
                 <Input
-                  id="name"
-                  placeholder="Your name"
-                  required
+                  id="subject"
+                  name="subject"
+                  placeholder="What's this about?"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="your@email.com"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="message">Message</Label>
+                <Label htmlFor="message">Message *</Label>
                 <Textarea
                   id="message"
+                  name="message"
                   placeholder="How can we help you?"
                   className="min-h-[150px]"
                   required
