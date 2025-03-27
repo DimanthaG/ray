@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { toast } from "@/components/ui/use-toast"
-import type { Client } from "@/lib/edge-config"
+import type { Client } from "@/lib/supabase"
 
 export default function ClientManagement() {
   const router = useRouter()
@@ -203,8 +203,8 @@ export default function ClientManagement() {
                         {client.status}
                       </span>
                     </TableCell>
-                    <TableCell>
-                      {new Date(client.createdAt).toLocaleDateString()}
+                    <TableCell className="text-right">
+                      {new Date(client.created_at).toLocaleDateString()}
                     </TableCell>
                     <TableCell>
                       <Button
