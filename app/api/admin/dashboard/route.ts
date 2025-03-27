@@ -1,76 +1,85 @@
 import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
-import { PrismaClient } from "@prisma/client"
 import { authOptions } from "../../auth/auth-options"
-
-const prisma = new PrismaClient()
+import { supabase } from "@/lib/supabase"
 
 export async function GET() {
   try {
     const session = await getServerSession(authOptions)
-
     if (!session) {
       return new NextResponse("Unauthorized", { status: 401 })
     }
 
-    // Fetch total clients
-    const totalClients = await prisma.client.count()
+    // Get total clients
+    const { count: totalClients, error: clientsError } = await supabase
+      .from('clients')
+      .select('*', { count: 'exact', head: true })
 
-    // Fetch total portfolio items
-    const totalPortfolioItems = await prisma.portfolio.count()
+    if (clientsError) {
+      console.error('Error fetching clients count:', clientsError)
+      throw clientsError
+    }
 
-    // Fetch recent activity
-    const recentActivity = await Promise.all([
-      // Get recent clients
-      prisma.client.findMany({
-        take: 5,
-        orderBy: {
-          createdAt: "desc",
-        },
-        select: {
-          id: true,
-          name: true,
-          createdAt: true,
-        },
-      }),
-      // Get recent portfolio items
-      prisma.portfolio.findMany({
-        take: 5,
-        orderBy: {
-          createdAt: "desc",
-        },
-        select: {
-          id: true,
-          title: true,
-          createdAt: true,
-        },
-      }),
-    ])
+    // Get total portfolio items
+    const { count: totalPortfolioItems, error: portfolioError } = await supabase
+      .from('portfolio')
+      .select('*', { count: 'exact', head: true })
+
+    if (portfolioError) {
+      console.error('Error fetching portfolio count:', portfolioError)
+      throw portfolioError
+    }
+
+    // Get recent activity (latest 5 clients and portfolio items)
+    const { data: recentClients, error: recentClientsError } = await supabase
+      .from('clients')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(5)
+
+    if (recentClientsError) {
+      console.error('Error fetching recent clients:', recentClientsError)
+      throw recentClientsError
+    }
+
+    const { data: recentPortfolio, error: recentPortfolioError } = await supabase
+      .from('portfolio')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(5)
+
+    if (recentPortfolioError) {
+      console.error('Error fetching recent portfolio:', recentPortfolioError)
+      throw recentPortfolioError
+    }
 
     // Combine and sort recent activity
-    const combinedActivity = [
-      ...recentActivity[0].map((client) => ({
+    const recentActivity = [
+      ...recentClients.map(client => ({
+        type: 'client',
         id: client.id,
-        type: "client" as const,
-        title: `New client: ${client.name}`,
-        date: client.createdAt.toISOString(),
+        title: client.name,
+        timestamp: client.created_at
       })),
-      ...recentActivity[1].map((item) => ({
+      ...recentPortfolio.map(item => ({
+        type: 'portfolio',
         id: item.id,
-        type: "portfolio" as const,
-        title: `New portfolio item: ${item.title}`,
-        date: item.createdAt.toISOString(),
-      })),
-    ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        title: item.title,
+        timestamp: item.created_at
+      }))
+    ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
 
     return NextResponse.json({
-      totalClients,
-      totalPortfolioItems,
+      totalClients: totalClients || 0,
+      totalPortfolioItems: totalPortfolioItems || 0,
       totalEngagements: 1000000, // This would be calculated from actual engagement data
-      recentActivity: combinedActivity.slice(0, 5),
+      recentActivity: recentActivity.slice(0, 5)
     })
   } catch (error) {
     console.error("[DASHBOARD_GET]", error)
-    return new NextResponse("Internal error", { status: 500 })
+    return new NextResponse(
+      error instanceof Error ? error.message : "Failed to fetch dashboard data",
+      { status: 500 }
+    )
   }
 } 

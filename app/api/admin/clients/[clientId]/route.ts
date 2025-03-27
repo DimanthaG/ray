@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
-import { PrismaClient } from "@prisma/client"
 import { authOptions } from "../../../auth/auth-options"
-
-const prisma = new PrismaClient()
+import { supabase } from "@/lib/supabase"
 
 export async function GET(
   req: Request,
@@ -15,15 +13,14 @@ export async function GET(
       return new NextResponse("Unauthorized", { status: 401 })
     }
 
-    const clientId = params.clientId
+    const { data: client, error } = await supabase
+      .from('clients')
+      .select('*')
+      .eq('id', params.clientId)
+      .single()
 
-    const client = await prisma.client.findUnique({
-      where: {
-        id: clientId,
-      },
-    })
-
-    if (!client) {
+    if (error) {
+      console.error('Error fetching client:', error)
       return new NextResponse("Client not found", { status: 404 })
     }
 
@@ -40,7 +37,6 @@ export async function PUT(
 ) {
   try {
     const session = await getServerSession(authOptions)
-
     if (!session) {
       return new NextResponse("Unauthorized", { status: 401 })
     }
@@ -48,22 +44,31 @@ export async function PUT(
     const body = await req.json()
     const { name, description, logo, website } = body
 
-    const client = await prisma.client.update({
-      where: {
-        id: params.clientId,
-      },
-      data: {
+    const { data: client, error } = await supabase
+      .from('clients')
+      .update({
         name,
         description,
         logo,
         website,
-      },
-    })
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', params.clientId)
+      .select()
+      .single()
+
+    if (error) {
+      console.error('Error updating client:', error)
+      throw error
+    }
 
     return NextResponse.json(client)
   } catch (error) {
     console.error("[CLIENT_PUT]", error)
-    return new NextResponse("Internal error", { status: 500 })
+    return new NextResponse(
+      error instanceof Error ? error.message : "Failed to update client",
+      { status: 500 }
+    )
   }
 }
 
@@ -77,17 +82,22 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 401 })
     }
 
-    const clientId = params.clientId
+    const { error } = await supabase
+      .from('clients')
+      .delete()
+      .eq('id', params.clientId)
 
-    await prisma.client.delete({
-      where: {
-        id: clientId,
-      },
-    })
+    if (error) {
+      console.error('Error deleting client:', error)
+      throw error
+    }
 
     return new NextResponse(null, { status: 204 })
   } catch (error) {
     console.error("[CLIENT_DELETE]", error)
-    return new NextResponse("Internal Error", { status: 500 })
+    return new NextResponse(
+      error instanceof Error ? error.message : "Failed to delete client",
+      { status: 500 }
+    )
   }
 } 
