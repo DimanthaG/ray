@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { PrismaClient } from "@prisma/client"
-import { authOptions } from "../../../auth/[...nextauth]/route"
+import { authOptions } from "../../../auth/auth-options"
 
 const prisma = new PrismaClient()
 
@@ -11,14 +11,15 @@ export async function GET(
 ) {
   try {
     const session = await getServerSession(authOptions)
-
     if (!session) {
       return new NextResponse("Unauthorized", { status: 401 })
     }
 
+    const clientId = params.clientId
+
     const client = await prisma.client.findUnique({
       where: {
-        id: params.clientId,
+        id: clientId,
       },
     })
 
@@ -29,7 +30,7 @@ export async function GET(
     return NextResponse.json(client)
   } catch (error) {
     console.error("[CLIENT_GET]", error)
-    return new NextResponse("Internal error", { status: 500 })
+    return new NextResponse("Internal Error", { status: 500 })
   }
 }
 
@@ -72,20 +73,21 @@ export async function DELETE(
 ) {
   try {
     const session = await getServerSession(authOptions)
-
     if (!session) {
       return new NextResponse("Unauthorized", { status: 401 })
     }
 
+    const clientId = params.clientId
+
     await prisma.client.delete({
       where: {
-        id: params.clientId,
+        id: clientId,
       },
     })
 
     return new NextResponse(null, { status: 204 })
   } catch (error) {
     console.error("[CLIENT_DELETE]", error)
-    return new NextResponse("Internal error", { status: 500 })
+    return new NextResponse("Internal Error", { status: 500 })
   }
 } 
