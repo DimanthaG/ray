@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
-import { authOptions } from "../../auth/auth-options"
+import { authOptions } from "../../auth/[...nextauth]/route"
 import { supabase, type Client } from "@/lib/supabase"
 
 export async function GET() {
