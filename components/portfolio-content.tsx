@@ -74,16 +74,16 @@ export default function PortfolioContent() {
                   height={400}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent opacity-60" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/100 to-transparent opacity-90" />
               </div>
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <h3 className="text-xl font-semibold text-foreground mb-2">
                   {item.title}
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-black font-bold">
                   {item.description}
                 </p>
-                <span className="inline-block mt-2 text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
+                <span className="font-bold inline-block mt-2 text-xs text-primary bg-primary/10 px-2 py-1 rounded-full">
                   {item.category}
                 </span>
               </div>
