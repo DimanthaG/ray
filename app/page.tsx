@@ -145,22 +145,51 @@ export default function Home() {
         <motion.div variants={fadeInUp} className="mb-24">
           <h2 className="text-2xl font-semibold text-center mb-12">Part of Raytronics Group</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 items-center">
-            {subsidiaries.map((subsidiary) => (
-              <motion.div
-                key={subsidiary.id}
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="relative aspect-[3/2] flex items-center justify-center p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-colors"
-              >
-                <Image
-                  src={subsidiary.logo}
-                  alt={subsidiary.name}
-                  width={200}
-                  height={100}
-                  className="w-full h-auto object-contain"
-                />
-              </motion.div>
-            ))}
+            {subsidiaries.map((subsidiary) => {
+              // Check if it's subsidiary 1 to add the link
+              if (subsidiary.id === 1) {
+                return (
+                  <Link
+                    key={subsidiary.id}
+                    href="https://www.rayrealtysl.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                      className="relative aspect-[3/2] flex items-center justify-center p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-colors cursor-pointer"
+                    >
+                      <Image
+                        src={subsidiary.logo}
+                        alt={subsidiary.name}
+                        width={200}
+                        height={100}
+                        className="w-full h-auto object-contain"
+                      />
+                    </motion.div>
+                  </Link>
+                );
+              }
+              
+              // For other subsidiaries, keep the original non-clickable version
+              return (
+                <motion.div
+                  key={subsidiary.id}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="relative aspect-[3/2] flex items-center justify-center p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-colors"
+                >
+                  <Image
+                    src={subsidiary.logo}
+                    alt={subsidiary.name}
+                    width={200}
+                    height={100}
+                    className="w-full h-auto object-contain"
+                  />
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
 
