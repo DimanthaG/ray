@@ -61,6 +61,86 @@ export default function Home() {
           </motion.p>
         </motion.div>
 
+        {/* Our Current Event Section */}
+        <motion.div variants={fadeInUp} className="mb-24">
+          <h2 className="text-3xl font-bold text-center mb-12">Our Current Event</h2>
+          <div className="max-w-4xl mx-auto bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+              {/* Image Section */}
+              <motion.div 
+                className="relative aspect-video lg:aspect-square rounded-xl overflow-hidden"
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <Image
+                  src="/GemExpo.jpg"
+                  alt="Lanka Gems & Jewels Canada Exhibition"
+                  width={600}
+                  height={600}
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+              
+              {/* Content Section */}
+              <div className="flex flex-col justify-center space-y-4">
+                <div className="text-lg leading-relaxed text-foreground">
+                  <p className="mb-4">
+                    <span className="font-semibold">ඔබගේ මැණික් ව්‍යාපාරය කැනඩාවට 🇨🇦 !</span>
+                  </p>
+                  
+                  <p className="mb-6">
+                    ශ්‍රී ලංකාවේ ප්‍රමුඛ මැණික් සහ රත්‍රං ආභරණ ව්‍යාපාර 25කට වැඩි සංඛ්‍යාවක් සමඟ එක්ව Lanka Gems & Jewels Canada Exhibition ප්‍රදර්ශනයට සහභාගී වී, කැනේඩියානු ආයෝජකයින් හා මිලදී ගන්නට සදහා ව්‍යාපාර කිරීමට අවස්ථාව .
+                  </p>
+                  
+                  <div className="space-y-2 mb-6">
+                    <p><span className="font-semibold">📍</span> Hilton Toronto – Exhibition Hall</p>
+                    <p><span className="font-semibold">🗓</span> 2025 නොවැම්බර් 21, 22 සහ 23</p>
+                    <p><span className="font-semibold">💼</span> ප්‍රදර්ශන පැකේජය: රු. 550,000</p>
+                  </div>
+                  
+                  <div className="space-y-2 mb-6">
+                    <p><span className="font-semibold">📄</span> අයදුම්පත (ඉදිරිපත් කිරීමට අවසන් දිනය: අගෝස්තු 20)</p>
+                    <Link 
+                      href="https://drive.google.com/file/d/1zpsn-hYGRBGl09TXiJ8HUiPC2NCNLfvn/view?usp=sharing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline break-all text-sm"
+                    >
+                      https://drive.google.com/file/d/1zpsn-hYGRBGl09TXiJ8HUiPC2NCNLfvn/view?usp=sharing
+                    </Link>
+                  </div>
+                  
+                  <div className="mb-6">
+                    <p><span className="font-semibold">📞</span> දුරකථන: 071 472 7527 / 077 772 7527</p>
+                  </div>
+                  
+                  <p className="font-semibold text-primary">
+                    දැන්ම අයදුම් කරමින් ඔබගේ ව්‍යාපාරය කැනඩාවේ ව්‍යාප්ත  කරගන්න!
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            {/* PDF Viewer Section */}
+            <div className="border-t border-border/50 p-8">
+              <h3 className="text-xl font-semibold mb-4 text-center">Exhibition Brochure</h3>
+              <div className="w-full h-96 border border-border/50 rounded-lg overflow-hidden">
+                <iframe
+                  src="/Gem_Exhibition[1].pdf"
+                  className="w-full h-full"
+                  title="Lanka Gems & Jewels Canada Exhibition Brochure"
+                >
+                  <p>Your browser does not support PDFs. 
+                    <Link href="/Gem_Exhibition[1].pdf" className="text-primary hover:underline ml-1">
+                      Download the PDF
+                    </Link>
+                  </p>
+                </iframe>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Subsidiaries Section */}
         <motion.div variants={fadeInUp} className="mb-24">
           <h2 className="text-2xl font-semibold text-center mb-12">Part of Raytronics Group</h2>
