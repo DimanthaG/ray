@@ -35,6 +35,26 @@ export type Portfolio = {
   created_at: string
 }
 
+export type ExhibitionRegistration = {
+  id: number
+  first_name: string
+  last_name: string
+  company: string
+  division: string | null
+  job_title: string | null
+  nationality: string
+  country: string
+  address: string
+  country_code: string
+  phone_number: string
+  email: string | null // Made optional since no email system
+  business_type: string
+  entry_code: string
+  status: 'registered' | 'checked_in' | 'cancelled'
+  created_at: string
+  updated_at: string
+}
+
 export type Database = {
   public: {
     Tables: {
@@ -47,6 +67,11 @@ export type Database = {
         Row: Portfolio
         Insert: Omit<Portfolio, 'id' | 'created_at'>
         Update: Partial<Omit<Portfolio, 'id' | 'created_at'>>
+      }
+      exhibition_registrations: {
+        Row: ExhibitionRegistration
+        Insert: Omit<ExhibitionRegistration, 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Omit<ExhibitionRegistration, 'id' | 'created_at' | 'updated_at'>>
       }
     }
   }

@@ -121,6 +121,25 @@ export default function Home() {
               </div>
             </div>
             
+            {/* Registration CTA Section */}
+            <div className="border-t border-border/50 p-8 text-center">
+              <h3 className="text-xl font-semibold mb-4">Ready to Visit the Exhibition?</h3>
+              <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+                Register now for free visitor access to the Lanka Gems & Jewels Canada Exhibition. 
+                Get your QR code entry pass and be part of this exclusive event.
+              </p>
+              <Button
+                asChild
+                size="lg"
+                className="group bg-gradient-to-r from-primary to-purple-600 hover:from-purple-600 hover:to-primary"
+              >
+                <Link href="/register">
+                  Register for Free
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </Button>
+            </div>
+
             {/* PDF Viewer Section */}
             <div className="border-t border-border/50 p-8">
               <h3 className="text-xl font-semibold mb-4 text-center">Exhibition Brochure</h3>
