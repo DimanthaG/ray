@@ -4,9 +4,36 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Facebook, Instagram, Twitter } from "lucide-react"
+import { ArrowRight, Facebook, Instagram, Twitter, Languages, ChevronLeft, ChevronRight } from "lucide-react"
+import { useState, useEffect } from "react"
 
 export default function Home() {
+  const [isEnglish, setIsEnglish] = useState(true);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  const exhibitionImages = [
+    { src: "/GemExpo3.jpg", alt: "Lanka Gems & Jewels Canada Exhibition - Main" },
+    { src: "/GemExpo4.jpg", alt: "Lanka Gems & Jewels Canada Exhibition - Details" },
+    { src: "/GemExpo5.jpg", alt: "Lanka Gems & Jewels Canada Exhibition - Booth Info" }
+  ];
+
+  // Auto-advance carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % exhibitionImages.length);
+    }, 5000); // Change image every 5 seconds
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % exhibitionImages.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + exhibitionImages.length) % exhibitionImages.length);
+  };
+  
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
@@ -63,61 +90,147 @@ export default function Home() {
 
         {/* Our Current Event Section */}
         <motion.div variants={fadeInUp} className="mb-24">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Current Event</h2>
+          <div className="flex justify-between items-center mb-12">
+            <h2 className="text-3xl font-bold text-center flex-1">Our Current Event</h2>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setIsEnglish(!isEnglish)}
+              className="flex items-center gap-2"
+            >
+              <Languages className="h-4 w-4" />
+              {isEnglish ? 'සිංහල' : 'English'}
+            </Button>
+          </div>
           <div className="max-w-4xl mx-auto bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
-              {/* Image Section */}
+              {/* Image Carousel Section */}
               <motion.div 
-                className="relative aspect-video lg:aspect-square rounded-xl overflow-hidden"
+                className="relative aspect-video lg:aspect-square rounded-xl overflow-hidden group"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <Image
-                  src="/GemExpo.jpg"
-                  alt="Lanka Gems & Jewels Canada Exhibition"
+                  src={exhibitionImages[currentImageIndex].src}
+                  alt={exhibitionImages[currentImageIndex].alt}
                   width={600}
                   height={600}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-opacity duration-500"
                 />
+                
+                {/* Carousel Navigation */}
+                <div className="absolute inset-0 flex items-center justify-between p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <Button
+                    variant="secondary"
+                    size="icon"
+                    className="rounded-full bg-black/50 hover:bg-black/70 text-white border-0"
+                    onClick={prevImage}
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    size="icon"
+                    className="rounded-full bg-black/50 hover:bg-black/70 text-white border-0"
+                    onClick={nextImage}
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </div>
+                
+                {/* Carousel Indicators */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                  {exhibitionImages.map((_, index) => (
+                    <button
+                      key={index}
+                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                        index === currentImageIndex 
+                          ? 'bg-white scale-110' 
+                          : 'bg-white/50 hover:bg-white/80'
+                      }`}
+                      onClick={() => setCurrentImageIndex(index)}
+                    />
+                  ))}
+                </div>
               </motion.div>
               
               {/* Content Section */}
               <div className="flex flex-col justify-center space-y-4">
-                <div className="text-lg leading-relaxed text-foreground">
-                  <p className="mb-4">
-                    <span className="font-semibold">ඔබගේ මැණික් ව්‍යාපාරය කැනඩාවට 🇨🇦 !</span>
-                  </p>
-                  
-                  <p className="mb-6">
-                    ශ්‍රී ලංකාවේ ප්‍රමුඛ මැණික් සහ රත්‍රං ආභරණ ව්‍යාපාර 25කට වැඩි සංඛ්‍යාවක් සමඟ එක්ව Lanka Gems & Jewels Canada Exhibition ප්‍රදර්ශනයට සහභාගී වී, කැනේඩියානු ආයෝජකයින් හා මිලදී ගන්නට සදහා ව්‍යාපාර කිරීමට අවස්ථාව .
-                  </p>
-                  
-                  <div className="space-y-2 mb-6">
-                    <p><span className="font-semibold">📍</span> Hilton Toronto – Exhibition Hall</p>
-                    <p><span className="font-semibold">🗓</span> 2025 නොවැම්බර් 21, 22 සහ 23</p>
-                    <p><span className="font-semibold">💼</span> ප්‍රදර්ශන පැකේජය: රු. 550,000</p>
+                {isEnglish ? (
+                  // English Content
+                  <div className="text-lg leading-relaxed text-foreground">
+                    <p className="mb-4">
+                      <span className="font-semibold">YOUR GEM BUSINESS TO CANADA 🇨🇦 !</span>
+                    </p>
+                    
+                    <p className="mb-6">
+                      An exceptional opportunity to build business partnerships with Canadian investors and buyers, alongside over 25 of Sri Lanka's leading gem and jewelry businesses!
+                    </p>
+                    
+                    <div className="space-y-2 mb-6">
+                      <p><span className="font-semibold">📍</span> Hilton Toronto – Exhibition Hall</p>
+                      <p><span className="font-semibold">🗓</span> November 21, 22, and 23, 2025</p>
+                      <p><span className="font-semibold">💼</span> Exhibition Package Price: 550,000/=</p>
+                    </div>
+                    
+                    <div className="space-y-2 mb-6">
+                      <p><span className="font-semibold">📄</span> Application Form (Submission deadline: August 20)</p>
+                      <Link 
+                        href="https://drive.google.com/file/d/1zpsn-hYGRBGl09TXiJ8HUiPC2NCNLfvn/view?usp=sharing"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:underline break-all text-sm"
+                      >
+                        Download Application Form
+                      </Link>
+                    </div>
+                    
+                    <div className="mb-6">
+                      <p><span className="font-semibold">📞</span> Hotline: 071 472 7527 / 077 772 7527</p>
+                    </div>
+                    
+                    <p className="font-semibold text-primary">
+                      Apply now and expand your business to Canada!
+                    </p>
                   </div>
-                  
-                  <div className="space-y-2 mb-6">
-                    <p><span className="font-semibold">📄</span> අයදුම්පත (ඉදිරිපත් කිරීමට අවසන් දිනය: අගෝස්තු 20)</p>
-                    <Link 
-                      href="https://drive.google.com/file/d/1zpsn-hYGRBGl09TXiJ8HUiPC2NCNLfvn/view?usp=sharing"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:underline break-all text-sm"
-                    >
-                      https://drive.google.com/file/d/1zpsn-hYGRBGl09TXiJ8HUiPC2NCNLfvn/view?usp=sharing
-                    </Link>
+                ) : (
+                  // Sinhala Content
+                  <div className="text-lg leading-relaxed text-foreground">
+                    <p className="mb-4">
+                      <span className="font-semibold">ඔබගේ මැණික් ව්‍යාපාරය කැනඩාවට 🇨🇦 !</span>
+                    </p>
+                    
+                    <p className="mb-6">
+                      ශ්‍රී ලංකාවේ ප්‍රමුඛ මැණික් සහ රත්‍රං ආභරණ ව්‍යාපාර 25කට වැඩි සංඛ්‍යාවක් සමඟ එක්ව Lanka Gems & Jewels Canada Exhibition ප්‍රදර්ශනයට සහභාගී වී, කැනේඩියානු ආයෝජකයින් හා මිලදී ගන්නට සදහා ව්‍යාපාර කිරීමට අවස්ථාව .
+                    </p>
+                    
+                    <div className="space-y-2 mb-6">
+                      <p><span className="font-semibold">📍</span> Hilton Toronto – Exhibition Hall</p>
+                      <p><span className="font-semibold">🗓</span> 2025 නොවැම්බර් 21, 22 සහ 23</p>
+                      <p><span className="font-semibold">💼</span> ප්‍රදර්ශන පැකේජය: රු. 550,000</p>
+                    </div>
+                    
+                    <div className="space-y-2 mb-6">
+                      <p><span className="font-semibold">📄</span> අයදුම්පත (ඉදිරිපත් කිරීමට අවසන් දිනය: අගෝස්තු 20)</p>
+                      <Link 
+                        href="https://drive.google.com/file/d/1zpsn-hYGRBGl09TXiJ8HUiPC2NCNLfvn/view?usp=sharing"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:underline break-all text-sm"
+                      >
+                        https://drive.google.com/file/d/1zpsn-hYGRBGl09TXiJ8HUiPC2NCNLfvn/view?usp=sharing
+                      </Link>
+                    </div>
+                    
+                    <div className="mb-6">
+                      <p><span className="font-semibold">📞</span> දුරකථන: 071 472 7527 / 077 772 7527</p>
+                    </div>
+                    
+                    <p className="font-semibold text-primary">
+                      දැන්ම අයදුම් කරමින් ඔබගේ ව්‍යාපාරය කැනඩාවේ ව්‍යාප්ත  කරගන්න!
+                    </p>
                   </div>
-                  
-                  <div className="mb-6">
-                    <p><span className="font-semibold">📞</span> දුරකථන: 071 472 7527 / 077 772 7527</p>
-                  </div>
-                  
-                  <p className="font-semibold text-primary">
-                    දැන්ම අයදුම් කරමින් ඔබගේ ව්‍යාපාරය කැනඩාවේ ව්‍යාප්ත  කරගන්න!
-                  </p>
-                </div>
+                )}
               </div>
             </div>
             
@@ -128,16 +241,16 @@ export default function Home() {
                 Register now for free visitor access to the Lanka Gems & Jewels Canada Exhibition. 
                 Get your QR code entry pass and be part of this exclusive event.
               </p>
-              <Button
-                asChild
-                size="lg"
-                className="group bg-gradient-to-r from-primary to-purple-600 hover:from-purple-600 hover:to-primary"
-              >
-                <Link href="/register">
-                  Register for Free
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </Button>
+                             <Button
+                 asChild
+                 size="lg"
+                 className="group bg-gradient-to-r from-red-400 to-blue-900 hover:from-red-500 hover:to-blue-800 text-white border-0"
+               >
+                 <Link href="/register">
+                   Register for Free
+                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                 </Link>
+               </Button>
             </div>
 
             {/* PDF Viewer Section */}
