@@ -55,6 +55,31 @@ export type ExhibitionRegistration = {
   updated_at: string
 }
 
+export type TradeExpoRegistration = {
+  id: number
+  first_name: string
+  last_name: string
+  company: string
+  division: string | null
+  job_title: string | null
+  nationality: string
+  country: string
+  address: string
+  country_code: string
+  phone_number: string
+  email: string | null
+  business_type: string
+  company_size: string
+  years_in_business: number
+  products_services: string
+  target_markets: string | null
+  exhibition_goals: string
+  entry_code: string
+  status: 'registered' | 'checked_in' | 'cancelled'
+  created_at: string
+  updated_at: string
+}
+
 export type Database = {
   public: {
     Tables: {
@@ -72,6 +97,11 @@ export type Database = {
         Row: ExhibitionRegistration
         Insert: Omit<ExhibitionRegistration, 'id' | 'created_at' | 'updated_at'>
         Update: Partial<Omit<ExhibitionRegistration, 'id' | 'created_at' | 'updated_at'>>
+      }
+      trade_expo_registrations: {
+        Row: TradeExpoRegistration
+        Insert: Omit<TradeExpoRegistration, 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Omit<TradeExpoRegistration, 'id' | 'created_at' | 'updated_at'>>
       }
     }
   }

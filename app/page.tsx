@@ -273,6 +273,84 @@ export default function Home() {
           </div>
         </motion.div>
 
+        {/* Upcoming Events Section */}
+        <motion.div variants={fadeInUp} className="mb-24">
+          <h2 className="text-3xl font-bold text-center mb-12">Upcoming Events</h2>
+          <div className="max-w-4xl mx-auto bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+              {/* Image Section */}
+              <motion.div 
+                className="relative aspect-video lg:aspect-square rounded-xl overflow-hidden group"
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <Image
+                  src="/RayExpo_2.jpg"
+                  alt="Lanka Trade Expo 2026 - Toronto, Canada"
+                  width={600}
+                  height={600}
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+              
+              {/* Content Section */}
+              <div className="flex flex-col justify-center space-y-4">
+                <div className="text-lg leading-relaxed text-foreground">
+                  <h3 className="text-2xl font-bold mb-4 text-primary">LANKA TRADE EXPO 2026</h3>
+                  <p className="mb-4">
+                    <span className="font-semibold">TORONTO, CANADA 🇨🇦</span>
+                  </p>
+                  
+                  <p className="mb-4">
+                    <span className="font-semibold">22 | 23 | 24 May 2026</span>
+                  </p>
+                  
+                  <p className="mb-6">
+                    Sri Lanka's finest industries come together on the global stage!
+                  </p>
+                  
+                  <div className="space-y-2 mb-6">
+                    <p><span className="font-semibold">•</span> Gem & Jewelry</p>
+                    <p><span className="font-semibold">•</span> Toys & Gift Items</p>
+                    <p><span className="font-semibold">•</span> Spices</p>
+                    <p><span className="font-semibold">•</span> Travel & Tourism</p>
+                    <p><span className="font-semibold">•</span> Tea & Herbal Beverages</p>
+                    <p><span className="font-semibold">•</span> Batik & Garments</p>
+                  </div>
+                  
+                  <div className="mb-6">
+                    <p><span className="font-semibold">📞</span> Dr. Lasantha Gunawardana +94 777 727 527 (WhatsApp)</p>
+                    <p><span className="font-semibold">🌐</span> www.raytronics.lk</p>
+                  </div>
+                  
+                  <p className="font-semibold text-primary">
+                    Join us for this exceptional trade exhibition opportunity!
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Registration CTA Section */}
+            <div className="border-t border-border/50 p-8 text-center">
+              <h3 className="text-xl font-semibold mb-4">Interested in Participating?</h3>
+              <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+                Register now for the Lanka Trade Expo 2026 in Toronto, Canada. 
+                Connect with international buyers and expand your business globally.
+              </p>
+              <Button
+                asChild
+                size="lg"
+                className="group bg-gradient-to-r from-blue-600 to-red-600 hover:from-blue-700 hover:to-red-700 text-white border-0"
+              >
+                <Link href="/register-trade-expo">
+                  Register for Trade Expo
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Subsidiaries Section */}
         <motion.div variants={fadeInUp} className="mb-24">
           <h2 className="text-2xl font-semibold text-center mb-12">Part of Raytronics Group</h2>
