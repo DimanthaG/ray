@@ -198,7 +198,7 @@ export default function TradeExpoRegistrationContent() {
           variants={fadeInUp}
           className="max-w-4xl mx-auto mb-12"
         >
-          <div className="relative aspect-video rounded-xl overflow-hidden">
+          <div className="relative aspect-square rounded-xl overflow-hidden">
             <Image
               src="/RayExpo_2.jpg"
               alt="Lanka Trade Expo 2026 - Toronto, Canada"
