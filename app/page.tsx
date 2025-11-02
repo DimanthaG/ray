@@ -405,11 +405,11 @@ export default function Home() {
 
         {/* Ray Edu Partnerships Section */}
         <motion.div variants={fadeInUp} className="mb-24">
-          <h2 className="text-2xl font-semibold text-center mb-4">Ray Edu Partnerships</h2>
+          <h2 className="text-2xl font-semibold text-center mb-4">RayEdu Partnerships</h2>
           <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Ray Edu is proud to partner with leading organizations to provide exceptional educational opportunities and support.
+            RayEdu is proud to partner with leading organizations to provide exceptional educational opportunities and support.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center max-w-6xl mx-auto">
             <motion.div
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
@@ -429,8 +429,21 @@ export default function Home() {
               className="relative aspect-[3/2] flex items-center justify-center p-6 rounded-xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-colors bg-black/20"
             >
               <Image
-                src="/logos/sdc_canada_logo_white.png"
+                src="/logos/WhatsApp Image 2025-11-01 at 22.02.34_056b0870.jpg"
                 alt="Skill Development Council Canada Logo"
+                width={300}
+                height={150}
+                className="w-full h-auto object-contain"
+              />
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="relative aspect-[3/2] flex items-center justify-center p-6 rounded-xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-colors"
+            >
+              <Image
+                src="/logos/logo-25.png"
+                alt="25th Anniversary Logo"
                 width={300}
                 height={150}
                 className="w-full h-auto object-contain"
