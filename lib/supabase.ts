@@ -17,6 +17,30 @@ export const supabase = createClient(
   }
 )
 
+// Server-side admin client with service role key (bypasses RLS)
+// Use this in API routes for admin operations
+export function createAdminClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+  if (!supabaseUrl) {
+    throw new Error('Missing env.NEXT_PUBLIC_SUPABASE_URL')
+  }
+  
+  if (!supabaseServiceKey) {
+    // Fallback to anon key if service role key is not set (for development)
+    console.warn('SUPABASE_SERVICE_ROLE_KEY not set, using ANON_KEY (RLS will apply)')
+    return supabase
+  }
+
+  return createClient(supabaseUrl, supabaseServiceKey, {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+    },
+  })
+}
+
 export type Client = {
   id: number
   name: string

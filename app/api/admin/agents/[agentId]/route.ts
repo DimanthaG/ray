@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "../../../auth/auth-options"
-import { supabase } from "@/lib/supabase"
+import { createAdminClient } from "@/lib/supabase"
 
 export async function PUT(
   req: Request,
@@ -34,6 +34,7 @@ export async function PUT(
       return new NextResponse("Name and email are required", { status: 400 })
     }
 
+    const supabase = createAdminClient()
     const updateData: any = {
       name,
       email,

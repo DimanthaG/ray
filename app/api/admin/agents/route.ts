@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "../../auth/auth-options"
-import { supabase, type Agent } from "@/lib/supabase"
+import { createAdminClient, type Agent } from "@/lib/supabase"
 
 export async function GET() {
   try {
@@ -10,6 +10,7 @@ export async function GET() {
       return new NextResponse("Unauthorized", { status: 401 })
     }
 
+    const supabase = createAdminClient()
     const { data: agents, error } = await supabase
       .from('agents')
       .select('*')
@@ -60,6 +61,8 @@ export async function POST(req: Request) {
       return new NextResponse("Name and email are required", { status: 400 })
     }
 
+    const supabase = createAdminClient()
+    
     // Generate QR code using Supabase function or fallback
     let qrCode: string
     const { data: qrCodeData, error: qrError } = await supabase
@@ -131,6 +134,7 @@ export async function DELETE(req: Request) {
       return new NextResponse("Missing agent ID", { status: 400 })
     }
 
+    const supabase = createAdminClient()
     const { error } = await supabase
       .from('agents')
       .delete()
