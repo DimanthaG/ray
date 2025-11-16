@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { Plus, Trash2, RefreshCw, Edit2, QrCode, Copy, CheckCircle2, XCircle } from "lucide-react"
+import { Plus, Trash2, RefreshCw, Edit2, QrCode, Copy, CheckCircle2, XCircle, Download } from "lucide-react"
+import QRCode from "qrcode"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -173,6 +174,43 @@ export default function AgentsManagement() {
       title: "Copied!",
       description: "QR code URL copied to clipboard",
     })
+  }
+
+  // Download QR code as image
+  const downloadQrCode = async (qrCode: string, agentName: string) => {
+    try {
+      const url = `${window.location.origin}/agent/${qrCode}`
+      
+      // Generate QR code as data URL
+      const qrCodeDataUrl = await QRCode.toDataURL(url, {
+        width: 512,
+        margin: 2,
+        color: {
+          dark: '#000000',
+          light: '#FFFFFF',
+        },
+      })
+
+      // Create a temporary link and trigger download
+      const link = document.createElement('a')
+      link.href = qrCodeDataUrl
+      link.download = `qr-code-${agentName.replace(/\s+/g, '-').toLowerCase()}-${qrCode}.png`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+
+      toast({
+        title: "Downloaded!",
+        description: "QR code image downloaded successfully",
+      })
+    } catch (error) {
+      console.error("Error generating QR code:", error)
+      toast({
+        title: "Error",
+        description: "Failed to generate QR code. Please try again.",
+        variant: "destructive",
+      })
+    }
   }
 
   return (
@@ -383,6 +421,15 @@ export default function AgentsManagement() {
                             title="Copy QR Code URL"
                           >
                             <Copy className="h-3 w-3" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-6 w-6"
+                            onClick={() => downloadQrCode(agent.qr_code, agent.name)}
+                            title="Download QR Code"
+                          >
+                            <Download className="h-3 w-3" />
                           </Button>
                         </div>
                       </TableCell>
