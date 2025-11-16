@@ -88,7 +88,7 @@ export default function Home() {
           </motion.p>
         </motion.div>
 
-        {/* Our Current Event Section */}
+        {/* Our Current Event Section 
         <motion.div variants={fadeInUp} className="mb-24">
           <div className="flex justify-between items-center mb-12">
             <h2 className="text-3xl font-bold text-center flex-1">Our Current Event</h2>
@@ -104,7 +104,7 @@ export default function Home() {
           </div>
           <div className="max-w-4xl mx-auto bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
-              {/* Image Carousel Section */}
+              {/* Image Carousel Section 
               <motion.div 
                 className="relative aspect-video lg:aspect-square rounded-xl overflow-hidden group"
                 whileHover={{ scale: 1.02 }}
@@ -118,7 +118,7 @@ export default function Home() {
                   className="w-full h-full object-cover transition-opacity duration-500"
                 />
                 
-                {/* Carousel Navigation */}
+                {/* Carousel Navigation 
                 <div className="absolute inset-0 flex items-center justify-between p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <Button
                     variant="secondary"
@@ -138,7 +138,7 @@ export default function Home() {
                   </Button>
                 </div>
                 
-                {/* Carousel Indicators */}
+                {/* Carousel Indicators 
                 <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
                   {exhibitionImages.map((_, index) => (
                     <button
@@ -154,7 +154,7 @@ export default function Home() {
                 </div>
               </motion.div>
               
-              {/* Content Section */}
+              {/* Content Section 
               <div className="flex flex-col justify-center space-y-4">
                 {isEnglish ? (
                   // English Content
@@ -234,7 +234,7 @@ export default function Home() {
               </div>
             </div>
             
-            {/* Registration CTA Section */}
+            {/* Registration CTA Section 
             <div className="border-t border-border/50 p-8 text-center">
               <h3 className="text-xl font-semibold mb-4">Ready to Visit the Exhibition?</h3>
               <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
@@ -253,7 +253,7 @@ export default function Home() {
                </Button>
             </div>
 
-            {/* PDF Viewer Section */}
+            {/* PDF Viewer Section
             <div className="border-t border-border/50 p-8">
               <h3 className="text-xl font-semibold mb-4 text-center">Exhibition Brochure</h3>
               <div className="w-full h-96 border border-border/50 rounded-lg overflow-hidden">
@@ -273,7 +273,6 @@ export default function Home() {
           </div>
         </motion.div>
 
-      {/*  
         <motion.div variants={fadeInUp} className="mb-24">
           <h2 className="text-3xl font-bold text-center mb-12">Upcoming Events</h2>
           <div className="max-w-4xl mx-auto bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden">
@@ -329,7 +328,7 @@ export default function Home() {
               </div>
             </div>
             */}
-            {/* Registration CTA Section */}
+            {/* Registration CTA Section 
             <div className="border-t border-border/50 p-8 text-center">
               <h3 className="text-xl font-semibold mb-4">Interested in Participating?</h3>
               <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
@@ -349,7 +348,7 @@ export default function Home() {
             </div>
           </div>
         </motion.div>
-
+*/}
         {/* Subsidiaries Section */}
         <motion.div variants={fadeInUp} className="mb-24">
           <h2 className="text-2xl font-semibold text-center mb-12">Part of Raytronics Group</h2>
