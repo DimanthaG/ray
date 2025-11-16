@@ -80,6 +80,25 @@ export type TradeExpoRegistration = {
   updated_at: string
 }
 
+export type Agent = {
+  id: number
+  name: string
+  email: string
+  phone: string | null
+  title: string | null
+  bio: string | null
+  profile_image_url: string | null
+  qr_code: string
+  location: string | null
+  website: string | null
+  linkedin_url: string | null
+  whatsapp_number: string | null
+  is_active: boolean
+  is_verified: boolean
+  created_at: string
+  updated_at: string
+}
+
 export type Database = {
   public: {
     Tables: {
@@ -102,6 +121,11 @@ export type Database = {
         Row: TradeExpoRegistration
         Insert: Omit<TradeExpoRegistration, 'id' | 'created_at' | 'updated_at'>
         Update: Partial<Omit<TradeExpoRegistration, 'id' | 'created_at' | 'updated_at'>>
+      }
+      agents: {
+        Row: Agent
+        Insert: Omit<Agent, 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Omit<Agent, 'id' | 'created_at' | 'updated_at'>>
       }
     }
   }

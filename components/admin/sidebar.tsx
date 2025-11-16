@@ -10,6 +10,7 @@ import {
   LogOut,
   MessageSquare,
   Settings,
+  UserCheck,
 } from "lucide-react"
 
 export function Sidebar() {
@@ -48,6 +49,13 @@ export function Sidebar() {
         >
           <MessageSquare className="w-5 h-5" />
           <span>Contact</span>
+        </Link>
+        <Link
+          href="/admin/dashboard/agents"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-accent transition-colors"
+        >
+          <UserCheck className="w-5 h-5" />
+          <span>Agents</span>
         </Link>
         <Link
           href="/admin/dashboard/settings"
