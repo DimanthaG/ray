@@ -7,7 +7,7 @@ export function ThemeProvider({ children, ...props }: { children: React.ReactNod
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme="system"
+      defaultTheme="light"
       enableSystem
       {...props}
     >

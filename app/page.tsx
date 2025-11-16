@@ -273,12 +273,12 @@ export default function Home() {
           </div>
         </motion.div>
 
-        {/* Upcoming Events Section */}
+      {/*  
         <motion.div variants={fadeInUp} className="mb-24">
           <h2 className="text-3xl font-bold text-center mb-12">Upcoming Events</h2>
           <div className="max-w-4xl mx-auto bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
-              {/* Image Section */}
+             
               <motion.div 
                 className="relative aspect-square rounded-xl overflow-hidden group"
                 whileHover={{ scale: 1.02 }}
@@ -293,7 +293,6 @@ export default function Home() {
                 />
               </motion.div>
               
-              {/* Content Section */}
               <div className="flex flex-col justify-center space-y-4">
                 <div className="text-lg leading-relaxed text-foreground">
                   <h3 className="text-2xl font-bold mb-4 text-primary">LANKA TRADE EXPO 2026</h3>
@@ -329,7 +328,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            
+            */}
             {/* Registration CTA Section */}
             <div className="border-t border-border/50 p-8 text-center">
               <h3 className="text-xl font-semibold mb-4">Interested in Participating?</h3>

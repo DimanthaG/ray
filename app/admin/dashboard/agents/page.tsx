@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { Plus, Trash2, RefreshCw, Edit2, QrCode, Copy, CheckCircle2, XCircle, Download } from "lucide-react"
+import { Plus, Trash2, RefreshCw, Edit2, QrCode, Copy, CheckCircle2, XCircle, Download, Upload, Image as ImageIcon } from "lucide-react"
+import Image from "next/image"
 import QRCode from "qrcode"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -18,6 +19,8 @@ export default function AgentsManagement() {
   const [loading, setLoading] = useState(true)
   const [isAdding, setIsAdding] = useState(false)
   const [editingId, setEditingId] = useState<number | null>(null)
+  const [uploadingImage, setUploadingImage] = useState(false)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [newAgent, setNewAgent] = useState({
     name: "",
     email: "",
@@ -102,6 +105,7 @@ export default function AgentsManagement() {
         is_active: true,
         is_verified: true,
       })
+      setImagePreview(null)
       setIsAdding(false)
       fetchAgents()
     } catch (error: any) {
@@ -174,6 +178,78 @@ export default function AgentsManagement() {
       title: "Copied!",
       description: "QR code URL copied to clipboard",
     })
+  }
+
+  // Handle image upload
+  const handleImageUpload = async (file: File) => {
+    try {
+      setUploadingImage(true)
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const response = await fetch('/api/admin/upload-agent-image', {
+        method: 'POST',
+        body: formData,
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to upload image')
+      }
+
+      const data = await response.json()
+      setNewAgent({ ...newAgent, profile_image_url: data.image_url })
+      setImagePreview(data.image_url)
+
+      toast({
+        title: "Success",
+        description: "Image uploaded successfully!",
+      })
+    } catch (error) {
+      console.error("Error uploading image:", error)
+      toast({
+        title: "Error",
+        description: "Failed to upload image. Please try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setUploadingImage(false)
+    }
+  }
+
+  // Handle file input change
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        toast({
+          title: "Error",
+          description: "Please select an image file",
+          variant: "destructive",
+        })
+        return
+      }
+
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        toast({
+          title: "Error",
+          description: "Image size must be less than 5MB",
+          variant: "destructive",
+        })
+        return
+      }
+
+      // Show preview
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string)
+      }
+      reader.readAsDataURL(file)
+
+      // Upload image
+      handleImageUpload(file)
+    }
   }
 
   // Download QR code as image
@@ -307,16 +383,68 @@ export default function AgentsManagement() {
                     }
                   />
                 </div>
-                <div>
-                  <Label htmlFor="profile_image_url">Profile Image URL</Label>
-                  <Input
-                    id="profile_image_url"
-                    placeholder="https://example.com/image.jpg"
-                    value={newAgent.profile_image_url}
-                    onChange={(e) =>
-                      setNewAgent({ ...newAgent, profile_image_url: e.target.value })
-                    }
-                  />
+                <div className="md:col-span-2">
+                  <Label>Profile Image</Label>
+                  <div className="mt-2 flex items-center gap-4">
+                    <div className="relative">
+                      <input
+                        type="file"
+                        id="profile_image_upload"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        className="hidden"
+                        disabled={uploadingImage}
+                      />
+                      <label
+                        htmlFor="profile_image_upload"
+                        className="cursor-pointer"
+                      >
+                        {(imagePreview || newAgent.profile_image_url) ? (
+                          <div className="relative w-32 h-32 rounded-lg overflow-hidden border-2 border-border hover:border-primary transition-colors group">
+                            <Image
+                              src={imagePreview || newAgent.profile_image_url}
+                              alt="Profile preview"
+                              fill
+                              className="object-cover"
+                            />
+                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                              <Upload className="w-6 h-6 text-white" />
+                            </div>
+                            {uploadingImage && (
+                              <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                                <RefreshCw className="w-6 h-6 text-white animate-spin" />
+                              </div>
+                            )}
+                          </div>
+                        ) : (
+                          <div className="w-32 h-32 rounded-lg border-2 border-dashed border-border hover:border-primary transition-colors flex items-center justify-center cursor-pointer group">
+                            {uploadingImage ? (
+                              <RefreshCw className="w-8 h-8 text-muted-foreground animate-spin" />
+                            ) : (
+                              <div className="text-center">
+                                <ImageIcon className="w-8 h-8 text-muted-foreground mx-auto mb-2 group-hover:text-primary transition-colors" />
+                                <p className="text-xs text-muted-foreground">Click to upload</p>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </label>
+                    </div>
+                    <div className="flex-1">
+                      <Input
+                        placeholder="Or enter image URL"
+                        value={newAgent.profile_image_url}
+                        onChange={(e) => {
+                          setNewAgent({ ...newAgent, profile_image_url: e.target.value })
+                          setImagePreview(e.target.value || null)
+                        }}
+                        disabled={uploadingImage}
+                      />
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Click the image to upload or paste a URL
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 <div>
                   <Label htmlFor="website">Website</Label>
