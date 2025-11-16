@@ -15,12 +15,21 @@ export async function GET() {
       .select('*')
       .order('created_at', { ascending: false })
 
-    if (error) throw error
+    if (error) {
+      console.error("[AGENTS_GET] Supabase error:", error)
+      return NextResponse.json(
+        { error: error.message, details: error },
+        { status: 500 }
+      )
+    }
 
-    return NextResponse.json(agents)
-  } catch (error) {
+    return NextResponse.json(agents || [])
+  } catch (error: any) {
     console.error("[AGENTS_GET]", error)
-    return new NextResponse("Internal Error", { status: 500 })
+    return NextResponse.json(
+      { error: error?.message || "Internal Error", details: error },
+      { status: 500 }
+    )
   }
 }
 
@@ -58,6 +67,7 @@ export async function POST(req: Request) {
 
     if (qrError || !qrCodeData) {
       // Fallback: generate QR code manually if function doesn't exist
+      console.warn("[AGENTS_POST] RPC function not available, using fallback:", qrError?.message)
       qrCode = `AGENT-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`
     } else {
       qrCode = qrCodeData
@@ -83,12 +93,27 @@ export async function POST(req: Request) {
       .select()
       .single()
 
-    if (error) throw error
+    if (error) {
+      console.error("[AGENTS_POST] Supabase insert error:", error)
+      return NextResponse.json(
+        { 
+          error: error.message, 
+          details: error,
+          hint: error.code === '42P01' ? 'The agents table does not exist. Please run the SQL schema first.' : 
+                error.code === '42501' ? 'Permission denied. Check RLS policies.' : 
+                'Check the error details above.'
+        },
+        { status: 500 }
+      )
+    }
 
     return NextResponse.json(agent)
-  } catch (error) {
+  } catch (error: any) {
     console.error("[AGENTS_POST]", error)
-    return new NextResponse("Internal Error", { status: 500 })
+    return NextResponse.json(
+      { error: error?.message || "Internal Error", details: error },
+      { status: 500 }
+    )
   }
 }
 
@@ -111,12 +136,21 @@ export async function DELETE(req: Request) {
       .delete()
       .eq('id', parseInt(id))
 
-    if (error) throw error
+    if (error) {
+      console.error("[AGENTS_DELETE] Supabase error:", error)
+      return NextResponse.json(
+        { error: error.message, details: error },
+        { status: 500 }
+      )
+    }
 
     return NextResponse.json({ message: "Agent deleted successfully" })
-  } catch (error) {
+  } catch (error: any) {
     console.error("[AGENTS_DELETE]", error)
-    return new NextResponse("Internal Error", { status: 500 })
+    return NextResponse.json(
+      { error: error?.message || "Internal Error", details: error },
+      { status: 500 }
+    )
   }
 }
 

@@ -37,15 +37,23 @@ export default function AgentsManagement() {
     try {
       setLoading(true)
       const response = await fetch("/api/admin/agents")
-      if (!response.ok) throw new Error("Failed to fetch agents")
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({}))
+        const errorMessage = error.hint 
+          ? `${error.error || "Failed to fetch agents"}. ${error.hint}`
+          : error.error || error.message || "Failed to fetch agents"
+        throw new Error(errorMessage)
+      }
       const data = await response.json()
       setAgents(data)
-    } catch (error) {
+    } catch (error: any) {
+      const errorMessage = error?.message || "Failed to fetch agents. Please try again."
       toast({
         title: "Error",
-        description: "Failed to fetch agents. Please try again.",
+        description: errorMessage,
         variant: "destructive",
       })
+      console.error("Error fetching agents:", error)
     } finally {
       setLoading(false)
     }
@@ -67,7 +75,10 @@ export default function AgentsManagement() {
 
       if (!response.ok) {
         const error = await response.json()
-        throw new Error(error.message || "Failed to add agent")
+        const errorMessage = error.hint 
+          ? `${error.error || "Failed to add agent"}. ${error.hint}`
+          : error.error || error.message || "Failed to add agent"
+        throw new Error(errorMessage)
       }
 
       toast({
