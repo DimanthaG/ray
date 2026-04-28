@@ -53,10 +53,10 @@ export async function POST(req: Request) {
         console.log('Cloudinary upload successful:', result.secure_url)
 
         return {
-          title: file.name.split('.')[0], // Use filename without extension as title
-          description: `Uploaded on ${new Date().toLocaleDateString()}`,
+          title: file.name.split(".")[0],
+          description: "",
           image_url: result.secure_url,
-          category: 'Uncategorized',
+          category: "",
         }
       } catch (error) {
         console.error(`Error processing file ${file.name}:`, error)

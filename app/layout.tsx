@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
-import { siteConfig } from "./metadata";
+import { siteConfig, siteKeywords } from "./metadata";
 import "./globals.css";
 import { MinimalistNavbar } from "@/components/ui/minimalist-navbar";
 import { Footer } from "@/components/ui/footer";
@@ -18,17 +18,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  keywords: [
-    "Photography",
-    "Videography",
-    "Professional Photography",
-    "Business Photography",
-    "Commercial Photography",
-    "Event Photography",
-    "Photo Studio",
-    "Video Production",
-    "Content Creation",
-  ],
+  keywords: [...siteKeywords],
   authors: [
     {
       name: "Raytronics",

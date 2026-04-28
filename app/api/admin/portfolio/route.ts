@@ -32,27 +32,30 @@ export async function POST(req: Request) {
     const body = await req.json()
     const { title, description, imageUrl, category, image_url } = body
 
-    // Handle both imageUrl and image_url fields
     const finalImageUrl = image_url || imageUrl
 
-    if (!title || !description || !finalImageUrl || !category) {
+    if (!title?.trim() || !finalImageUrl?.trim()) {
       return new NextResponse("Missing required fields", { status: 400 })
     }
 
-    console.log('Creating portfolio item:', {
+    const descriptionStr =
+      typeof description === "string" ? description : ""
+    const categoryStr = typeof category === "string" ? category : ""
+
+    console.log("Creating portfolio item:", {
       title,
-      description,
+      description: descriptionStr,
       image_url: finalImageUrl,
-      category
+      category: categoryStr,
     })
 
     const { data: item, error } = await supabase
-      .from('portfolio')
+      .from("portfolio")
       .insert({
-        title,
-        description,
-        image_url: finalImageUrl,
-        category,
+        title: title.trim(),
+        description: descriptionStr,
+        image_url: finalImageUrl.trim(),
+        category: categoryStr,
       })
       .select()
       .single()

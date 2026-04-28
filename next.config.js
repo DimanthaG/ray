@@ -1,5 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Do not add /portfolio -> /programs (browsers cache 308 for a long time).
+  // If old bookmarks hit /programs, send them to the real page:
+  async redirects() {
+    return [
+      {
+        source: "/programs",
+        destination: "/portfolio",
+        permanent: false,
+      },
+    ]
+  },
   images: {
     domains: [
       "images.unsplash.com",

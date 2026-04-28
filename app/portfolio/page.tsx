@@ -2,12 +2,15 @@ import type { Metadata } from "next"
 import { siteConfig } from "../metadata"
 import PortfolioContent from "@/components/portfolio-content"
 
+const portfolioDescription =
+  "Explore Raytronics portfolio projects—campaign creative, social content, and brand work that helps businesses stand out online."
+
 export const metadata: Metadata = {
   title: "Portfolio",
-  description: "Explore our portfolio of professional photography and videography work. See how we've helped businesses tell their stories through stunning visuals.",
+  description: portfolioDescription,
   openGraph: {
     title: "Portfolio | " + siteConfig.name,
-    description: "Explore our portfolio of professional photography and videography work. See how we've helped businesses tell their stories through stunning visuals.",
+    description: portfolioDescription,
   },
 }
 

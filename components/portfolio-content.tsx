@@ -17,10 +17,9 @@ export default function PortfolioContent() {
         const response = await fetch("/api/admin/portfolio")
         if (!response.ok) throw new Error("Failed to fetch portfolio items")
         const data = await response.json()
-        console.log('Fetched portfolio items:', data)
         setItems(data)
       } catch (error) {
-        console.error('Error:', error)
+        console.error("Error:", error)
         toast({
           title: "Error",
           description: "Failed to load portfolio items",
@@ -35,7 +34,6 @@ export default function PortfolioContent() {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-16">
-        {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -46,52 +44,56 @@ export default function PortfolioContent() {
             Our Portfolio
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Explore our successful projects and see how we've helped businesses transform their digital presence.
+            Explore our successful projects and see how we&apos;ve helped businesses transform their
+            digital presence.
           </p>
         </motion.div>
 
-        {/* Portfolio Grid */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {items.map((item, index) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative overflow-hidden rounded-2xl bg-card border border-border/50 hover:border-primary/50 transition-colors"
-              onClick={() => setSelectedItem(item)}
-            >
-              <div className="aspect-video relative overflow-hidden">
-                <Image
-                  src={item.image_url}
-                  alt={item.title}
-                  width={600}
-                  height={400}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/100 to-transparent opacity-90" />
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="text-xl font-semibold text-foreground mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-black font-bold">
-                  {item.description}
-                </p>
-                <span className="font-bold inline-block mt-2 text-xs text-primary bg-primary/10 px-2 py-1 rounded-full">
-                  {item.category}
-                </span>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+        <section aria-labelledby="portfolio-grid-heading">
+          <h2 id="portfolio-grid-heading" className="sr-only">
+            Project gallery
+          </h2>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {items.map((item, index) => (
+              <motion.article
+                key={item.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group flex flex-col overflow-hidden rounded-2xl bg-card border border-border/50 hover:border-primary/50 transition-colors cursor-pointer focus-within:ring-2 focus-within:ring-ring"
+                onClick={() => setSelectedItem(item)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault()
+                    setSelectedItem(item)
+                  }
+                }}
+                tabIndex={0}
+                role="button"
+                aria-label={`Open ${item.title} in full view`}
+              >
+                <div className="relative w-full h-[240px] sm:h-[280px] md:h-[300px] bg-muted/40">
+                  <Image
+                    src={item.image_url}
+                    alt={item.title}
+                    fill
+                    className="object-contain p-3 transition-transform duration-500 group-hover:scale-[1.02]"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </div>
+                <div className="border-t border-border/50 p-4 md:p-5">
+                  <h3 className="text-lg font-semibold text-foreground leading-snug">{item.title}</h3>
+                </div>
+              </motion.article>
+            ))}
+          </motion.div>
+        </section>
 
-        {/* Image Modal */}
         {selectedItem && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -99,31 +101,35 @@ export default function PortfolioContent() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm"
             onClick={() => setSelectedItem(null)}
+            role="presentation"
           >
             <motion.div
-              initial={{ scale: 0.9 }}
+              initial={{ scale: 0.96 }}
               animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              className="relative max-w-4xl w-full bg-card rounded-2xl overflow-hidden shadow-xl"
+              exit={{ scale: 0.96 }}
+              className="relative flex w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-card shadow-xl max-h-[90vh]"
               onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="portfolio-modal-title"
             >
-              <Image
-                src={selectedItem.image_url}
-                alt={selectedItem.title}
-                width={1200}
-                height={800}
-                className="w-full h-auto"
-              />
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background/80 to-transparent">
-                <h3 className="text-2xl font-semibold text-foreground mb-2">
+              <div className="relative h-[min(75vh,720px)] w-full shrink-0 bg-muted/30">
+                <Image
+                  src={selectedItem.image_url}
+                  alt={selectedItem.title}
+                  fill
+                  className="object-contain p-4 sm:p-6"
+                  sizes="(max-width: 1024px) 100vw, 1024px"
+                  priority
+                />
+              </div>
+              <div className="shrink-0 border-t border-border px-4 py-4 sm:px-6 sm:py-5">
+                <h2
+                  id="portfolio-modal-title"
+                  className="text-xl font-semibold text-foreground sm:text-2xl"
+                >
                   {selectedItem.title}
-                </h3>
-                <p className="text-muted-foreground mb-2">
-                  {selectedItem.description}
-                </p>
-                <span className="inline-block text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
-                  {selectedItem.category}
-                </span>
+                </h2>
               </div>
             </motion.div>
           </motion.div>
@@ -131,4 +137,4 @@ export default function PortfolioContent() {
       </div>
     </div>
   )
-} 
+}
