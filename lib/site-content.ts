@@ -15,9 +15,9 @@ export type PartnerLogo = {
 export const subsidiaries: Subsidiary[] = [
   { id: 1, logo: "/logos/01.svg", name: "Ray Realty", href: "https://www.rayrealtysl.com/" },
   { id: 2, logo: "/logos/02.svg", name: "Ray Mart", href: "https://www.raymartsl.com/" },
-  { id: 3, logo: "/logos/03.svg", name: "Subsidiary 3" },
-  { id: 4, logo: "/logos/04.svg", name: "Subsidiary 4" },
-  { id: 5, logo: "/logos/05.svg", name: "Subsidiary 5" },
+  { id: 3, logo: "/logos/03.svg", name: "Ray Edu" },
+  { id: 4, logo: "/logos/04.svg", name: "Ray Group" },
+  { id: 5, logo: "/logos/05.svg", name: "Ray Ventures" },
 ]
 
 export const partnerLogos: PartnerLogo[] = [
@@ -54,7 +54,7 @@ export const homeFeatures: Feature[] = [
   {
     title: "Content Creation",
     description: "Engaging content that resonates with your audience",
-    color: "from-purple-500 to-pink-400",
+    color: "from-brand to-brand-light",
   },
   {
     title: "Analytics & Insights",

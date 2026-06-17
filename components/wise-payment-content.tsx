@@ -17,6 +17,7 @@ import {
   CreditCard,
   Hash,
   Banknote,
+  ChevronDown,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
@@ -68,69 +69,137 @@ function CopyField({
   )
 }
 
-function generatePaymentCardPng(
+function loadImage(src: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const img = document.createElement("img")
+    img.crossOrigin = "anonymous"
+    img.onload = () => resolve(img)
+    img.onerror = () => reject(new Error(`Failed to load image: ${src}`))
+    img.src = src
+  })
+}
+
+function wrapCanvasText(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  maxWidth: number
+): string[] {
+  const words = text.split(" ")
+  const lines: string[] = []
+  let current = ""
+
+  for (const word of words) {
+    const test = current ? `${current} ${word}` : word
+    if (ctx.measureText(test).width > maxWidth && current) {
+      lines.push(current)
+      current = word
+    } else {
+      current = test
+    }
+  }
+
+  if (current) lines.push(current)
+  return lines.length > 0 ? lines : [text]
+}
+
+function measureFieldBlock(
+  ctx: CanvasRenderingContext2D,
+  value: string,
+  contentWidth: number
+): number {
+  const labelHeight = 18
+  const valueLineHeight = 24
+  const fieldGap = 20
+
+  ctx.font = "bold 18px Inter, system-ui, sans-serif"
+  const valueLines = wrapCanvasText(ctx, value, contentWidth)
+
+  return labelHeight + valueLines.length * valueLineHeight + fieldGap
+}
+
+async function generatePaymentCardPng(
   amount?: number,
   currency?: string,
   reference?: string
 ): Promise<Blob> {
-  return new Promise((resolve, reject) => {
-    const canvas = document.createElement("canvas")
-    const width = 800
-    const padding = 48
-    const lineHeight = 36
-    const fields = [
-      ...wisePaymentFields.map((f) => ({ label: f.label, value: f.value })),
-      ...(amount != null
-        ? [
-            {
-              label: "Amount",
-              value: `${amount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${currency ?? wiseRecipient.currency}`,
-            },
-          ]
-        : []),
-      ...(reference ? [{ label: "Reference", value: reference }] : []),
-    ]
+  const width = 800
+  const padding = 48
+  const headerHeight = 120
+  const contentWidth = width - padding * 2
 
-    const headerHeight = 100
-    const contentHeight = fields.length * lineHeight + padding
-    const height = headerHeight + contentHeight + padding
+  const fields = [
+    ...wisePaymentFields.map((f) => ({ label: f.label, value: f.value })),
+    ...(amount != null
+      ? [
+          {
+            label: "Amount",
+            value: `${amount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${currency ?? wiseRecipient.currency}`,
+          },
+        ]
+      : []),
+    ...(reference ? [{ label: "Reference", value: reference }] : []),
+  ]
 
-    canvas.width = width
-    canvas.height = height
+  const measureCanvas = document.createElement("canvas")
+  const measureCtx = measureCanvas.getContext("2d")
+  if (!measureCtx) throw new Error("Could not create canvas context")
 
-    const ctx = canvas.getContext("2d")
-    if (!ctx) {
-      reject(new Error("Could not create canvas context"))
-      return
-    }
+  const fieldsHeight = fields.reduce(
+    (total, field) => total + measureFieldBlock(measureCtx, field.value, contentWidth),
+    0
+  )
+  const height = headerHeight + padding + fieldsHeight + padding
 
-    ctx.fillStyle = "#ffffff"
-    ctx.fillRect(0, 0, width, height)
+  const canvas = document.createElement("canvas")
+  canvas.width = width
+  canvas.height = height
+
+  const ctx = canvas.getContext("2d")
+  if (!ctx) throw new Error("Could not create canvas context")
+
+  const logo = await loadImage("/logos/06.svg")
+
+  ctx.fillStyle = "#ffffff"
+  ctx.fillRect(0, 0, width, height)
+
+  ctx.fillStyle = "#0f172a"
+  ctx.fillRect(0, 0, width, headerHeight)
+
+  ctx.fillStyle = "#ffffff"
+  ctx.font = "bold 26px Inter, system-ui, sans-serif"
+  ctx.fillText("Payment Details", padding, 52)
+  ctx.font = "15px Inter, system-ui, sans-serif"
+  ctx.fillStyle = "#cbd5e1"
+  ctx.fillText(wiseRecipient.accountHolder, padding, 82)
+
+  const logoHeight = 40
+  const logoWidth = (logo.width / logo.height) * logoHeight
+  const logoX = width - padding - logoWidth
+  const logoY = (headerHeight - logoHeight) / 2
+  ctx.fillStyle = "#ffffff"
+  ctx.fillRect(logoX - 12, logoY - 8, logoWidth + 24, logoHeight + 16)
+  ctx.drawImage(logo, logoX, logoY, logoWidth, logoHeight)
+
+  let y = headerHeight + padding
+
+  for (const field of fields) {
+    ctx.font = "14px Inter, system-ui, sans-serif"
+    ctx.fillStyle = "#64748b"
+    ctx.fillText(field.label, padding, y)
+    y += 18
 
     ctx.fillStyle = "#0f172a"
-    ctx.fillRect(0, 0, width, headerHeight)
-
-    ctx.fillStyle = "#ffffff"
-    ctx.font = "bold 28px Inter, system-ui, sans-serif"
-    ctx.fillText("Payment Details", padding, 48)
-    ctx.font = "16px Inter, system-ui, sans-serif"
-    ctx.fillStyle = "#cbd5e1"
-    ctx.fillText(wiseRecipient.accountHolder, padding, 78)
-
-    let y = headerHeight + padding
-    ctx.font = "14px Inter, system-ui, sans-serif"
-
-    for (const field of fields) {
-      ctx.fillStyle = "#64748b"
-      ctx.fillText(field.label, padding, y)
-      y += 20
-      ctx.fillStyle = "#0f172a"
-      ctx.font = "bold 18px Inter, system-ui, sans-serif"
-      ctx.fillText(field.value, padding, y)
-      ctx.font = "14px Inter, system-ui, sans-serif"
-      y += lineHeight
+    ctx.font = "bold 18px Inter, system-ui, sans-serif"
+    const valueLines = wrapCanvasText(ctx, field.value, contentWidth)
+    for (const line of valueLines) {
+      ctx.fillText(line, padding, y)
+      y += 24
     }
 
+    y += 20
+  }
+
+  return new Promise((resolve, reject) => {
     canvas.toBlob(
       (blob) => {
         if (blob) resolve(blob)
@@ -150,6 +219,7 @@ export default function WisePaymentContent({
   const { toast } = useToast()
   const [copiedField, setCopiedField] = useState<string | null>(null)
   const [isDownloading, setIsDownloading] = useState(false)
+  const [openSteps, setOpenSteps] = useState<number[]>([1])
 
   const copyToClipboard = useCallback(
     async (text: string, label: string) => {
@@ -210,8 +280,82 @@ export default function WisePaymentContent({
 
   const stepIcons = [Building2, Building2, Landmark, Upload, Landmark, Banknote, CreditCard]
 
+  const toggleStep = (step: number) => {
+    setOpenSteps((prev) =>
+      prev.includes(step) ? prev.filter((s) => s !== step) : [...prev, step]
+    )
+  }
+
+  const renderGuideStep = (step: (typeof wiseGuideSteps)[number], index: number, compact = false) => {
+    const Icon = stepIcons[index] ?? Building2
+    const isOpen = openSteps.includes(step.step)
+
+    const content = (
+      <>
+        <div className="flex items-start gap-4 mb-4">
+          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-brand/10 text-brand font-bold shrink-0">
+            {step.step}
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <Icon className="w-5 h-5 text-brand" />
+              <h3 className="text-lg font-semibold">{step.title}</h3>
+            </div>
+            <p className="text-muted-foreground">{step.description}</p>
+          </div>
+        </div>
+        {step.image && (
+          <div className="relative rounded-xl overflow-hidden border border-border/50 bg-muted/20">
+            <Image
+              src={step.image}
+              alt={step.imageAlt ?? step.title}
+              width={800}
+              height={500}
+              className="w-full h-auto"
+            />
+          </div>
+        )}
+      </>
+    )
+
+    if (compact) {
+      return (
+        <div
+          key={step.step}
+          id={`wise-step-${step.step}`}
+          className="bg-card border border-border/50 rounded-2xl overflow-hidden scroll-mt-24"
+        >
+          <button
+            type="button"
+            className="flex w-full items-center justify-between gap-3 p-4 text-left"
+            onClick={() => toggleStep(step.step)}
+            aria-expanded={isOpen}
+          >
+            <span className="font-semibold">
+              Step {step.step}: {step.title}
+            </span>
+            <ChevronDown
+              className={`h-5 w-5 shrink-0 text-muted-foreground transition-transform ${isOpen ? "rotate-180" : ""}`}
+            />
+          </button>
+          {isOpen && <div className="px-4 pb-4 border-t border-border/50 pt-4">{content}</div>}
+        </div>
+      )
+    }
+
+    return (
+      <div
+        key={step.step}
+        id={`wise-step-${step.step}`}
+        className="bg-card border border-border/50 rounded-2xl overflow-hidden scroll-mt-24"
+      >
+        <div className="p-6 md:p-8">{content}</div>
+      </div>
+    )
+  }
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-24 md:pb-16">
       <div className="container mx-auto px-4 py-16 max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -219,8 +363,8 @@ export default function WisePaymentContent({
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600 mb-6">
-            Pay via Wise
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            Pay via <span className="text-brand">Wise</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Send payment to Raytronics Lanka (PVT) LTD using Wise. Copy the bank
@@ -286,10 +430,11 @@ export default function WisePaymentContent({
         )}
 
         <motion.div
+          id="account-details"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-card border border-border/50 rounded-2xl p-6 md:p-8 mb-8"
+          className="bg-card border border-border/50 rounded-2xl p-6 md:p-8 mb-8 scroll-mt-24"
         >
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
             <div>
@@ -346,44 +491,29 @@ export default function WisePaymentContent({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.25 }}
           className="mb-8"
+          id="wise-guide"
         >
-          <h2 className="text-2xl font-bold mb-6 text-center">Step-by-step guide</h2>
-          <div className="space-y-8">
-            {wiseGuideSteps.map((step, index) => {
-              const Icon = stepIcons[index] ?? Building2
-              return (
-                <div
-                  key={step.step}
-                  className="bg-card border border-border/50 rounded-2xl overflow-hidden"
-                >
-                  <div className="p-6 md:p-8">
-                    <div className="flex items-start gap-4 mb-4">
-                      <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary font-bold shrink-0">
-                        {step.step}
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Icon className="w-5 h-5 text-primary" />
-                          <h3 className="text-lg font-semibold">{step.title}</h3>
-                        </div>
-                        <p className="text-muted-foreground">{step.description}</p>
-                      </div>
-                    </div>
-                    {step.image && (
-                      <div className="relative rounded-xl overflow-hidden border border-border/50 bg-muted/20">
-                        <Image
-                          src={step.image}
-                          alt={step.imageAlt ?? step.title}
-                          width={800}
-                          height={500}
-                          className="w-full h-auto"
-                        />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )
-            })}
+          <h2 className="text-2xl font-bold mb-4 text-center">Step-by-step guide</h2>
+          <nav
+            aria-label="Guide steps"
+            className="flex flex-wrap justify-center gap-2 mb-6"
+          >
+            {wiseGuideSteps.map((step) => (
+              <a
+                key={step.step}
+                href={`#wise-step-${step.step}`}
+                className="rounded-full border border-border/50 bg-card/60 px-3 py-1 text-xs font-medium text-muted-foreground hover:text-brand hover:border-brand/40 transition-colors"
+              >
+                Step {step.step}
+              </a>
+            ))}
+          </nav>
+
+          <div className="md:hidden space-y-3">
+            {wiseGuideSteps.map((step, index) => renderGuideStep(step, index, true))}
+          </div>
+          <div className="hidden md:block space-y-8">
+            {wiseGuideSteps.map((step, index) => renderGuideStep(step, index))}
           </div>
         </motion.div>
 
@@ -407,6 +537,24 @@ export default function WisePaymentContent({
             <Link href="/contact">Contact us</Link>
           </Button>
         </motion.div>
+      </div>
+
+      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border/50 bg-background/95 backdrop-blur-md p-3 md:hidden">
+        <div className="container mx-auto flex gap-2 max-w-4xl">
+          <Button type="button" variant="outline" className="flex-1" onClick={handleCopyAll}>
+            <Copy className="w-4 h-4 mr-2" />
+            Copy all
+          </Button>
+          <Button
+            type="button"
+            className="flex-1 bg-brand hover:bg-brand/90"
+            onClick={handleDownloadCard}
+            disabled={isDownloading}
+          >
+            <Download className="w-4 h-4 mr-2" />
+            {isDownloading ? "Generating..." : "Download"}
+          </Button>
+        </div>
       </div>
     </div>
   )

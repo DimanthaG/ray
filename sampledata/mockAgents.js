@@ -2,7 +2,7 @@ const mockAgents = [
     {
       id: "1",
       name: "Dr. K H Lasantha Goonewardena",
-      specialty: "Managing Diretor",
+      specialty: "Managing Director",
       email: "lasa_ray@yahoo.com",
       phone: "+94(77)7727527",
       imageUrl: "https://i.imgur.com/rdU5cbb.jpeg", // Replace with actual image paths

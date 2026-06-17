@@ -137,7 +137,7 @@ export default function RegistrationContent() {
               className="mx-auto rounded-lg"
             />
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600 mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-brand mb-4">
             Visitor Registration
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

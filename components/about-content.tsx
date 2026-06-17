@@ -2,70 +2,69 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image"
+import { Mail, Phone } from "lucide-react"
 import mockAgents from "@/sampledata/mockAgents"
 
 export default function AboutContent() {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-16">
-        {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600 mb-6">
-            Meet Our Team
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            Meet Our <span className="text-brand">Team</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Get to know the talented individuals behind our stunning visuals.
           </p>
         </motion.div>
 
-        {/* Team Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {mockAgents.map((agent, index) => (
-            <motion.div
+            <motion.article
               key={agent.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative overflow-hidden rounded-2xl bg-card border border-border/50 hover:border-primary/50 transition-colors"
+              className="group overflow-hidden rounded-2xl bg-card border border-border/50 hover:border-primary/50 transition-colors"
             >
               <div className="aspect-[4/5] relative overflow-hidden">
                 <Image
                   src={agent.imageUrl}
                   alt={agent.name}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="text-xl font-semibold text-black mb-1">{agent.name}</h3>
-                <p className="text-primary font-medium mb-2">{agent.specialty}</p>
-                <p className="text-sm text-black/80 mb-4">{agent.describe}</p>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold text-foreground mb-1">{agent.name}</h3>
+                <p className="text-brand font-medium mb-3">{agent.specialty}</p>
+                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{agent.describe}</p>
                 <div className="flex flex-col space-y-2 text-sm">
-                  <a 
+                  <a
                     href={`mailto:${agent.email}`}
-                    className="text-black/80 hover:text-white transition-colors"
+                    className="flex items-center gap-2 text-muted-foreground hover:text-brand transition-colors"
                   >
+                    <Mail className="w-4 h-4 shrink-0" />
                     {agent.email}
                   </a>
-                  <a 
+                  <a
                     href={`tel:${agent.phone}`}
-                    className="text-black/80 hover:text-white transition-colors"
+                    className="flex items-center gap-2 text-muted-foreground hover:text-brand transition-colors"
                   >
+                    <Phone className="w-4 h-4 shrink-0" />
                     {agent.phone}
                   </a>
                 </div>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
 
-        {/* Company Info */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -82,4 +81,4 @@ export default function AboutContent() {
       </div>
     </div>
   )
-} 
+}

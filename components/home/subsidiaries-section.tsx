@@ -13,11 +13,17 @@ export function SubsidiariesSection() {
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 items-center">
         {subsidiaries.map((subsidiary) => {
+          const isComingSoon = !subsidiary.href
+
           const card = (
             <motion.div
-              whileHover={{ scale: 1.05 }}
+              whileHover={isComingSoon ? undefined : { scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
-              className={`relative aspect-[3/2] flex items-center justify-center p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-colors${subsidiary.href ? " cursor-pointer" : ""}`}
+              className={`relative aspect-[3/2] flex flex-col items-center justify-center p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-border/50 transition-colors ${
+                isComingSoon
+                  ? "opacity-60"
+                  : "hover:border-primary/50 cursor-pointer"
+              }`}
             >
               <Image
                 src={subsidiary.logo}
@@ -27,8 +33,12 @@ export function SubsidiariesSection() {
                 className="w-full h-auto object-contain"
                 loading="lazy"
               />
+              {isComingSoon && (
+                <span className="mt-2 text-xs font-medium text-muted-foreground">Coming soon</span>
+              )}
             </motion.div>
           )
+
           if (subsidiary.href) {
             return (
               <Link
@@ -41,6 +51,7 @@ export function SubsidiariesSection() {
               </Link>
             )
           }
+
           return <div key={subsidiary.id}>{card}</div>
         })}
       </div>

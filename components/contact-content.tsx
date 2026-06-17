@@ -2,13 +2,16 @@
 
 import { motion } from "framer-motion"
 import { useState } from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/components/ui/use-toast"
-import mockAgents from "@/sampledata/mockAgents"
-import { Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin, ExternalLink, Users } from "lucide-react"
+
+const MAPS_URL =
+  "https://www.google.com/maps/search/?api=1&query=330%2F08+Saman+Mawatha+Lake+Road+Boralesgamuwa+Sri+Lanka"
 
 export default function ContactContent() {
   const { toast } = useToast()
@@ -21,24 +24,24 @@ export default function ContactContent() {
     try {
       const formData = new FormData(e.currentTarget)
       const data = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        phone: formData.get('phone'),
-        company: formData.get('company'),
-        subject: formData.get('subject'),
-        message: formData.get('message'),
+        name: formData.get("name"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
+        company: formData.get("company"),
+        subject: formData.get("subject"),
+        message: formData.get("message"),
       }
 
-      const response = await fetch('/api/contact', {
-        method: 'POST',
+      const response = await fetch("/api/contact", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       })
 
       if (!response.ok) {
-        throw new Error('Failed to submit form')
+        throw new Error("Failed to submit form")
       }
 
       toast({
@@ -48,7 +51,7 @@ export default function ContactContent() {
 
       ;(e.target as HTMLFormElement).reset()
     } catch (error) {
-      console.error('Error submitting form:', error)
+      console.error("Error submitting form:", error)
       toast({
         title: "Error",
         description: "Failed to send message. Please try again.",
@@ -62,23 +65,22 @@ export default function ContactContent() {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-16">
-        {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600 mb-6">
-            Get in Touch
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            Get in <span className="text-brand">Touch</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Ready to transform your social media presence? Contact us today and let's discuss how we can help your business grow.
+            Ready to transform your social media presence? Contact us today and let&apos;s discuss
+            how we can help your business grow.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -89,12 +91,7 @@ export default function ContactContent() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="name">Name *</Label>
-                  <Input
-                    id="name"
-                    name="name"
-                    placeholder="Your name"
-                    required
-                  />
+                  <Input id="name" name="name" placeholder="Your name" required />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="email">Email *</Label>
@@ -110,29 +107,16 @@ export default function ContactContent() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone Number</Label>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    placeholder="Your phone number"
-                  />
+                  <Input id="phone" name="phone" type="tel" placeholder="Your phone number" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="company">Company</Label>
-                  <Input
-                    id="company"
-                    name="company"
-                    placeholder="Your company name"
-                  />
+                  <Input id="company" name="company" placeholder="Your company name" />
                 </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="subject">Subject</Label>
-                <Input
-                  id="subject"
-                  name="subject"
-                  placeholder="What's this about?"
-                />
+                <Input id="subject" name="subject" placeholder="What's this about?" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="message">Message *</Label>
@@ -144,79 +128,81 @@ export default function ContactContent() {
                   required
                 />
               </div>
-              <Button type="submit" className="w-full" disabled={isSubmitting}>
+              <Button type="submit" className="w-full bg-brand hover:bg-brand/90" disabled={isSubmitting}>
                 {isSubmitting ? "Sending..." : "Send Message"}
               </Button>
             </form>
           </motion.div>
 
-          {/* Contact Information */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="space-y-8"
+            className="space-y-6"
           >
-            {/* Company Address */}
             <div className="bg-card border border-border/50 rounded-2xl p-6">
               <div className="flex items-start gap-4">
-                <MapPin className="w-5 h-5 text-primary mt-1" />
+                <MapPin className="w-5 h-5 text-brand mt-1 shrink-0" />
                 <div>
                   <h3 className="font-semibold mb-2">Our Location</h3>
-                  <address className="text-muted-foreground not-italic">
-                    330/08, Saman Mawatha<br />
-                    Lake Road<br />
+                  <address className="text-muted-foreground not-italic leading-relaxed mb-4">
+                    330/08, Saman Mawatha
+                    <br />
+                    Lake Road
+                    <br />
                     Boralesgamuwa
                   </address>
+                  <a
+                    href={MAPS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
+                  >
+                    Open in Google Maps
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
                 </div>
               </div>
             </div>
 
-            {/* Team Contacts */}
-            <div className="space-y-4">
-              {mockAgents.map((agent) => (
-                <motion.div
-                  key={agent.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="bg-card border border-border/50 rounded-2xl p-6"
+            <div className="bg-card border border-border/50 rounded-2xl p-6">
+              <h3 className="font-semibold mb-4">General inquiries</h3>
+              <div className="space-y-3 text-sm">
+                <a
+                  href="mailto:lasa_ray@yahoo.com"
+                  className="flex items-center gap-2 text-muted-foreground hover:text-brand transition-colors"
                 >
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="relative w-12 h-12 rounded-full overflow-hidden">
-                      <img
-                        src={agent.imageUrl}
-                        alt={agent.name}
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold">{agent.name}</h3>
-                      <p className="text-sm text-primary">{agent.specialty}</p>
-                    </div>
-                  </div>
-                  <div className="space-y-2 text-sm">
-                    <a
-                      href={`mailto:${agent.email}`}
-                      className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      <Mail className="w-4 h-4" />
-                      {agent.email}
-                    </a>
-                    <a
-                      href={`tel:${agent.phone}`}
-                      className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      <Phone className="w-4 h-4" />
-                      {agent.phone}
-                    </a>
-                  </div>
-                </motion.div>
-              ))}
+                  <Mail className="w-4 h-4 shrink-0" />
+                  lasa_ray@yahoo.com
+                </a>
+                <a
+                  href="tel:+94777727527"
+                  className="flex items-center gap-2 text-muted-foreground hover:text-brand transition-colors"
+                >
+                  <Phone className="w-4 h-4 shrink-0" />
+                  +94 (77) 772 7527
+                </a>
+              </div>
+            </div>
+
+            <div className="bg-card border border-border/50 rounded-2xl p-6">
+              <div className="flex items-start gap-4">
+                <Users className="w-5 h-5 text-brand mt-0.5 shrink-0" />
+                <div>
+                  <h3 className="font-semibold mb-2">Meet our team</h3>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                    Want to know who you&apos;ll be working with? Browse profiles of our strategists
+                    and leadership.
+                  </p>
+                  <Button asChild variant="outline" size="sm">
+                    <Link href="/about">View team</Link>
+                  </Button>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
       </div>
     </div>
   )
-} 
+}

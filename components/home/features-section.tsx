@@ -25,12 +25,8 @@ export function FeaturesSection() {
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
               className="relative p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-colors"
             >
-              <Icon className="h-8 w-8 text-primary mb-4" aria-hidden />
-              <h3
-                className={`text-xl font-semibold bg-gradient-to-r ${feature.color} bg-clip-text text-transparent mb-3`}
-              >
-                {feature.title}
-              </h3>
+              <Icon className="h-8 w-8 text-brand mb-4" aria-hidden />
+              <h3 className="text-xl font-semibold text-foreground mb-3">{feature.title}</h3>
               <p className="text-muted-foreground">{feature.description}</p>
             </motion.article>
           )

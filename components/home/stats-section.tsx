@@ -8,6 +8,9 @@ export function StatsSection() {
       <h2 id="stats-heading" className="sr-only">
         Impact at a glance
       </h2>
+      <p className="text-center text-sm text-muted-foreground mb-8 max-w-lg mx-auto">
+        Results across the Raytronics Group and our client partnerships.
+      </p>
       <ul className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-4xl mx-auto">
         {homeStats.map((stat) => (
           <li

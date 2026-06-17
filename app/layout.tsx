@@ -77,7 +77,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <MinimalistNavbar />
-            <main className="pt-16">
+            <main className="pt-[4.5rem] md:pt-20">
               {children}
             </main>
             <Footer />

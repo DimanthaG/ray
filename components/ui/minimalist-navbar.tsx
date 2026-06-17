@@ -1,12 +1,14 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import Image from "next/image"
-import { useSession } from "next-auth/react"
-import { Home, Users, Image as ImageIcon, Mail, Menu as MenuIcon, LayoutDashboard } from "lucide-react"
+import { usePathname } from "next/navigation"
+import { Home, Users, Image as ImageIcon, Mail, Menu as MenuIcon, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { siteConfig } from "@/app/metadata"
+import { Button } from "@/components/ui/button"
 
 interface NavItem {
   name: string
@@ -18,102 +20,106 @@ interface MinimalistNavbarProps {
   className?: string
 }
 
+function isActivePath(pathname: string, href: string) {
+  if (href === "/") return pathname === "/"
+  return pathname.startsWith(href)
+}
+
 export function MinimalistNavbar({ className }: MinimalistNavbarProps) {
-  const [activeItem, setActiveItem] = useState<string | null>(null)
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null)
+  const pathname = usePathname()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
-  const { data: session } = useSession()
-  
+
   const items: NavItem[] = [
-    {
-      name: "Home",
-      href: "/",
-      icon: Home,
-    },
-    {
-      name: "About",
-      href: "/about",
-      icon: Users,
-    },
-    {
-      name: "Portfolio",
-      href: "/portfolio",
-      icon: ImageIcon,
-    },
-    {
-      name: "Contact",
-      href: "/contact",
-      icon: Mail,
-    },
+    { name: "Home", href: "/", icon: Home },
+    { name: "About", href: "/about", icon: Users },
+    { name: "Portfolio", href: "/portfolio", icon: ImageIcon },
+    { name: "Contact", href: "/contact", icon: Mail },
   ]
-  
-  // Use items directly instead of adding admin items
-  const navItems = items
-  
+
+  const closeMobileMenu = useCallback(() => setIsMobileMenuOpen(false), [])
+
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768)
+    closeMobileMenu()
+  }, [pathname, closeMobileMenu])
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeMobileMenu()
     }
-    
-    handleResize()
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
+
+    document.addEventListener("keydown", handleKeyDown)
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown)
+      document.body.style.overflow = ""
+    }
+  }, [isMobileMenuOpen, closeMobileMenu])
+
+  const linkClass = (href: string, mobile = false) =>
+    cn(
+      mobile ? "block px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center" : "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 relative flex items-center",
+      isActivePath(pathname, href)
+        ? "text-brand bg-brand/10 backdrop-blur-sm"
+        : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
+    )
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/60 backdrop-blur-xl border-b border-border/30 shadow-sm supports-[backdrop-filter]:bg-background/30">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between py-3">
-          <Link href="/" className="flex items-center space-x-2 relative group">
+        <div className="flex items-center justify-between py-3 md:py-4">
+          <Link href="/" className="flex items-center relative group shrink-0">
             <div className="absolute inset-0 bg-primary/10 rounded-xl filter blur-xl transition-all duration-300 opacity-0 group-hover:opacity-100" />
             <Image
-              src="/logos/06.svg"
-              alt="Raytronics Logo"
-              width={120}
-              height={120}
-              className="h-8 w-8 relative z-10"
+              src={siteConfig.logoPath}
+              alt={`${siteConfig.name} Logo`}
+              width={800}
+              height={200}
+              className="h-11 sm:h-12 md:h-14 w-auto relative z-10"
               priority
             />
           </Link>
-          
-          {/* Mobile menu button */}
-          <button 
-            className="md:hidden relative px-3 py-2 rounded-lg text-foreground hover:text-primary transition-colors hover:bg-primary/10 backdrop-blur-sm"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            <MenuIcon size={24} />
-          </button>
-          
-          {/* Desktop navigation */}
-          <nav className={cn("hidden md:block", className)}>
-            <ul className="flex items-center space-x-1">
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 relative group flex items-center",
-                      activeItem === item.href
-                        ? "text-primary bg-primary/10 backdrop-blur-sm"
-                        : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
-                    )}
-                    onClick={() => setActiveItem(item.href)}
-                  >
-                    <item.icon className="w-4 h-4 mr-2" />
-                    <span className="relative z-10">{item.name}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+
+          <div className="flex items-center gap-2">
+            <nav className={cn("hidden md:block", className)}>
+              <ul className="flex items-center space-x-1">
+                {items.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href} className={linkClass(item.href)}>
+                      <item.icon className="w-4 h-4 mr-2" />
+                      <span>{item.name}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <Button asChild size="sm" className="hidden md:inline-flex bg-brand hover:bg-brand/90 ml-2">
+              <Link href="/contact">
+                Get started
+                <ArrowRight className="ml-1.5 h-4 w-4" />
+              </Link>
+            </Button>
+
+            <button
+              type="button"
+              className="md:hidden relative px-3 py-2 rounded-lg text-foreground hover:text-brand transition-colors hover:bg-brand/10 backdrop-blur-sm"
+              onClick={() => setIsMobileMenuOpen((open) => !open)}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-nav"
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            >
+              <MenuIcon size={24} />
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
+            id="mobile-nav"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -121,26 +127,22 @@ export function MinimalistNavbar({ className }: MinimalistNavbarProps) {
           >
             <nav className="container mx-auto px-4 py-4">
               <ul className="flex flex-col space-y-1">
-                {navItems.map((item) => (
+                {items.map((item) => (
                   <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        "block px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 relative group flex items-center",
-                        activeItem === item.href
-                          ? "text-primary bg-primary/10 backdrop-blur-sm"
-                          : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
-                      )}
-                      onClick={() => {
-                        setActiveItem(item.href);
-                        setIsMobileMenuOpen(false);
-                      }}
-                    >
+                    <Link href={item.href} className={linkClass(item.href, true)} onClick={closeMobileMenu}>
                       <item.icon className="w-4 h-4 mr-2" />
-                      <span className="relative z-10">{item.name}</span>
+                      <span>{item.name}</span>
                     </Link>
                   </li>
                 ))}
+                <li className="pt-2">
+                  <Button asChild className="w-full bg-brand hover:bg-brand/90">
+                    <Link href="/contact" onClick={closeMobileMenu}>
+                      Get started
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </li>
               </ul>
             </nav>
           </motion.div>
@@ -148,4 +150,4 @@ export function MinimalistNavbar({ className }: MinimalistNavbarProps) {
       </AnimatePresence>
     </header>
   )
-} 
+}
