@@ -547,7 +547,8 @@ export default function WisePaymentContent({
           </Button>
           <Button
             type="button"
-            className="flex-1 bg-brand hover:bg-brand/90"
+            variant="brand"
+            className="flex-1"
             onClick={handleDownloadCard}
             disabled={isDownloading}
           >

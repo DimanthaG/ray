@@ -128,7 +128,7 @@ export default function ContactContent() {
                   required
                 />
               </div>
-              <Button type="submit" className="w-full bg-brand hover:bg-brand/90" disabled={isSubmitting}>
+              <Button type="submit" variant="brand" className="w-full" disabled={isSubmitting}>
                 {isSubmitting ? "Sending..." : "Send Message"}
               </Button>
             </form>

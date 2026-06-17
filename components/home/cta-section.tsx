@@ -18,7 +18,7 @@ export function CtaSection() {
         channels.
       </p>
       <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-        <Button asChild size="lg" className="group bg-brand hover:bg-brand/90">
+        <Button asChild variant="brand" size="lg" className="group">
           <Link href="/contact">
             Book a consultation
             <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />

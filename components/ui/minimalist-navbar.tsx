@@ -76,7 +76,7 @@ export function MinimalistNavbar({ className }: MinimalistNavbarProps) {
               alt={`${siteConfig.name} Logo`}
               width={800}
               height={200}
-              className="h-11 sm:h-12 md:h-14 w-auto relative z-10"
+              className="h-[1.65rem] sm:h-[1.8rem] md:h-[2.1rem] w-auto relative z-10"
               priority
             />
           </Link>
@@ -95,7 +95,7 @@ export function MinimalistNavbar({ className }: MinimalistNavbarProps) {
               </ul>
             </nav>
 
-            <Button asChild size="sm" className="hidden md:inline-flex bg-brand hover:bg-brand/90 ml-2">
+            <Button asChild variant="brand" size="sm" className="hidden md:inline-flex ml-2">
               <Link href="/contact">
                 Get started
                 <ArrowRight className="ml-1.5 h-4 w-4" />
@@ -136,7 +136,7 @@ export function MinimalistNavbar({ className }: MinimalistNavbarProps) {
                   </li>
                 ))}
                 <li className="pt-2">
-                  <Button asChild className="w-full bg-brand hover:bg-brand/90">
+                  <Button asChild variant="brand" className="w-full">
                     <Link href="/contact" onClick={closeMobileMenu}>
                       Get started
                       <ArrowRight className="ml-2 h-4 w-4" />

@@ -32,7 +32,7 @@ export function Footer() {
                 alt={`${siteConfig.name} Logo`}
                 width={1202}
                 height={286}
-                className="h-10 md:h-12 w-auto"
+                className="h-6 md:h-[1.8rem] w-auto"
               />
             </Link>
             <p className="text-sm text-muted-foreground max-w-md leading-relaxed">

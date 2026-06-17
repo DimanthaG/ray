@@ -113,7 +113,7 @@ export default function PortfolioContent() {
                 We&apos;re updating our portfolio. In the meantime, get in touch to discuss what we
                 can do for your brand.
               </p>
-              <Button asChild className="bg-brand hover:bg-brand/90">
+              <Button asChild variant="brand">
                 <Link href="/contact">Start a conversation</Link>
               </Button>
             </motion.div>
