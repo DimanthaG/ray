@@ -2,27 +2,27 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { Facebook, Instagram, Share2 } from "lucide-react"
+import { Facebook, Instagram, Linkedin, Share2 } from "lucide-react"
 import { siteConfig } from "@/app/metadata"
 
-function XIcon({ className }: { className?: string }) {
+function TikTokIcon({ className }: { className?: string }) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
       className={className}
-      aria-hidden
+      aria-hidden="true"
     >
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      <path d="M16.6 5.82c-.9-.9-1.36-2-1.5-3.24V2h-3.4v13.4a2.6 2.6 0 1 1-1.84-2.49v-3.5a5.99 5.99 0 0 0-1.16-.11 6 6 0 1 0 6 6V8.1a8.4 8.4 0 0 0 4.9 1.57V6.27a5.1 5.1 0 0 1-3-.45Z" />
     </svg>
   )
 }
 
 const items = [
+  { href: siteConfig.links.instagram, label: "Instagram", Icon: Instagram, handle: "@raytronics_lanka" },
+  { href: siteConfig.links.tiktok, label: "TikTok", Icon: TikTokIcon, handle: "@raytronics_sl" },
   { href: siteConfig.links.facebook, label: "Facebook", Icon: Facebook, handle: "@raytronics" },
-  { href: siteConfig.links.instagram, label: "Instagram", Icon: Instagram, handle: "@raytronics" },
-  { href: siteConfig.links.twitter, label: "X (Twitter)", Icon: XIcon, handle: "@raytronics" },
+  { href: siteConfig.links.linkedin, label: "LinkedIn", Icon: Linkedin, handle: "Raytronics Group" },
 ] as const
 
 export function SocialSection() {

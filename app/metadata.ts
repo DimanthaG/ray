@@ -6,8 +6,10 @@ export const siteConfig = {
   ogImage: "/og-image.jpg",
   logoPath: "/logos/06.svg",
   links: {
-    instagram: "https://instagram.com/raytronics",
-    facebook: "https://facebook.com/raytronics",
+    instagram: "https://www.instagram.com/raytronics_lanka?igsh=ejdkNmdwdmt3cTVm",
+    facebook: "https://www.facebook.com/share/1HU1zpDerz/?mibextid=wwXIfr",
+    tiktok: "https://www.tiktok.com/@raytronics_sl?_r=1&_t=ZS-98eNpVHq4kH",
+    linkedin: "https://linkedin.com/company/raytronics",
     twitter: "https://twitter.com/raytronics",
   },
 } as const

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { Mail, Phone, MapPin, Sparkles, Building2, ExternalLink } from "lucide-react"
+import { Mail, Phone, MapPin, Sparkles, Building2, ExternalLink, Linkedin } from "lucide-react"
 import mockAgents from "@/sampledata/mockAgents"
 import { Button } from "@/components/ui/button"
 
@@ -39,7 +39,7 @@ export default function AboutContent() {
 
         {/* Team Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {mockAgents.map((agent, index) => (
+          {mockAgents.map((agent: any, index: number) => (
             <motion.article
               key={agent.id}
               initial={{ opacity: 0, y: 20 }}
@@ -90,6 +90,20 @@ export default function AboutContent() {
                   </div>
                   <span>{agent.phone}</span>
                 </a>
+                {agent.linkedinUrl && (
+                  <a
+                    href={agent.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2.5 text-muted-foreground hover:text-brand font-medium transition-colors"
+                  >
+                    <div className="p-1.5 rounded-lg bg-blue-600/10 text-blue-600 dark:text-blue-400">
+                      <Linkedin className="w-3.5 h-3.5" />
+                    </div>
+                    <span>Connect on LinkedIn</span>
+                    <ExternalLink className="w-3 h-3 text-muted-foreground ml-auto" />
+                  </a>
+                )}
               </div>
             </motion.article>
           ))}

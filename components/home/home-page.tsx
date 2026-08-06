@@ -47,13 +47,13 @@ export function HomePage() {
             <HeroSection />
           </MotionBlock>
           <MotionBlock delay={next()}>
-            <StatsSection />
+            <SubsidiariesSection />
           </MotionBlock>
           <MotionBlock delay={next()}>
             <FeaturesSection />
           </MotionBlock>
           <MotionBlock delay={next()}>
-            <SubsidiariesSection />
+            <StatsSection />
           </MotionBlock>
           <MotionBlock delay={next()}>
             <PartnersSection />
@@ -61,9 +61,9 @@ export function HomePage() {
           <MotionBlock delay={next()}>
             <CtaSection />
           </MotionBlock>
-          <MotionBlock delay={next()}>
+          {/* <MotionBlock delay={next()}>
             <SocialSection />
-          </MotionBlock>
+          </MotionBlock> */}
         </div>
       </div>
     </MotionConfig>

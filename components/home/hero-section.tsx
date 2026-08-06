@@ -104,6 +104,7 @@ function ExpoCountdown() {
 const slides = [
   {
     id: "gem-expo",
+    navLabel: "Gem Expo",
     badge: "CANADA GEM EXPO 2026",
     badgeIcon: Award,
     title: "Canada Gem Expo 2026",
@@ -119,9 +120,11 @@ const slides = [
   },
   {
     id: "ray-gems",
+    navLabel: "Ray Gems",
     badge: "CERTIFIED CEYLON PRECIOUS GEMSTONES",
     badgeIcon: Sparkles,
-    title: "Ray Gems — Certified Ceylon Gemstones & Fine Jewelry",
+    title: "Ray Gems",
+    titleLine2: "Certified Ceylon Gemstones & Fine Jewelry",
     subtitle: "Ethically sourced directly from Sri Lankan mines to international collectors.",
     description: "Discover unheated blue sapphires, rubies, padparadscha, and custom luxury fine jewelry exported with worldwide authentication.",
     image: "/images/hero/ray-gems-hero.png",
@@ -134,9 +137,11 @@ const slides = [
   },
   {
     id: "ray-mart",
+    navLabel: "Ray Mart",
     badge: "PREMIER E-COMMERCE & RETAIL MARKETPLACE",
     badgeIcon: ShoppingBag,
-    title: "Ray Mart — Global E-Commerce & Retail Marketplace",
+    title: "Ray Mart",
+    titleLine2: "Global E-Commerce & Retail Marketplace",
     subtitle: "Connecting authentic Sri Lankan products with global consumers and trade distribution.",
     description: "Empowering authentic merchants with digital marketplace infrastructure, express international logistics, and retail growth.",
     image: "/images/hero/ray-mart-hero.png",
@@ -171,7 +176,6 @@ export function HeroSection() {
   }, [isPaused, handleNext])
 
   const currentSlide = slides[currentIndex]
-  const BadgeIcon = currentSlide.badgeIcon
   const cleanPhone = currentSlide.whatsappNumber.replace(/[^0-9]/g, "")
   const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(currentSlide.whatsappMsg)}`
 
@@ -212,25 +216,25 @@ export function HeroSection() {
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide.id}
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -18 }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
             transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto text-center text-white space-y-5"
+            className="max-w-4xl text-left text-white space-y-5 flex flex-col items-start"
           >
-            {/* Category / Badge Pill */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-500/10 backdrop-blur-md px-4 py-1.5 text-xs sm:text-sm font-bold text-amber-300 shadow-md">
-              <BadgeIcon className="h-4 w-4 text-amber-400 animate-pulse" />
-              <span>{currentSlide.badge}</span>
-            </div>
-
             {/* Headline */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading tracking-tight text-white leading-[1.15] drop-shadow-md">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading tracking-tight text-white leading-[1.15] drop-shadow-md text-left">
               {currentSlide.title}
+              {currentSlide.titleLine2 && (
+                <>
+                  <br />
+                  <span className="text-amber-400">{currentSlide.titleLine2}</span>
+                </>
+              )}
             </h1>
 
             {/* Subtitle */}
-            <p className="text-sm sm:text-base md:text-lg text-slate-200 max-w-2xl mx-auto font-medium leading-relaxed drop-shadow">
+            <p className="text-sm sm:text-base md:text-lg text-slate-200 max-w-2xl font-medium leading-relaxed drop-shadow text-left">
               {currentSlide.subtitle}
             </p>
 
@@ -238,12 +242,12 @@ export function HeroSection() {
             {currentSlide.isExpo && <ExpoCountdown />}
 
             {/* Slide Description */}
-            <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-300 max-w-xl leading-relaxed text-left">
               {currentSlide.description}
             </p>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row items-center justify-start gap-4 pt-4 w-full sm:w-auto">
               {/* WhatsApp Button linking with specific message */}
               <Button
                 asChild
@@ -326,7 +330,7 @@ export function HeroSection() {
                 aria-label={`Go to slide ${idx + 1}: ${slide.title}`}
               >
                 <span className="w-2 h-2 rounded-full bg-current" />
-                <span className="hidden sm:inline">{slide.badge.split(" ")[0]}</span>
+                <span className="hidden sm:inline">{slide.navLabel}</span>
               </button>
             )
           })}

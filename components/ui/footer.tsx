@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { siteConfig } from "@/app/metadata"
-import { Mail, MapPin, ExternalLink, ArrowUpRight, ShieldCheck, Instagram, Facebook, Twitter } from "lucide-react"
+import { Mail, MapPin, ExternalLink, ArrowUpRight, ShieldCheck, Instagram, Facebook } from "lucide-react"
 
 const footerLinks = [
   { name: "Home", href: "/" },
@@ -20,10 +20,25 @@ const groupNetwork = [
   { name: "Ray Media", href: "#" },
 ]
 
+// lucide-react doesn't ship a TikTok glyph, so it's defined here as a small inline icon
+// that matches the stroke-based style of the other lucide icons used above.
+function TikTokIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M16.6 5.82c-.9-.9-1.36-2-1.5-3.24V2h-3.4v13.4a2.6 2.6 0 1 1-1.84-2.49v-3.5a5.99 5.99 0 0 0-1.16-.11 6 6 0 1 0 6 6V8.1a8.4 8.4 0 0 0 4.9 1.57V6.27a5.1 5.1 0 0 1-3-.45Z" />
+    </svg>
+  )
+}
+
 const socialLinks = [
   { name: "Instagram", href: siteConfig.links.instagram, icon: Instagram },
   { name: "Facebook", href: siteConfig.links.facebook, icon: Facebook },
-  { name: "Twitter", href: siteConfig.links.twitter, icon: Twitter },
+  { name: "TikTok", href: siteConfig.links.tiktok, icon: TikTokIcon },
 ]
 
 export function Footer() {
@@ -166,4 +181,3 @@ export function Footer() {
     </footer>
   )
 }
-
