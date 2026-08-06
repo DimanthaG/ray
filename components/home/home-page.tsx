@@ -16,7 +16,6 @@ function MotionBlock({
   children: React.ReactNode
   delay?: number
 }) {
-  // Keep opacity: 1 on SSR + first paint so content is never invisible before JS/hydration finishes.
   return (
     <motion.div
       initial={{ opacity: 1, y: 14 }}
@@ -39,8 +38,11 @@ export function HomePage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="min-h-screen bg-gradient-to-b from-background to-secondary">
-        <div className="container mx-auto px-4 py-16 md:py-24">
+      <div className="relative min-h-screen bg-background">
+        {/* Subtle grid pattern overlay */}
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:36px_36px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+
+        <div className="container mx-auto px-4 md:px-6 py-8 md:py-16 relative z-10">
           <MotionBlock delay={next()}>
             <HeroSection />
           </MotionBlock>
@@ -67,3 +69,4 @@ export function HomePage() {
     </MotionConfig>
   )
 }
+

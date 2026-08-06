@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { Facebook, Instagram } from "lucide-react"
+import { Facebook, Instagram, Share2 } from "lucide-react"
 import { siteConfig } from "@/app/metadata"
 
 function XIcon({ className }: { className?: string }) {
@@ -20,32 +20,45 @@ function XIcon({ className }: { className?: string }) {
 }
 
 const items = [
-  { href: siteConfig.links.facebook, label: "Facebook", Icon: Facebook, hover: "#1877f2" },
-  { href: siteConfig.links.twitter, label: "X (Twitter)", Icon: XIcon, hover: "#0f1419" },
-  { href: siteConfig.links.instagram, label: "Instagram", Icon: Instagram, hover: "#e4405f" },
+  { href: siteConfig.links.facebook, label: "Facebook", Icon: Facebook, handle: "@raytronics" },
+  { href: siteConfig.links.instagram, label: "Instagram", Icon: Instagram, handle: "@raytronics" },
+  { href: siteConfig.links.twitter, label: "X (Twitter)", Icon: XIcon, handle: "@raytronics" },
 ] as const
 
 export function SocialSection() {
   return (
-    <section className="pb-8" aria-labelledby="social-heading">
-      <h2 id="social-heading" className="sr-only">
-        Follow Raytronics
-      </h2>
+    <section className="pb-12" aria-labelledby="social-heading">
+      <div className="text-center mb-8">
+        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-muted-foreground uppercase tracking-wider">
+          <Share2 className="w-3.5 h-3.5 text-brand" />
+          <span>Connect With Us</span>
+        </span>
+      </div>
+
       <nav
-        className="flex justify-center items-center gap-8 text-muted-foreground"
-        aria-label="Social media"
+        className="flex flex-wrap justify-center items-center gap-4 max-w-2xl mx-auto"
+        aria-label="Social media links"
       >
-        {items.map(({ href, label, Icon, hover }) => (
+        {items.map(({ href, label, Icon, handle }) => (
           <Link
             key={label}
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             aria-label={`${siteConfig.name} on ${label}`}
+            className="group"
           >
-            <motion.div whileHover={{ scale: 1.15, color: hover }} className="p-2">
-              <Icon className="h-6 w-6" />
+            <motion.div
+              whileHover={{ y: -2 }}
+              className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-card/60 backdrop-blur-xl border border-border/50 shadow-sm hover:border-brand/40 hover:bg-card/90 transition-all duration-300"
+            >
+              <div className="p-2 rounded-xl bg-brand/10 text-brand group-hover:bg-brand group-hover:text-white transition-colors duration-300">
+                <Icon className="h-4 w-4" />
+              </div>
+              <div className="text-left">
+                <div className="text-xs font-bold text-foreground">{label}</div>
+                <div className="text-[11px] text-muted-foreground">{handle}</div>
+              </div>
             </motion.div>
           </Link>
         ))}
@@ -53,3 +66,4 @@ export function SocialSection() {
     </section>
   )
 }
+

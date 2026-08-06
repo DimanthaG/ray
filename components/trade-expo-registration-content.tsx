@@ -151,8 +151,7 @@ export default function TradeExpoRegistrationContent() {
 
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.5 }
+    animate: { opacity: 1, y: 0, transition: { duration: 0.5 } }
   }
 
   return (
@@ -170,12 +169,12 @@ export default function TradeExpoRegistrationContent() {
               Lanka Trade Expo 2026
             </h1>
             <p className="text-xl md:text-2xl mb-4">Toronto, Canada 🇨🇦</p>
-            <p className="text-lg mb-8">22 | 23 | 24 May 2026</p>
+            <p className="text-lg mb-8">27 | 28 | 29 November 2026</p>
             
             <div className="flex flex-wrap justify-center gap-8 text-sm md:text-base">
               <div className="flex items-center gap-2">
                 <CalendarDays className="h-5 w-5" />
-                <span>May 22-24, 2026</span>
+                <span>November 27-29, 2026</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="h-5 w-5" />

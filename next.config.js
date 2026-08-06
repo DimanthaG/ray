@@ -19,9 +19,6 @@ const nextConfig = {
       "i.imgur.com"
     ],
   },
-  experimental: {
-    serverActions: true,
-  },
   async headers() {
     return [
       {

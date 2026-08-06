@@ -1,70 +1,342 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { useState, useEffect, useCallback } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Sparkles } from "lucide-react"
-import { homeFeatures } from "@/lib/site-content"
+import { ArrowRight, ChevronLeft, ChevronRight, Sparkles, CalendarDays, MapPin, Globe, ExternalLink, Award, ShoppingBag } from "lucide-react"
 
-export function HeroSection() {
+// WhatsApp Icon SVG Component
+function WhatsAppIcon({ className }: { className?: string }) {
   return (
-    <section
-      className="relative text-center mb-16 md:mb-24 overflow-hidden"
-      aria-labelledby="hero-heading"
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10"
-      >
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-64 w-[min(100%,42rem)] rounded-full bg-primary/5 blur-3xl" />
-        <div className="absolute top-24 -left-16 h-40 w-40 rounded-full bg-brand/10 blur-3xl" />
-        <div className="absolute top-32 -right-16 h-40 w-40 rounded-full bg-blue-500/10 blur-3xl" />
-      </div>
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.119.554 4.109 1.523 5.838L.055 23.447l5.772-1.514A11.936 11.936 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-1.785 0-3.528-.475-5.048-1.375l-.362-.214-3.418.896.911-3.332-.236-.375A9.764 9.764 0 012.182 12c0-5.413 4.405-9.818 9.818-9.818 5.413 0 9.818 4.405 9.818 9.818 0 5.413-4.405 9.818-9.818 9.818z"/>
+    </svg>
+  )
+}
 
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45 }}
-        className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/70 backdrop-blur-sm px-4 py-1.5 text-sm text-muted-foreground mb-8"
-      >
-        <Sparkles className="h-4 w-4 text-primary" />
-        <span>Part of the Raytronics Group</span>
-      </motion.div>
+// Live Countdown Component for Trade Expo
+function ExpoCountdown() {
+  const [mounted, setMounted] = useState(false)
+  const [timeLeft, setTimeLeft] = useState({ days: 160, hours: 12, minutes: 45, seconds: 30 })
 
-      <h1
-        id="hero-heading"
-        className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl mx-auto mb-6 leading-[1.1]"
-      >
-        Digital marketing and social media that{" "}
-        <span className="text-brand">grow your brand</span>
-      </h1>
+  useEffect(() => {
+    setMounted(true)
+    // Target date for Trade & Gem Expo: November 27, 2026
+    let targetDate = new Date("2026-11-27T09:00:00").getTime()
+    const now = new Date().getTime()
 
-      <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
-        Transforming your digital presence with cutting-edge social media marketing,
-        strategy, and content—backed by the Raytronics Group.
-      </p>
+    // If target date has passed, set target to 110 days into the future
+    if (targetDate <= now) {
+      targetDate = now + 110 * 24 * 60 * 60 * 1000
+    }
 
-      <div className="flex flex-wrap justify-center gap-2 mb-10 max-w-2xl mx-auto">
-        {homeFeatures.map((feature) => (
-          <span
-            key={feature.title}
-            className="rounded-full border border-border/50 bg-card/60 px-4 py-1.5 text-sm text-muted-foreground"
+    const updateTimer = () => {
+      const current = new Date().getTime()
+      const difference = targetDate - current
+
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((difference % (1000 * 60)) / 1000),
+        })
+      }
+    }
+
+    updateTimer()
+    const interval = setInterval(updateTimer, 1000)
+    return () => clearInterval(interval)
+  }, [])
+
+  if (!mounted) {
+    return (
+      <div className="flex items-center justify-center gap-3 sm:gap-4 my-6">
+        {["Days", "Hours", "Minutes", "Seconds"].map((label) => (
+          <div
+            key={label}
+            className="flex flex-col items-center justify-center min-w-[4.2rem] sm:min-w-[5.5rem] p-2.5 sm:p-3 rounded-2xl bg-slate-950/80 border border-slate-700/80 backdrop-blur-md shadow-lg"
           >
-            {feature.title}
-          </span>
+            <span className="text-xl sm:text-3xl font-extrabold font-heading text-white tracking-tight">
+              --
+            </span>
+            <span className="text-[10px] sm:text-xs text-slate-300 font-medium uppercase tracking-wider mt-0.5">
+              {label}
+            </span>
+          </div>
         ))}
       </div>
+    )
+  }
 
-      <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <Button asChild size="lg" className="group">
-          <Link href="/contact">
-            Get started
-            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </Button>
-        <Button variant="outline" size="lg" asChild>
-          <Link href="/portfolio">View our work</Link>
-        </Button>
+  return (
+    <div className="flex items-center justify-center gap-3 sm:gap-4 my-6">
+      {[
+        { label: "Days", value: timeLeft.days },
+        { label: "Hours", value: timeLeft.hours },
+        { label: "Minutes", value: timeLeft.minutes },
+        { label: "Seconds", value: timeLeft.seconds },
+      ].map((item) => (
+        <div
+          key={item.label}
+          className="flex flex-col items-center justify-center min-w-[4.2rem] sm:min-w-[5.5rem] p-2.5 sm:p-3 rounded-2xl bg-slate-950/80 border border-slate-700/80 backdrop-blur-md shadow-lg"
+        >
+          <span className="text-xl sm:text-3xl font-extrabold font-heading text-amber-400 tracking-tight font-mono">
+            {String(item.value).padStart(2, "0")}
+          </span>
+          <span className="text-[10px] sm:text-xs text-slate-300 font-medium uppercase tracking-wider mt-0.5">
+            {item.label}
+          </span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+const slides = [
+  {
+    id: "gem-expo",
+    badge: "CANADA GEM EXPO 2026",
+    badgeIcon: Award,
+    title: "Canada Gem Expo 2026",
+    subtitle: "International Gem Exhibition • Toronto, Canada 🇨🇦 | November 27–29, 2026",
+    description: "Connecting international buyers, Sri Lankan gem exporters, tea merchants, and global trade partners in Toronto.",
+    image: "/images/hero/gem-expo-hero.png",
+    isExpo: true,
+    whatsappMsg: "Hi Raytronics, I am interested in the Canada Gem Expo 2026 in Toronto.",
+    whatsappText: "Inquire on WhatsApp",
+    secondaryBtnText: "Register Online",
+    secondaryBtnLink: "/register-trade-expo",
+  },
+  {
+    id: "ray-gems",
+    badge: "CERTIFIED CEYLON PRECIOUS GEMSTONES",
+    badgeIcon: Sparkles,
+    title: "Ray Gems — Certified Ceylon Gemstones & Fine Jewelry",
+    subtitle: "Ethically sourced directly from Sri Lankan mines to international collectors.",
+    description: "Discover unheated blue sapphires, rubies, padparadscha, and custom luxury fine jewelry exported with worldwide authentication.",
+    image: "/images/hero/ray-gems-hero.png",
+    isExpo: false,
+    whatsappMsg: "Hi Raytronics, I would like to inquire about Ray Gems precious gemstones.",
+    whatsappText: "Inquire on WhatsApp",
+    secondaryBtnText: "Visit Ray Gems Website",
+    secondaryBtnLink: "https://www.raygems.com/",
+  },
+  {
+    id: "ray-mart",
+    badge: "PREMIER E-COMMERCE & RETAIL MARKETPLACE",
+    badgeIcon: ShoppingBag,
+    title: "Ray Mart — Global E-Commerce & Retail Marketplace",
+    subtitle: "Connecting authentic Sri Lankan products with global consumers and trade distribution.",
+    description: "Empowering authentic merchants with digital marketplace infrastructure, express international logistics, and retail growth.",
+    image: "/images/hero/ray-mart-hero.png",
+    isExpo: false,
+    whatsappMsg: "Hi Raytronics, I am interested in Ray Mart products and marketplace partnerships.",
+    whatsappText: "Inquire on WhatsApp",
+    secondaryBtnText: "Visit Ray Mart Website",
+    secondaryBtnLink: "https://www.raymartsl.com/",
+    isExternal: true,
+  },
+]
+
+export function HeroSection() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+
+  const handleNext = useCallback(() => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length)
+  }, [])
+
+  const handlePrev = useCallback(() => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + slides.length) % slides.length)
+  }, [])
+
+  useEffect(() => {
+    if (isPaused) return
+    const timer = setInterval(() => {
+      handleNext()
+    }, 6500)
+    return () => clearInterval(timer)
+  }, [isPaused, handleNext])
+
+  const currentSlide = slides[currentIndex]
+  const BadgeIcon = currentSlide.badgeIcon
+  const whatsappUrl = `https://wa.me/94777727527?text=${encodeURIComponent(currentSlide.whatsappMsg)}`
+
+  return (
+    <section
+      className="relative overflow-hidden rounded-3xl border border-border/40 shadow-2xl mb-16 md:mb-24 min-h-[560px] md:min-h-[620px] flex flex-col justify-between group/hero"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      aria-label="Featured Showcase Slider"
+    >
+      {/* Slide Background Images with Smooth Crossfade */}
+      <div className="absolute inset-0 -z-10 overflow-hidden bg-slate-950">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide.id}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={currentSlide.image}
+              alt={currentSlide.title}
+              fill
+              priority
+              className="object-cover object-center filter brightness-[0.45] contrast-105"
+            />
+            {/* Deep overlay gradients for perfect text readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/60 to-transparent" />
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Main Slide Content Area */}
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 py-10 md:py-16 relative z-10 flex-1 flex flex-col justify-center">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide.id}
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -18 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl mx-auto text-center text-white space-y-5"
+          >
+            {/* Category / Badge Pill */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-500/10 backdrop-blur-md px-4 py-1.5 text-xs sm:text-sm font-bold text-amber-300 shadow-md">
+              <BadgeIcon className="h-4 w-4 text-amber-400 animate-pulse" />
+              <span>{currentSlide.badge}</span>
+            </div>
+
+            {/* Headline */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading tracking-tight text-white leading-[1.15] drop-shadow-md">
+              {currentSlide.title}
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-sm sm:text-base md:text-lg text-slate-200 max-w-2xl mx-auto font-medium leading-relaxed drop-shadow">
+              {currentSlide.subtitle}
+            </p>
+
+            {/* If Gem Expo slide, show live countdown timer! */}
+            {currentSlide.isExpo && <ExpoCountdown />}
+
+            {/* Slide Description */}
+            <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto leading-relaxed">
+              {currentSlide.description}
+            </p>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+              {/* WhatsApp Button linking with specific message */}
+              <Button
+                asChild
+                size="lg"
+                className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg hover:shadow-emerald-600/30 transition-all duration-300 group/wa"
+              >
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2.5"
+                >
+                  <WhatsAppIcon className="w-5 h-5 text-white" />
+                  <span>{currentSlide.whatsappText}</span>
+                  <ArrowRight className="w-4 h-4 group-hover/wa:translate-x-1 transition-transform" />
+                </a>
+              </Button>
+
+              {/* Secondary Action Button */}
+              {currentSlide.isExternal ? (
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="w-full sm:w-auto border-white/30 bg-slate-900/60 backdrop-blur-md text-white hover:bg-white/20 hover:border-white text-base rounded-xl"
+                >
+                  <a
+                    href={currentSlide.secondaryBtnLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2"
+                  >
+                    <span>{currentSlide.secondaryBtnText}</span>
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                </Button>
+              ) : (
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="w-full sm:w-auto border-white/30 bg-slate-900/60 backdrop-blur-md text-white hover:bg-white/20 hover:border-white text-base rounded-xl"
+                >
+                  <Link href={currentSlide.secondaryBtnLink} className="flex items-center justify-center gap-2">
+                    <span>{currentSlide.secondaryBtnText}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </Button>
+              )}
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Slider Controls Bar */}
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 py-4 relative z-20 border-t border-white/10 bg-slate-950/40 backdrop-blur-md flex items-center justify-between">
+        {/* Previous Button */}
+        <button
+          type="button"
+          onClick={handlePrev}
+          className="p-2.5 rounded-full border border-white/20 bg-slate-900/60 text-white hover:bg-white/20 transition-all"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+
+        {/* Slide Indicators / Thumbnails */}
+        <div className="flex items-center gap-2.5 sm:gap-4">
+          {slides.map((slide, idx) => {
+            const active = idx === currentIndex
+            return (
+              <button
+                key={slide.id}
+                onClick={() => setCurrentIndex(idx)}
+                className={`transition-all duration-300 flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold ${
+                  active
+                    ? "bg-amber-400 text-slate-950 shadow-md scale-105"
+                    : "bg-white/10 text-slate-300 hover:bg-white/20"
+                }`}
+                aria-label={`Go to slide ${idx + 1}: ${slide.title}`}
+              >
+                <span className="w-2 h-2 rounded-full bg-current" />
+                <span className="hidden sm:inline">{slide.badge.split(" ")[0]}</span>
+              </button>
+            )
+          })}
+        </div>
+
+        {/* Next Button */}
+        <button
+          type="button"
+          onClick={handleNext}
+          className="p-2.5 rounded-full border border-white/20 bg-slate-900/60 text-white hover:bg-white/20 transition-all"
+          aria-label="Next slide"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
       </div>
     </section>
   )
