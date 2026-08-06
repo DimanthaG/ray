@@ -50,9 +50,9 @@ export function Footer() {
       <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-80 w-[min(100%,50rem)] rounded-full bg-brand/10 blur-[100px]" />
 
       <div className="container mx-auto px-4 md:px-6 py-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12 text-center md:text-left">
           {/* Brand Info */}
-          <div className="lg:col-span-2 space-y-5">
+          <div className="lg:col-span-2 space-y-5 flex flex-col items-center md:items-start">
             <Link href="/" className="inline-block group">
               <Image
                 src={siteConfig.logoPath}
@@ -67,7 +67,7 @@ export function Footer() {
               {siteConfig.description}
             </p>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 justify-center md:justify-start">
               {socialLinks.map((social) => {
                 const IconComponent = social.icon
                 return (
@@ -87,11 +87,11 @@ export function Footer() {
           </div>
 
           {/* Navigation Links */}
-          <div className="space-y-4">
+          <div className="space-y-4 flex flex-col items-center md:items-start">
             <h4 className="text-xs font-bold text-foreground tracking-wider uppercase">Navigation</h4>
             <ul className="space-y-2.5">
               {footerLinks.map((link) => (
-                <li key={link.href}>
+                <li key={link.href} className="text-center md:text-left">
                   <Link
                     href={link.href}
                     className="text-sm text-muted-foreground hover:text-brand transition-colors inline-flex items-center gap-1 group"
@@ -104,11 +104,11 @@ export function Footer() {
           </div>
 
           {/* Raytronics Group Network */}
-          <div className="space-y-4">
+          <div className="space-y-4 flex flex-col items-center md:items-start">
             <h4 className="text-xs font-bold text-foreground tracking-wider uppercase">Group Network</h4>
             <ul className="space-y-2.5">
               {groupNetwork.map((item) => (
-                <li key={item.name}>
+                <li key={item.name} className="text-center md:text-left">
                   {item.href !== "#" ? (
                     <a
                       href={item.href}
@@ -120,7 +120,7 @@ export function Footer() {
                       <ArrowUpRight className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
                     </a>
                   ) : (
-                    <span className="text-sm text-muted-foreground/70 flex items-center gap-1.5">
+                    <span className="text-sm text-muted-foreground/70 flex items-center gap-1.5 justify-center md:justify-start">
                       <span>{item.name}</span>
                       <span className="text-[10px] px-1.5 py-0.2 rounded bg-muted text-muted-foreground font-mono">Group</span>
                     </span>
@@ -131,21 +131,21 @@ export function Footer() {
           </div>
 
           {/* Contact Details */}
-          <div className="space-y-4">
+          <div className="space-y-4 flex flex-col items-center md:items-start">
             <h4 className="text-xs font-bold text-foreground tracking-wider uppercase">Headquarters</h4>
             <ul className="space-y-3 text-sm">
               <li>
                 <a
                   href="mailto:lasa_ray@yahoo.com"
-                  className="flex items-start gap-2.5 text-muted-foreground hover:text-brand transition-colors group"
+                  className="flex items-start gap-2.5 text-muted-foreground hover:text-brand transition-colors group justify-center md:justify-start"
                 >
                   <Mail className="w-4 h-4 mt-0.5 shrink-0 text-brand" />
                   <span className="break-all">lasa_ray@yahoo.com</span>
                 </a>
               </li>
-              <li className="flex items-start gap-2.5 text-muted-foreground">
+              <li className="flex items-start gap-2.5 text-muted-foreground justify-center md:justify-start">
                 <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-brand" />
-                <address className="not-italic leading-relaxed">
+                <address className="not-italic leading-relaxed text-center md:text-left">
                   86 Old Kottawa Rd,
                   <br />
                   Nugegoda, Sri Lanka
