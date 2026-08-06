@@ -84,9 +84,9 @@ export function Footer() {
               <li className="flex items-start gap-3 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-primary" />
                 <address className="not-italic leading-relaxed">
-                  330/08, Saman Mawatha
+                  86 Old Kottawa Rd
                   <br />
-                  Lake Road, Boralesgamuwa
+                  Nugegoda, Sri Lanka
                 </address>
               </li>
             </ul>

@@ -73,9 +73,8 @@ export default function AboutContent() {
         >
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Part of the Raytronics Group</h2>
           <address className="text-muted-foreground not-italic">
-            330/08, Saman Mawatha<br />
-            Lake Road<br />
-            Boralesgamuwa
+            86 Old Kottawa Rd<br />
+            Nugegoda, Sri Lanka
           </address>
         </motion.div>
       </div>
