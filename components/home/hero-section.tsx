@@ -111,6 +111,7 @@ const slides = [
     description: "Connecting international buyers, Sri Lankan gem exporters, tea merchants, and global trade partners in Toronto.",
     image: "/images/hero/gem-expo-hero.png",
     isExpo: true,
+    whatsappNumber: "94714727527", 
     whatsappMsg: "Hi Raytronics, I am interested in the Canada Gem Expo 2026 in Toronto.",
     whatsappText: "Inquire on WhatsApp",
     secondaryBtnText: "Register Online",
@@ -125,6 +126,7 @@ const slides = [
     description: "Discover unheated blue sapphires, rubies, padparadscha, and custom luxury fine jewelry exported with worldwide authentication.",
     image: "/images/hero/ray-gems-hero.png",
     isExpo: false,
+    whatsappNumber: "94714727527", 
     whatsappMsg: "Hi Raytronics, I would like to inquire about Ray Gems precious gemstones.",
     whatsappText: "Inquire on WhatsApp",
     secondaryBtnText: "Visit Ray Gems Website",
@@ -139,6 +141,7 @@ const slides = [
     description: "Empowering authentic merchants with digital marketplace infrastructure, express international logistics, and retail growth.",
     image: "/images/hero/ray-mart-hero.png",
     isExpo: false,
+    whatsappNumber: "94777788275", 
     whatsappMsg: "Hi Raytronics, I am interested in Ray Mart products and marketplace partnerships.",
     whatsappText: "Inquire on WhatsApp",
     secondaryBtnText: "Visit Ray Mart Website",
@@ -169,7 +172,8 @@ export function HeroSection() {
 
   const currentSlide = slides[currentIndex]
   const BadgeIcon = currentSlide.badgeIcon
-  const whatsappUrl = `https://wa.me/94777727527?text=${encodeURIComponent(currentSlide.whatsappMsg)}`
+  const cleanPhone = currentSlide.whatsappNumber.replace(/[^0-9]/g, "")
+  const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(currentSlide.whatsappMsg)}`
 
   return (
     <section
