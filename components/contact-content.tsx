@@ -11,7 +11,7 @@ import { useToast } from "@/components/ui/use-toast"
 import { Mail, Phone, MapPin, ExternalLink, Users } from "lucide-react"
 
 const MAPS_URL =
-  "https://www.google.com/maps/search/?api=1&query=330%2F08+Saman+Mawatha+Lake+Road+Boralesgamuwa+Sri+Lanka"
+  "https://www.google.com/maps/search/?api=1&query=86+Old+Kottawa+Rd+Nugegoda+Sri+Lanka"
 
 export default function ContactContent() {
   const { toast } = useToast()
@@ -146,11 +146,9 @@ export default function ContactContent() {
                 <div>
                   <h3 className="font-semibold mb-2">Our Location</h3>
                   <address className="text-muted-foreground not-italic leading-relaxed mb-4">
-                    330/08, Saman Mawatha
+                    86 Old Kottawa Rd
                     <br />
-                    Lake Road
-                    <br />
-                    Boralesgamuwa
+                    Nugegoda, Sri Lanka
                   </address>
                   <a
                     href={MAPS_URL}
