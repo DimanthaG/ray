@@ -11,6 +11,34 @@ export const metadata: Metadata = {
   },
 }
 
+import { Globe } from "lucide-react"
+
 export default function TradeExpoRegistrationPage() {
-  return <TradeExpoRegistrationContent />
+  return (
+    <div className="relative min-h-screen bg-background overflow-hidden py-12 md:py-20">
+      {/* Background ambient glow */}
+      <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-[30rem] w-[min(100%,60rem)] bg-gradient-to-tr from-brand/20 via-cyan-500/15 to-indigo-600/10 blur-[140px]" />
+
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
+          <div className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/10 px-4 py-1.5 text-xs font-bold text-brand">
+            <Globe className="h-4 w-4" />
+            <span>Canada Ceylon Trade & Gem Expo 2026</span>
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-heading text-foreground tracking-tight">
+            Exhibitor <span className="text-gradient">Registration</span>
+          </h1>
+
+          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+            Secure your booth and connect with international buyers in Toronto, Canada. 
+            Join Sri Lankan exporters, real estate developers, and gem merchants on the global stage.
+          </p>
+        </div>
+
+        <TradeExpoRegistrationContent />
+      </div>
+    </div>
+  )
 }

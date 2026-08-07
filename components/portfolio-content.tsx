@@ -6,7 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useToast } from "@/components/ui/use-toast"
 import { Button } from "@/components/ui/button"
-import { X, ImageOff } from "lucide-react"
+import { X, ImageOff, Sparkles, Maximize2, ExternalLink } from "lucide-react"
 import type { Portfolio } from "@/lib/supabase"
 
 function PortfolioSkeleton() {
@@ -15,11 +15,12 @@ function PortfolioSkeleton() {
       {Array.from({ length: 6 }).map((_, i) => (
         <div
           key={i}
-          className="rounded-2xl bg-card border border-border/50 overflow-hidden animate-pulse"
+          className="rounded-3xl bg-card/60 border border-border/50 overflow-hidden animate-pulse shadow-sm"
         >
-          <div className="h-[240px] sm:h-[280px] md:h-[300px] bg-muted/60" />
-          <div className="p-5">
-            <div className="h-5 bg-muted/60 rounded w-2/3" />
+          <div className="h-[240px] sm:h-[280px] bg-muted/60" />
+          <div className="p-6 space-y-3">
+            <div className="h-5 bg-muted/60 rounded-xl w-3/4" />
+            <div className="h-4 bg-muted/40 rounded-lg w-1/2" />
           </div>
         </div>
       ))}
@@ -77,20 +78,27 @@ export default function PortfolioContent() {
   }, [selectedItem, closeModal])
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-16">
+    <div className="relative min-h-screen bg-background overflow-hidden py-12 md:py-20">
+      {/* Ambient Mesh Glow */}
+      <div className="pointer-events-none absolute -top-40 right-10 h-[30rem] w-[min(100%,50rem)] bg-gradient-to-bl from-brand/20 via-cyan-500/15 to-transparent blur-[120px]" />
+
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-16 space-y-4 max-w-3xl mx-auto"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Our <span className="text-brand">Portfolio</span>
+          <div className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/10 px-4 py-1.5 text-xs font-bold text-brand">
+            <Sparkles className="h-3.5 w-3.5" />
+            <span>Featured Case Studies & Creative Work</span>
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-heading text-foreground tracking-tight">
+            Our Selected <span className="text-gradient">Portfolio</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Explore our successful projects and see how we&apos;ve helped businesses transform their
-            digital presence.
+          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+            Discover how we translate vision into high-performing digital assets, strategy campaigns, and social engagements.
           </p>
         </motion.div>
 
@@ -105,16 +113,20 @@ export default function PortfolioContent() {
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex flex-col items-center justify-center text-center py-16 px-6 rounded-2xl border border-border/50 bg-card/50"
+              className="flex flex-col items-center justify-center text-center py-20 px-6 rounded-3xl border border-border/50 bg-card/60 backdrop-blur-xl max-w-xl mx-auto shadow-sm"
             >
-              <ImageOff className="w-12 h-12 text-muted-foreground mb-4" aria-hidden />
-              <h3 className="text-xl font-semibold text-foreground mb-2">No projects yet</h3>
-              <p className="text-muted-foreground max-w-md mb-6">
-                We&apos;re updating our portfolio. In the meantime, get in touch to discuss what we
-                can do for your brand.
+              <div className="p-4 rounded-2xl bg-brand/10 text-brand mb-4">
+                <ImageOff className="w-8 h-8" aria-hidden />
+              </div>
+              <h3 className="text-xl font-bold font-heading text-foreground mb-2">Updating Gallery</h3>
+              <p className="text-sm text-muted-foreground max-w-md mb-6 leading-relaxed">
+                We are currently uploading our latest client campaign highlights. Get in touch to request our complete agency deck.
               </p>
-              <Button asChild variant="brand">
-                <Link href="/contact">Start a conversation</Link>
+              <Button asChild variant="brand-glow">
+                <Link href="/contact" className="flex items-center gap-2">
+                  <span>Contact Our Team</span>
+                  <ExternalLink className="w-4 h-4" />
+                </Link>
               </Button>
             </motion.div>
           ) : (
@@ -129,8 +141,8 @@ export default function PortfolioContent() {
                   key={item.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group flex flex-col overflow-hidden rounded-2xl bg-card border border-border/50 hover:border-primary/50 transition-colors cursor-pointer focus-within:ring-2 focus-within:ring-ring"
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
+                  className="group flex flex-col overflow-hidden rounded-3xl bg-card/60 border border-border/50 hover:border-brand/50 backdrop-blur-xl shadow-sm hover:shadow-glow transition-all duration-300 cursor-pointer focus-within:ring-2 focus-within:ring-ring"
                   onClick={() => setSelectedItem(item)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
@@ -142,17 +154,31 @@ export default function PortfolioContent() {
                   role="button"
                   aria-label={`Open ${item.title} in full view`}
                 >
-                  <div className="relative w-full h-[240px] sm:h-[280px] md:h-[300px] bg-muted/40">
+                  <div className="relative w-full h-[260px] sm:h-[300px] bg-muted/30 overflow-hidden">
                     <Image
                       src={item.image_url}
                       alt={item.title}
                       fill
-                      className="object-contain p-3 transition-transform duration-500 group-hover:scale-[1.02]"
+                      className="object-contain p-4 transition-transform duration-700 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
+                      <div className="p-2.5 rounded-full bg-brand text-white shadow-md">
+                        <Maximize2 className="w-4 h-4" />
+                      </div>
+                    </div>
                   </div>
-                  <div className="border-t border-border/50 p-4 md:p-5">
-                    <h3 className="text-lg font-semibold text-foreground leading-snug">{item.title}</h3>
+
+                  <div className="border-t border-border/40 p-6 flex items-center justify-between">
+                    <div>
+                      <h3 className="text-lg font-bold font-heading text-foreground group-hover:text-brand transition-colors">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">Click to view full preview</p>
+                    </div>
+                    <span className="text-xs font-semibold text-brand bg-brand/10 px-3 py-1 rounded-full border border-brand/20">
+                      View
+                    </span>
                   </div>
                 </motion.article>
               ))}
@@ -160,21 +186,22 @@ export default function PortfolioContent() {
           )}
         </section>
 
+        {/* Modal Lightbox */}
         <AnimatePresence>
           {selectedItem && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm"
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-xl"
               onClick={closeModal}
               role="presentation"
             >
               <motion.div
-                initial={{ scale: 0.96 }}
-                animate={{ scale: 1 }}
-                exit={{ scale: 0.96 }}
-                className="relative flex w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-card shadow-xl max-h-[90vh]"
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                className="relative flex w-full max-w-5xl flex-col overflow-hidden rounded-3xl bg-card border border-border/60 shadow-2xl max-h-[90vh]"
                 onClick={(e) => e.stopPropagation()}
                 role="dialog"
                 aria-modal="true"
@@ -184,28 +211,34 @@ export default function PortfolioContent() {
                   ref={closeButtonRef}
                   type="button"
                   onClick={closeModal}
-                  className="absolute top-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-background/90 border border-border/50 text-foreground hover:bg-muted transition-colors"
+                  className="absolute top-4 right-4 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-background/90 border border-border/60 text-foreground hover:bg-brand hover:text-white transition-colors shadow-md"
                   aria-label="Close project view"
                 >
                   <X className="h-5 w-5" />
                 </button>
-                <div className="relative h-[min(75vh,720px)] w-full shrink-0 bg-muted/30">
+                <div className="relative h-[min(72vh,680px)] w-full shrink-0 bg-muted/20">
                   <Image
                     src={selectedItem.image_url}
                     alt={selectedItem.title}
                     fill
-                    className="object-contain p-4 sm:p-6"
+                    className="object-contain p-6 sm:p-8"
                     sizes="(max-width: 1024px) 100vw, 1024px"
                     priority
                   />
                 </div>
-                <div className="shrink-0 border-t border-border px-4 py-4 sm:px-6 sm:py-5">
-                  <h2
-                    id="portfolio-modal-title"
-                    className="text-xl font-semibold text-foreground sm:text-2xl"
-                  >
-                    {selectedItem.title}
-                  </h2>
+                <div className="shrink-0 border-t border-border px-6 py-5 bg-card flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div>
+                    <h2
+                      id="portfolio-modal-title"
+                      className="text-xl font-bold font-heading text-foreground sm:text-2xl"
+                    >
+                      {selectedItem.title}
+                    </h2>
+                    <p className="text-xs text-muted-foreground">Raytronics Group Portfolio Showcase</p>
+                  </div>
+                  <Button asChild variant="brand" size="sm">
+                    <Link href="/contact">Inquire About Similar Work</Link>
+                  </Button>
                 </div>
               </motion.div>
             </motion.div>
@@ -215,3 +248,4 @@ export default function PortfolioContent() {
     </div>
   )
 }
+

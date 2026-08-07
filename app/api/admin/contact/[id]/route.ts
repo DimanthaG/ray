@@ -3,9 +3,11 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "../../../auth/auth-options"
 import { supabase } from "@/lib/supabase"
 
+export const dynamic = "force-dynamic"
+
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -13,13 +15,14 @@ export async function PUT(
       return new NextResponse("Unauthorized", { status: 401 })
     }
 
+    const { id } = await params
     const body = await req.json()
     const { status } = body
 
     const { data: submission, error } = await supabase
       .from('contact_submissions')
       .update({ status })
-      .eq('id', params.id)
+      .eq('id', id)
       .select()
       .single()
 

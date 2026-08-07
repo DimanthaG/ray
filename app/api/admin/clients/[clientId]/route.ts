@@ -3,9 +3,11 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "../../../auth/auth-options"
 import { supabase } from "@/lib/supabase"
 
+export const dynamic = "force-dynamic"
+
 export async function GET(
   req: Request,
-  { params }: { params: { clientId: string } }
+  { params }: { params: Promise<{ clientId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -13,10 +15,11 @@ export async function GET(
       return new NextResponse("Unauthorized", { status: 401 })
     }
 
+    const { clientId } = await params
     const { data: client, error } = await supabase
       .from('clients')
       .select('*')
-      .eq('id', params.clientId)
+      .eq('id', clientId)
       .single()
 
     if (error) {
@@ -33,7 +36,7 @@ export async function GET(
 
 export async function PUT(
   req: Request,
-  { params }: { params: { clientId: string } }
+  { params }: { params: Promise<{ clientId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -41,6 +44,7 @@ export async function PUT(
       return new NextResponse("Unauthorized", { status: 401 })
     }
 
+    const { clientId } = await params
     const body = await req.json()
     const { name, description, logo, website } = body
 
@@ -53,7 +57,7 @@ export async function PUT(
         website,
         updated_at: new Date().toISOString()
       })
-      .eq('id', params.clientId)
+      .eq('id', clientId)
       .select()
       .single()
 
@@ -74,7 +78,7 @@ export async function PUT(
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { clientId: string } }
+  { params }: { params: Promise<{ clientId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -82,10 +86,11 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 401 })
     }
 
+    const { clientId } = await params
     const { error } = await supabase
       .from('clients')
       .delete()
-      .eq('id', params.clientId)
+      .eq('id', clientId)
 
     if (error) {
       console.error('Error deleting client:', error)

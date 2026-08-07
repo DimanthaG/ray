@@ -9,7 +9,15 @@ import { Footer } from "@/components/ui/footer";
 import { cn } from "@/lib/utils";
 import { SessionProvider } from "@/components/providers/session-provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const fontSans = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const fontHeading = Inter({
+  subsets: ["latin"],
+  variable: "--font-heading",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -63,24 +71,23 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={cn(fontSans.variable, fontHeading.variable)}>
       <head />
-      <body className={cn(
-        "min-h-screen bg-background font-sans antialiased",
-        inter.className
-      )}>
+      <body className="min-h-screen bg-background font-sans antialiased relative overflow-x-hidden selection:bg-brand/20 selection:text-brand">
         <SessionProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="light"
+            defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
           >
-            <MinimalistNavbar />
-            <main className="pt-[4.5rem] md:pt-20">
-              {children}
-            </main>
-            <Footer />
+            <div className="relative min-h-screen flex flex-col">
+              <MinimalistNavbar />
+              <main className="flex-1 pt-[4.5rem] md:pt-20">
+                {children}
+              </main>
+              <Footer />
+            </div>
             <Toaster />
           </ThemeProvider>
         </SessionProvider>

@@ -3,6 +3,8 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "../../../auth/auth-options"
 import { createAdminClient } from "@/lib/supabase"
 
+export const dynamic = "force-dynamic"
+
 export async function PUT(
   req: Request,
   { params }: { params: Promise<{ agentId: string }> }

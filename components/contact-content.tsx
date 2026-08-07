@@ -8,10 +8,10 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/components/ui/use-toast"
-import { Mail, Phone, MapPin, ExternalLink, Users } from "lucide-react"
+import { Mail, Phone, MapPin, ExternalLink, Users, Sparkles, Send, MessageSquare } from "lucide-react"
 
 const MAPS_URL =
-  "https://www.google.com/maps/search/?api=1&query=330%2F08+Saman+Mawatha+Lake+Road+Boralesgamuwa+Sri+Lanka"
+  "https://www.google.com/maps/search/?api=1&query=86+Old+Kottawa+Rd+Nugegoda+Sri+Lanka"
 
 export default function ContactContent() {
   const { toast } = useToast()
@@ -63,139 +63,199 @@ export default function ContactContent() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-16">
+    <div className="relative min-h-screen bg-background overflow-hidden py-12 md:py-20">
+      {/* Background ambient lighting */}
+      <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-[30rem] w-[min(100%,60rem)] bg-gradient-to-tr from-brand/20 via-cyan-500/15 to-indigo-600/10 blur-[130px]" />
+
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-16 space-y-4 max-w-3xl mx-auto"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Get in <span className="text-brand">Touch</span>
+          <div className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/10 px-4 py-1.5 text-xs font-bold text-brand">
+            <Sparkles className="h-3.5 w-3.5" />
+            <span>Let&apos;s Build Something Extraordinary</span>
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-heading text-foreground tracking-tight">
+            Get in <span className="text-gradient">Touch</span> With Us
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Ready to transform your social media presence? Contact us today and let&apos;s discuss
-            how we can help your business grow.
+          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+            Ready to scale your social reach, launch high-impact campaigns, or consult with our strategy team? Send us a message below.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 max-w-6xl mx-auto items-start">
+          {/* Form */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="bg-card border border-border/50 rounded-2xl p-6 md:p-8"
+            className="lg:col-span-7 bg-card/60 border border-border/50 backdrop-blur-2xl rounded-3xl p-6 sm:p-8 shadow-sm hover:shadow-glow transition-all duration-300 relative overflow-hidden"
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border/40">
+              <div className="p-2.5 rounded-2xl bg-brand/10 text-brand">
+                <MessageSquare className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold font-heading text-foreground">Send a Direct Message</h2>
+                <p className="text-xs text-muted-foreground">Our strategy team typically responds within 24 hours.</p>
+              </div>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Name *</Label>
-                  <Input id="name" name="name" placeholder="Your name" required />
+                  <Label htmlFor="name" className="text-xs font-semibold">Name *</Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    placeholder="John Doe"
+                    required
+                    className="rounded-xl border-border/60 bg-background/50 focus:border-brand focus:ring-brand"
+                  />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email *</Label>
+                  <Label htmlFor="email" className="text-xs font-semibold">Email *</Label>
                   <Input
                     id="email"
                     name="email"
                     type="email"
-                    placeholder="your@email.com"
+                    placeholder="john@company.com"
                     required
+                    className="rounded-xl border-border/60 bg-background/50 focus:border-brand focus:ring-brand"
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div className="space-y-2">
-                  <Label htmlFor="phone">Phone Number</Label>
-                  <Input id="phone" name="phone" type="tel" placeholder="Your phone number" />
+                  <Label htmlFor="phone" className="text-xs font-semibold">Phone Number</Label>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="+94 77 123 4567"
+                    className="rounded-xl border-border/60 bg-background/50 focus:border-brand focus:ring-brand"
+                  />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="company">Company</Label>
-                  <Input id="company" name="company" placeholder="Your company name" />
+                  <Label htmlFor="company" className="text-xs font-semibold">Company Name</Label>
+                  <Input
+                    id="company"
+                    name="company"
+                    placeholder="Acme Corp"
+                    className="rounded-xl border-border/60 bg-background/50 focus:border-brand focus:ring-brand"
+                  />
                 </div>
               </div>
+
               <div className="space-y-2">
-                <Label htmlFor="subject">Subject</Label>
-                <Input id="subject" name="subject" placeholder="What's this about?" />
+                <Label htmlFor="subject" className="text-xs font-semibold">Subject</Label>
+                <Input
+                  id="subject"
+                  name="subject"
+                  placeholder="Strategy consultation inquiry"
+                  className="rounded-xl border-border/60 bg-background/50 focus:border-brand focus:ring-brand"
+                />
               </div>
+
               <div className="space-y-2">
-                <Label htmlFor="message">Message *</Label>
+                <Label htmlFor="message" className="text-xs font-semibold">Message *</Label>
                 <Textarea
                   id="message"
                   name="message"
-                  placeholder="How can we help you?"
-                  className="min-h-[150px]"
+                  placeholder="Tell us about your brand goals, target audience, or campaign requirements..."
+                  className="min-h-[140px] rounded-xl border-border/60 bg-background/50 focus:border-brand focus:ring-brand"
                   required
                 />
               </div>
-              <Button type="submit" variant="brand" className="w-full" disabled={isSubmitting}>
-                {isSubmitting ? "Sending..." : "Send Message"}
+
+              <Button type="submit" variant="brand-glow" className="w-full text-base py-6 group" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  "Sending..."
+                ) : (
+                  <span className="flex items-center justify-center gap-2">
+                    <span>Send Message</span>
+                    <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                )}
               </Button>
             </form>
           </motion.div>
 
+          {/* Side Contact Cards */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="space-y-6"
+            className="lg:col-span-5 space-y-6"
           >
-            <div className="bg-card border border-border/50 rounded-2xl p-6">
+            {/* Headquarters Card */}
+            <div className="bg-card/60 border border-border/50 backdrop-blur-2xl rounded-3xl p-6 shadow-sm">
               <div className="flex items-start gap-4">
-                <MapPin className="w-5 h-5 text-brand mt-1 shrink-0" />
-                <div>
-                  <h3 className="font-semibold mb-2">Our Location</h3>
-                  <address className="text-muted-foreground not-italic leading-relaxed mb-4">
-                    330/08, Saman Mawatha
-                    <br />
-                    Lake Road
-                    <br />
-                    Boralesgamuwa
+                <div className="p-3 rounded-2xl bg-brand/10 text-brand shrink-0">
+                  <MapPin className="w-6 h-6" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-bold font-heading text-foreground">Global Headquarters</h3>
+                  <address className="text-sm text-muted-foreground not-italic leading-relaxed">
+                    86 Old Kottawa Rd,<br />
+                    Nugegoda, Sri Lanka
                   </address>
                   <a
                     href={MAPS_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-brand hover:underline pt-1"
                   >
-                    Open in Google Maps
+                    <span>View Location Map</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 </div>
               </div>
             </div>
 
-            <div className="bg-card border border-border/50 rounded-2xl p-6">
-              <h3 className="font-semibold mb-4">General inquiries</h3>
+            {/* Email & Phone Card */}
+            <div className="bg-card/60 border border-border/50 backdrop-blur-2xl rounded-3xl p-6 shadow-sm space-y-4">
+              <h3 className="font-bold font-heading text-foreground">Direct Contact Info</h3>
               <div className="space-y-3 text-sm">
                 <a
                   href="mailto:lasa_ray@yahoo.com"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-brand transition-colors"
+                  className="flex items-center gap-3 text-muted-foreground hover:text-brand transition-colors p-2.5 rounded-xl hover:bg-brand/5 border border-transparent hover:border-brand/20"
                 >
-                  <Mail className="w-4 h-4 shrink-0" />
-                  lasa_ray@yahoo.com
+                  <div className="p-2 rounded-lg bg-brand/10 text-brand shrink-0">
+                    <Mail className="w-4 h-4" />
+                  </div>
+                  <span className="break-all font-medium">lasa_ray@yahoo.com</span>
                 </a>
                 <a
                   href="tel:+94777727527"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-brand transition-colors"
+                  className="flex items-center gap-3 text-muted-foreground hover:text-brand transition-colors p-2.5 rounded-xl hover:bg-brand/5 border border-transparent hover:border-brand/20"
                 >
-                  <Phone className="w-4 h-4 shrink-0" />
-                  +94 (77) 772 7527
+                  <div className="p-2 rounded-lg bg-brand/10 text-brand shrink-0">
+                    <Phone className="w-4 h-4" />
+                  </div>
+                  <span className="font-medium">+94 (77) 772 7527</span>
                 </a>
               </div>
             </div>
 
-            <div className="bg-card border border-border/50 rounded-2xl p-6">
+            {/* Meet Team Prompt Card */}
+            <div className="bg-card/60 border border-border/50 backdrop-blur-2xl rounded-3xl p-6 shadow-sm">
               <div className="flex items-start gap-4">
-                <Users className="w-5 h-5 text-brand mt-0.5 shrink-0" />
-                <div>
-                  <h3 className="font-semibold mb-2">Meet our team</h3>
-                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    Want to know who you&apos;ll be working with? Browse profiles of our strategists
-                    and leadership.
+                <div className="p-3 rounded-2xl bg-cyan-500/10 text-cyan-500 shrink-0">
+                  <Users className="w-6 h-6" />
+                </div>
+                <div className="space-y-3">
+                  <h3 className="font-bold font-heading text-foreground">Raytronics Team</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Want to learn more about our strategists and leadership team before getting started?
                   </p>
                   <Button asChild variant="outline" size="sm">
-                    <Link href="/about">View team</Link>
+                    <Link href="/about">Meet Leadership Team</Link>
                   </Button>
                 </div>
               </div>
@@ -206,3 +266,4 @@ export default function ContactContent() {
     </div>
   )
 }
+
