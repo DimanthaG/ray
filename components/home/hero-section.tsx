@@ -110,7 +110,7 @@ const slides = [
     title: "Canada Gem Expo 2026",
     subtitle: "International Gem Exhibition • Toronto, Canada 🇨🇦 | November 27–29, 2026",
     description: "Connecting international buyers, Sri Lankan gem exporters, tea merchants, and global trade partners in Toronto.",
-    image: "/images/hero/gem-expo-hero.png",
+    image: "/images/hero/Gems Expo.jpg.jpeg",
     isExpo: true,
     whatsappNumber: "94714727527", 
     whatsappMsg: "Hi Raytronics, I am interested in the Canada Gem Expo 2026 in Toronto.",
@@ -127,7 +127,7 @@ const slides = [
     titleLine2: "Certified Ceylon Gemstones & Fine Jewelry",
     subtitle: "Ethically sourced directly from Sri Lankan mines to international collectors.",
     description: "Discover unheated blue sapphires, rubies, padparadscha, and custom luxury fine jewelry exported with worldwide authentication.",
-    image: "/images/hero/ray-gems-hero.png",
+    image: "/images/hero/Jewelary.jpg.jpeg",
     isExpo: false,
     whatsappNumber: "94714727527", 
     whatsappMsg: "Hi Raytronics, I would like to inquire about Ray Gems precious gemstones.",
@@ -144,7 +144,7 @@ const slides = [
     titleLine2: "Global E-Commerce & Retail Marketplace",
     subtitle: "Connecting authentic Sri Lankan products with global consumers and trade distribution.",
     description: "Empowering authentic merchants with digital marketplace infrastructure, express international logistics, and retail growth.",
-    image: "/images/hero/ray-mart-hero.png",
+    image: "/images/hero/Raymart.jpg.jpeg",
     isExpo: false,
     whatsappNumber: "94777788275", 
     whatsappMsg: "Hi Raytronics, I am interested in Ray Mart products and marketplace partnerships.",
@@ -181,13 +181,13 @@ export function HeroSection() {
 
   return (
     <section
-      className="relative overflow-hidden rounded-3xl border border-border/40 shadow-2xl mb-16 md:mb-24 min-h-[560px] md:min-h-[620px] flex flex-col justify-between group/hero"
+      className="relative isolate overflow-hidden min-h-screen bg-slate-950 flex flex-col justify-between group/hero mt-[-80px] pt-[80px]"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       aria-label="Featured Showcase Slider"
     >
       {/* Slide Background Images with Smooth Crossfade */}
-      <div className="absolute inset-0 -z-10 overflow-hidden bg-slate-950">
+      <div className="absolute inset-0 z-0 overflow-hidden bg-slate-950">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide.id}
@@ -202,11 +202,31 @@ export function HeroSection() {
               alt={currentSlide.title}
               fill
               priority
-              className="object-cover object-center filter brightness-[0.45] contrast-105"
+              className="object-cover object-center filter brightness-[0.85] contrast-105"
             />
-            {/* Deep overlay gradients for perfect text readability */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/40" />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/60 to-transparent" />
+
+            {/* Readability blur over the left side (where the text sits), fading out to full clarity on the right */}
+            <div
+              className="absolute inset-0"
+              style={{
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                maskImage: "linear-gradient(to right, black 0%, black 35%, transparent 70%)",
+                WebkitMaskImage: "linear-gradient(to right, black 0%, black 35%, transparent 70%)",
+              }}
+            />
+
+            {/* Light tint under the text for extra contrast, same fade as the blur */}
+            <div
+              className="absolute inset-0 bg-slate-950/50"
+              style={{
+                maskImage: "linear-gradient(to right, black 0%, black 30%, transparent 65%)",
+                WebkitMaskImage: "linear-gradient(to right, black 0%, black 30%, transparent 65%)",
+              }}
+            />
+
+            {/* Subtle bottom fade so the controls bar still reads well */}
+            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-slate-950 to-transparent" />
           </motion.div>
         </AnimatePresence>
       </div>
@@ -303,17 +323,7 @@ export function HeroSection() {
       </div>
 
       {/* Slider Controls Bar */}
-      <div className="container mx-auto px-4 sm:px-6 md:px-12 py-4 relative z-20 border-t border-white/10 bg-slate-950/40 backdrop-blur-md flex items-center justify-between">
-        {/* Previous Button */}
-        <button
-          type="button"
-          onClick={handlePrev}
-          className="p-2.5 rounded-full border border-white/20 bg-slate-900/60 text-white hover:bg-white/20 transition-all"
-          aria-label="Previous slide"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 py-4 relative z-20 flex items-center justify-center">
         {/* Slide Indicators / Thumbnails */}
         <div className="flex items-center gap-2.5 sm:gap-4">
           {slides.map((slide, idx) => {
@@ -335,16 +345,6 @@ export function HeroSection() {
             )
           })}
         </div>
-
-        {/* Next Button */}
-        <button
-          type="button"
-          onClick={handleNext}
-          className="p-2.5 rounded-full border border-white/20 bg-slate-900/60 text-white hover:bg-white/20 transition-all"
-          aria-label="Next slide"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
       </div>
     </section>
   )

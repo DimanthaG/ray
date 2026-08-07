@@ -8,16 +8,18 @@ import { Mail, MapPin, ExternalLink, ArrowUpRight, ShieldCheck, Instagram, Faceb
 const footerLinks = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
-  { name: "Portfolio", href: "/portfolio" },
+  { name: "Trade Exhibitions", href: "/register-trade-expo" },
+  { name: "Raytronics Institute", href: "/institute" },
+  { name: "Media & Updates", href: "/media" },
   { name: "Contact Us", href: "/contact" },
 ]
 
 const groupNetwork = [
-  { name: "Ray Realty", href: "https://www.rayrealtysl.com/" },
-  { name: "Ray Mart", href: "https://www.raymartsl.com/" },
-  { name: "Ray Gems", href: "https://www.raygems.lk/" },
-  { name: "Ray Edu", href: "#" },
-  { name: "Ray Media", href: "#" },
+  { name: "Ray Gems & Jewelry", href: "https://www.raygems.lk/" },
+  { name: "Ray Realty (Real Estate)", href: "https://www.rayrealtysl.com/" },
+  { name: "Ray Mart (E-commerce)", href: "https://www.raymartsl.com/" },
+  { name: "Raytronics Institute", href: "/institute" },
+  { name: "Media & Press", href: "/media" },
 ]
 
 // lucide-react doesn't ship a TikTok glyph, so it's defined here as a small inline icon

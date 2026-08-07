@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Outfit } from "next/font/google";
+import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { siteConfig, siteKeywords } from "./metadata";
@@ -9,16 +9,14 @@ import { Footer } from "@/components/ui/footer";
 import { cn } from "@/lib/utils";
 import { SessionProvider } from "@/components/providers/session-provider";
 
-const fontSans = Plus_Jakarta_Sans({
+const fontSans = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
-  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
-const fontHeading = Outfit({
+const fontHeading = Inter({
   subsets: ["latin"],
   variable: "--font-heading",
-  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
