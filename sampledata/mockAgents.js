@@ -31,6 +31,26 @@ const mockAgents = [
   },
   {
     id: "4",
+    name: "Dimantha Kalhara Goonewardena",
+    specialty: "Director",
+    email: "goonewardenadimantha@gmail.com",
+    phone: "+1 416 474 6869",
+    imageUrl: "/images/Directors/Dimantha.png",
+    describe:
+      "Oversees the expansion and management of business operations across Canada. He drives strategic growth, market penetration, and business development initiatives, establishing a strong operational footprint and fostering key trade partnerships within the region.",
+  },
+  {
+    id: "5",
+    name: "Layani Goonewardena",
+    specialty: "Director",
+    email: "layanibuddika@gmail.com",
+    phone: "+94 77 768 3831",
+    imageUrl: "/images/Directors/Layani.png",
+    describe:
+      "Plays a pivotal role in executive governance and strategic oversight across the group. She contributes to corporate decision-making, organizational development, and key business operations, supporting the company’s long-term vision and sustained growth.",
+  },
+  {
+    id: "6",
     name: "K.Tisokumar",
     specialty: "Director",
     email: "tisok1977@gmail.com",
