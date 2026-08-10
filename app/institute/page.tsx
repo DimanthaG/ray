@@ -30,37 +30,37 @@ export const metadata: Metadata = {
 const destinations = [
   {
     country: "United Kingdom",
-    flag: "🇬🇧",
+    code: "gb",
     description: "Fast-track degrees & post-study work visas.",
     badge: "1-Year Masters Available",
   },
   {
     country: "Australia",
-    flag: "🇦🇺",
+    code: "au",
     description: "Top-ranked universities with strong PR pathways.",
     badge: "Post-Study Work Permits",
   },
   {
     country: "Canada",
-    flag: "🇨🇦",
+    code: "ca",
     description: "Skill Development Council Canada pathways & work permits.",
     badge: "PR & Immigration Focus",
   },
   {
     country: "Germany",
-    flag: "🇩🇪",
+    code: "de",
     description: "Low/Free tuition education & tech specializations.",
     badge: "EU Career Hub",
   },
   {
     country: "Ireland",
-    flag: "🇮🇪",
+    code: "ie",
     description: "EU hub for tech and business careers.",
     badge: "2-Year Stay Back",
   },
   {
     country: "USA",
-    flag: "🇺🇸",
+    code: "us",
     description: "Unrivaled research, scholarship, and campus opportunities.",
     badge: "STEM OPT Pathways",
   },
@@ -166,9 +166,13 @@ export default function InstitutePage() {
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-4xl" role="img" aria-label={item.country}>
-                      {item.flag}
-                    </span>
+                    <Image
+                      src={`https://flagcdn.com/w160/${item.code}.png`}
+                      alt={`${item.country} flag`}
+                      width={48}
+                      height={32}
+                      className="rounded-md object-cover shadow-sm border border-border/40"
+                    />
                     <span className="px-3 py-1 rounded-full bg-brand/10 border border-brand/20 text-xs font-bold text-brand">
                       {item.badge}
                     </span>

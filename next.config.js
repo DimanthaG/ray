@@ -16,7 +16,8 @@ const nextConfig = {
       "images.unsplash.com",
       "lh3.googleusercontent.com",
       "res.cloudinary.com",
-      "i.imgur.com"
+      "i.imgur.com",
+      "flagcdn.com"
     ],
   },
   async headers() {
@@ -41,4 +42,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig 
+module.exports = nextConfig
