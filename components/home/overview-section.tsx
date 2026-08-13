@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 import { Building2, Award, ShieldCheck, Globe2 } from "lucide-react"
 
 export function OverviewSection() {
@@ -11,6 +12,20 @@ export function OverviewSection() {
       <div className="pointer-events-none absolute -bottom-20 -left-20 h-56 w-56 rounded-full bg-cyan-500/15 blur-3xl" />
 
       <div className="relative z-10 max-w-4xl mx-auto space-y-6">
+        {/* Raytronics Group Logo */}
+        <div className="flex items-center justify-center gap-2.5 mb-2">
+          <Image
+            src="/logos/06.svg"
+            alt="Raytronics Group Logo"
+            width={240}
+            height={80}
+            className="h-12 sm:h-16 w-auto object-contain filter drop-shadow-sm"
+          />
+          <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-brand bg-brand/10 border border-brand/20 px-3 py-1 rounded-lg shadow-sm">
+            GROUP
+          </span>
+        </div>
+
         <div className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/10 px-4 py-1.5 text-xs font-bold text-brand">
           <Building2 className="h-3.5 w-3.5" />
           <span>30+ YEARS OF EXCELLENCE</span>

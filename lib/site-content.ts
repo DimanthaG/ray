@@ -13,11 +13,11 @@ export type PartnerLogo = {
 }
 
 export const subsidiaries: Subsidiary[] = [
-  { id: 1, logo: "/logos/01.svg", name: "Ray Realty", href: "https://www.rayrealtysl.com/" },
-  { id: 2, logo: "/logos/05.svg", name: "Ray Mart", href: "https://www.raymartsl.com/" },
-  { id: 3, logo: "/logos/RayGems.png", name: "Ray Gems", href: "https://www.raygems.com/" },
-  { id: 4, logo: "/logos/04.svg", name: "Ray Edu" },
-  { id: 5, logo: "/logos/02.svg", name: "Ray Media" },
+  { id: 1, logo: "/logos/RayGems.png", name: "Ray Gems & Jewelry", href: "https://www.raygems.lk/" },
+  { id: 2, logo: "/logos/01.svg", name: "Ray Reality", href: "https://www.rayrealtysl.com/" },
+  { id: 3, logo: "/logos/05.svg", name: "Ray Mart", href: "https://www.raymartsl.com/" },
+  { id: 4, logo: "/logos/04.svg", name: "Raytronics Institute", href: "" },
+  { id: 5, logo: "/logos/02.svg", name: "Ray Media", href: "" },
 ]
 
 export const partnerLogos: PartnerLogo[] = [

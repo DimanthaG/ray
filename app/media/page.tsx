@@ -1,54 +1,80 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
-import { Newspaper, ArrowRight, Sparkles, ExternalLink, Calendar, Share2 } from "lucide-react"
-import { siteConfig } from "@/app/metadata"
+import { Newspaper, ArrowRight, Sparkles, ExternalLink, Calendar, MessageCircle, MapPin, Phone, Award } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Media & Updates | Raytronics Group Press & News",
+  title: "Media & Updates | Raytronics Group Press & Announcements",
   description:
-    "Stay updated with the latest press releases, trade expo announcements, digital marketing insights, and media features from Raytronics Group.",
+    "Explore the latest updates from Raytronics Group: Ceylon Birthstone Gemstones, Live Classroom Studio rentals at Raytronics Institute, and 4-Destination Visa Consulting.",
 }
 
 const updates = [
   {
-    id: "canada-expo-2026",
-    date: "November 27, 2026",
-    category: "Trade Exhibition",
-    title: "Raytronics Announces Canada Ceylon Trade & Gem Expo 2026 in Toronto",
-    description:
-      "Connecting Sri Lankan gem exporters, tea merchants, handicraft exporters, and real estate developers with North American buyers.",
-    image: "/images/hero/gem-expo-hero.png",
-    link: "/register-trade-expo",
+    id: "birthstone-gems",
+    date: "Latest Feature",
+    category: "Ray Gems & Jewelry",
+    title: "Perfect Gift for your loved Once on their birthday with valuable Birthstone",
+    image: "/Media/Gem.jpeg",
+    whatsappMsg: "Hi Ray Gems, I am interested in Birthstone gemstones and jewelry.",
+    shortDesc: "Discover the Gemstone for Your Birth Month. 100% Natural Sri Lankan Gemstones certified and delivered worldwide.",
+    fullCaption: [
+      "💎 January – Garnet | 💜 February – Amethyst | 💙 March – Blue Spinel",
+      "🤍 April – Diamond / White Sapphire | 💚 May – Green Tourmaline / Emerald | 🤍 June – Pearl / Cat’s Eye",
+      "❤️ July – Ruby | ✨ August – Zircon | 💙 September – Blue Sapphire",
+      "🌙 October – Moonstone | 💛 November – Topaz | ⭐ December – Star Sapphire",
+      "🎁 The Perfect Birthday Gift for your children, grandchildren, family, and loved ones.",
+      "✅ 100% Natural Sri Lankan Gemstones",
+      "💎 Premium Quality & Certified Stones Available",
+      "💳 We Accept All Major Credit Cards | 🌍 Worldwide Delivery",
+      "💰 Prices from Rs. 12,000 onwards",
+      "📍 Sri Lanka: No. 86, Old Kottawa Road, Mirihana, Nugegoda | 📱 +94 71 472 7527",
+      "🇨🇦 Canada: 3212-2031 Kennedy Road Toronto M1T 0B8 | 📞 +1 (437) 991-4935"
+    ]
   },
   {
-    id: "ray-gems-launch",
-    date: "October 2026",
-    category: "Corporate Venture",
-    title: "Ray Gems Launches Certified Global Gemstone Authentication Program",
-    description:
-      "Ethically sourced Ceylon blue sapphires and fine jewelry now exported directly with international certification.",
-    image: "/images/hero/ray-gems-hero.png",
-    link: "https://www.raygems.lk/",
-    isExternal: true,
+    id: "live-classroom-studio",
+    date: "Latest Feature",
+    category: "Raytronics Institute",
+    title: "Looking for a Professional Venue to Conduct Your LIVE Classes?",
+    image: "/Media/Class.jpeg",
+    whatsappMsg: "Hi Raytronics Institute, I am interested in booking the Live Classroom Studio.",
+    shortDesc: "Take your online teaching to the next level with our fully equipped Live Classroom Studio at Raytronics Institute.",
+    fullCaption: [
+      "✅ Smart Interactive Board",
+      "✅ HD Camera & Professional Microphone",
+      "✅ Zoom / Google Meet Ready & High-Speed Internet",
+      "✅ Technical Assistance Available",
+      "✅ Comfortable & Professional Teaching Environment",
+      "📚 Perfect for: Online Classes, Tuition Classes, Corporate Training, Webinars, Workshops & Live Streaming Sessions.",
+      "Whether you're teaching one class or running a full course, we've got everything you need to deliver a professional learning experience.",
+      "📍 No. 86, Old Kottawa Road, Mirihana, Nugegoda",
+      "📞 Book your session today: 071 472 7527"
+    ]
   },
   {
-    id: "ray-mart-expansion",
-    date: "September 2026",
-    category: "E-Commerce",
-    title: "Ray Mart Expands E-Commerce Logistics & Global Settlement Support",
-    description:
-      "Integration of multi-currency checkout, Wise transfers, and local e-wallets to streamline worldwide retail orders.",
-    image: "/images/hero/ray-mart-hero.png",
-    link: "https://www.raymartsl.com/",
-    isExternal: true,
-  },
+    id: "global-visa-consulting",
+    date: "Latest Feature",
+    category: "Global Visa Services",
+    title: "4 Destinations. 1 Trusted Partner. 🌏",
+    image: "/Media/visa.jpeg",
+    whatsappMsg: "Hi Raytronics, I would like to inquire about 4-Destination Visa Consulting.",
+    shortDesc: "The world is waiting for you! Raytronics is your gateway to success across China, Malaysia, Australia, and Canada.",
+    fullCaption: [
+      "Whether it's the innovation of China, the vibrant culture of Malaysia, or the vast opportunities in Australia and Canada—Raytronics is your gateway to success.",
+      "✅ Expert Visa Consulting",
+      "✅ Reliable Service & Transparent Process",
+      "✅ Personalized Guidance from University to Visa Settlement",
+      "📍 Raytronics Group Headquarters: No. 86, Old Kottawa Road, Mirihana, Nugegoda",
+      "📞 Call Now: 071 472 7527"
+    ]
+  }
 ]
 
 export default function MediaPage() {
   return (
     <div className="relative min-h-screen bg-background overflow-hidden py-12 md:py-20">
-      {/* Background ambient glow */}
+      {/* Ambient Glow */}
       <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-[30rem] w-[min(100%,60rem)] bg-gradient-to-tr from-brand/20 via-cyan-500/15 to-indigo-600/10 blur-[140px]" />
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -56,76 +82,83 @@ export default function MediaPage() {
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
           <div className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/10 px-4 py-1.5 text-xs font-bold text-brand">
             <Newspaper className="h-4 w-4" />
-            <span>Raytronics News & Press Room</span>
+            <span>Raytronics Group Newsroom &amp; Media</span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-heading text-foreground tracking-tight">
-            Media & <span className="text-gradient">Group Updates</span>
+            Media &amp; <span className="text-gradient">Announcements</span>
           </h1>
 
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Read press releases, event announcements, and corporate news across Raytronics Group subsidiaries.
+            Stay updated with official announcements, product highlights, and corporate updates across Raytronics Group.
           </p>
         </div>
 
         {/* Media Articles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-20">
-          {updates.map((item) => (
-            <article
-              key={item.id}
-              className="group overflow-hidden rounded-3xl bg-card/60 border border-border/50 hover:border-brand/50 backdrop-blur-xl shadow-sm hover:shadow-glow transition-all duration-300 flex flex-col justify-between"
-            >
-              <div>
-                <div className="aspect-[16/10] relative overflow-hidden bg-slate-950">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-80" />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full bg-brand/90 text-white text-xs font-bold shadow-sm">
-                      {item.category}
-                    </span>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-20">
+          {updates.map((item) => {
+            const whatsappUrl = `https://wa.me/94714727527?text=${encodeURIComponent(item.whatsappMsg)}`
+
+            return (
+              <article
+                key={item.id}
+                className="group overflow-hidden rounded-3xl bg-card/70 border border-border/60 hover:border-brand/50 backdrop-blur-xl shadow-sm hover:shadow-glow transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  {/* Post Poster Image Container (1080px x 1080px 1:1 Aspect Ratio) */}
+                  <div className="aspect-square relative overflow-hidden bg-slate-950">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      priority
+                      className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent" />
+                    <div className="absolute top-4 left-4 z-10">
+                      <span className="px-3.5 py-1 rounded-full bg-brand/90 backdrop-blur-md text-white text-xs font-bold shadow-md">
+                        {item.category}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Post Content */}
+                  <div className="p-6 space-y-4">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground font-medium">
+                      <Calendar className="w-3.5 h-3.5 text-brand" />
+                      <span>{item.date}</span>
+                    </div>
+
+                    <h3 className="text-xl font-bold font-heading text-foreground group-hover:text-brand transition-colors leading-snug">
+                      {item.title}
+                    </h3>
+
+                    {/* Formatted Full Caption */}
+                    <div className="space-y-2 text-xs text-muted-foreground leading-relaxed pt-2 border-t border-border/40">
+                      {item.fullCaption.map((line, idx) => (
+                        <p key={idx} className={line.startsWith("💎") || line.startsWith("✅") || line.startsWith("📍") ? "font-medium text-foreground/90" : ""}>
+                          {line}
+                        </p>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
-                <div className="p-6 space-y-3">
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground font-medium">
-                    <Calendar className="w-3.5 h-3.5 text-brand" />
-                    <span>{item.date}</span>
-                  </div>
-                  <h3 className="text-xl font-bold font-heading text-foreground group-hover:text-brand transition-colors">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{item.description}</p>
-                </div>
-              </div>
-
-              <div className="p-6 pt-0">
-                {item.isExternal ? (
+                {/* WhatsApp Call to Action */}
+                <div className="p-6 pt-0">
                   <a
-                    href={item.link}
+                    href={whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-xs font-bold text-brand hover:underline"
+                    className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md hover:shadow-emerald-600/30 transition-all duration-300"
                   >
-                    <span>Visit Official Announcement</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
+                    <MessageCircle className="w-4 h-4" />
+                    <span>Inquire Details on WhatsApp</span>
                   </a>
-                ) : (
-                  <Link
-                    href={item.link}
-                    className="inline-flex items-center gap-2 text-xs font-bold text-brand hover:underline"
-                  >
-                    <span>Read Event Details</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                )}
-              </div>
-            </article>
-          ))}
+                </div>
+              </article>
+            )
+          })}
         </div>
       </div>
     </div>

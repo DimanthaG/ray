@@ -38,17 +38,21 @@ export default function AboutContent() {
         </motion.div>
 
         {/* Group History & Legacy Section */}
-        <div className="flex justify-center -mb-12 relative z-10">
-          <Image
-            src="/logos/Raytronics Insitute.png"
-            alt="Raytronics Institute Logo"
-            width={240}
-            height={80}
-            className="h-16 sm:h-20 w-auto object-contain filter drop-shadow-md"
-          />
-        </div>
-
         <section id="history" className="scroll-mt-24 max-w-5xl mx-auto rounded-3xl bg-card/60 border border-border/50 backdrop-blur-xl p-8 sm:p-12 shadow-sm space-y-6 text-center">
+          {/* Raytronics Group Logo */}
+          <div className="flex items-center justify-center gap-2.5 mb-2">
+            <Image
+              src="/logos/06.svg"
+              alt="Raytronics Group Logo"
+              width={240}
+              height={80}
+              className="h-12 sm:h-16 w-auto object-contain filter drop-shadow-sm"
+            />
+            <span className="text-xs sm:text-sm font-black tracking-widest uppercase text-brand bg-brand/10 border border-brand/20 px-3 py-1 rounded-lg shadow-sm">
+              GROUP
+            </span>
+          </div>
+
           <div className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/10 px-4 py-1.5 text-xs font-bold text-brand">
             <Building2 className="w-3.5 h-3.5" />
             <span>30+ YEARS OF EXCELLENCE</span>
@@ -120,8 +124,8 @@ export default function AboutContent() {
             </p>
           </div>
 
-          {/* Team Grid with Circular Portrait Layout */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          {/* Team Grid with Circular Portrait Layout (3x2 Grid) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {mockAgents.map((agent: any, index: number) => (
               <motion.article
                 key={agent.id}
