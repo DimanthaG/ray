@@ -219,27 +219,90 @@ export default function ContactContent() {
             </div>
 
             {/* Email & Phone Card */}
-            <div className="bg-card/60 border border-border/50 backdrop-blur-2xl rounded-3xl p-6 shadow-sm space-y-4">
+            <div className="bg-card/60 border border-border/50 backdrop-blur-2xl rounded-3xl p-6 shadow-sm space-y-5">
               <h3 className="font-bold font-heading text-foreground">Direct Contact Info</h3>
-              <div className="space-y-3 text-sm">
-                <a
-                  href="mailto:lasa_ray@yahoo.com"
-                  className="flex items-center gap-3 text-muted-foreground hover:text-brand transition-colors p-2.5 rounded-xl hover:bg-brand/5 border border-transparent hover:border-brand/20"
-                >
-                  <div className="p-2 rounded-lg bg-brand/10 text-brand shrink-0">
-                    <Mail className="w-4 h-4" />
-                  </div>
-                  <span className="break-all font-medium">lasa_ray@yahoo.com</span>
-                </a>
-                <a
-                  href="tel:+94777727527"
-                  className="flex items-center gap-3 text-muted-foreground hover:text-brand transition-colors p-2.5 rounded-xl hover:bg-brand/5 border border-transparent hover:border-brand/20"
-                >
-                  <div className="p-2 rounded-lg bg-brand/10 text-brand shrink-0">
-                    <Phone className="w-4 h-4" />
-                  </div>
-                  <span className="font-medium">+94 (77) 772 7527</span>
-                </a>
+              
+              {/* Emails */}
+              <div className="space-y-2">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-brand">Email Addresses</span>
+                <div className="space-y-2">
+                  <a
+                    href="mailto:sales@raytronics.lk"
+                    className="flex items-center gap-3 text-muted-foreground hover:text-brand transition-colors p-2.5 rounded-xl hover:bg-brand/5 border border-transparent hover:border-brand/20 text-xs sm:text-sm"
+                  >
+                    <div className="p-2 rounded-lg bg-brand/10 text-brand shrink-0">
+                      <Mail className="w-4 h-4" />
+                    </div>
+                    <span className="break-all font-medium">sales@raytronics.lk</span>
+                  </a>
+                  <a
+                    href="mailto:raytronicslanka@gmail.com"
+                    className="flex items-center gap-3 text-muted-foreground hover:text-brand transition-colors p-2.5 rounded-xl hover:bg-brand/5 border border-transparent hover:border-brand/20 text-xs sm:text-sm"
+                  >
+                    <div className="p-2 rounded-lg bg-brand/10 text-brand shrink-0">
+                      <Mail className="w-4 h-4" />
+                    </div>
+                    <span className="break-all font-medium">raytronicslanka@gmail.com</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Phone Numbers */}
+              <div className="space-y-2 pt-3 border-t border-border/40">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-brand">Phone & Hotlines</span>
+                <div className="grid grid-cols-1 gap-2 pt-1">
+                  <a
+                    href="tel:+94112813808"
+                    className="flex items-center justify-between gap-3 text-muted-foreground hover:text-brand transition-colors p-2.5 rounded-xl hover:bg-brand/5 border border-transparent hover:border-brand/20 text-xs sm:text-sm"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <div className="p-2 rounded-lg bg-brand/10 text-brand shrink-0">
+                        <Phone className="w-3.5 h-3.5" />
+                      </div>
+                      <span className="font-medium text-foreground">Office Number</span>
+                    </div>
+                    <span className="font-semibold text-brand">011 281 3808</span>
+                  </a>
+
+                  <a
+                    href="tel:+94714727527"
+                    className="flex items-center justify-between gap-3 text-muted-foreground hover:text-brand transition-colors p-2.5 rounded-xl hover:bg-brand/5 border border-transparent hover:border-brand/20 text-xs sm:text-sm"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <div className="p-2 rounded-lg bg-brand/10 text-brand shrink-0">
+                        <Phone className="w-3.5 h-3.5" />
+                      </div>
+                      <span className="font-medium text-foreground">Exhibitions & RayGems</span>
+                    </div>
+                    <span className="font-semibold text-brand">071 472 7527</span>
+                  </a>
+
+                  <a
+                    href="tel:+94705599167"
+                    className="flex items-center justify-between gap-3 text-muted-foreground hover:text-brand transition-colors p-2.5 rounded-xl hover:bg-brand/5 border border-transparent hover:border-brand/20 text-xs sm:text-sm"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <div className="p-2 rounded-lg bg-brand/10 text-brand shrink-0">
+                        <Phone className="w-3.5 h-3.5" />
+                      </div>
+                      <span className="font-medium text-foreground">Global Education</span>
+                    </div>
+                    <span className="font-semibold text-brand">070 559 9167</span>
+                  </a>
+
+                  <a
+                    href="tel:+94777788275"
+                    className="flex items-center justify-between gap-3 text-muted-foreground hover:text-brand transition-colors p-2.5 rounded-xl hover:bg-brand/5 border border-transparent hover:border-brand/20 text-xs sm:text-sm"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <div className="p-2 rounded-lg bg-brand/10 text-brand shrink-0">
+                        <Phone className="w-3.5 h-3.5" />
+                      </div>
+                      <span className="font-medium text-foreground">RayMart</span>
+                    </div>
+                    <span className="font-semibold text-brand">077 778 8275</span>
+                  </a>
+                </div>
               </div>
             </div>
 

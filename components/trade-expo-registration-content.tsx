@@ -189,125 +189,270 @@ export default function TradeExpoRegistrationContent() {
         </div>
       </div> */}
 
-      {/* Event Image */}
-      <div className="container mx-auto px-4 py-8">
-        <motion.div
+      {/* Expos Container */}
+      <div className="container mx-auto px-4 pb-16 space-y-20">
+        
+        {/* ==================== 1. GEM EXPO SECTION ==================== */}
+        <motion.section
           initial="initial"
           animate="animate"
           variants={fadeInUp}
-          className="max-w-2xl mx-auto mb-12"
+          className="max-w-5xl mx-auto space-y-8"
         >
-          <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl border border-border/50 bg-slate-950">
-            <Image
-              src="/Gem expo.jpg"
-              alt="Lanka Gem & Trade Expo 2026 - Toronto, Canada"
-              width={1080}
-              height={1080}
-              className="w-full h-full object-contain"
-              priority
-            />
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Official PDF Downloads Section */}
-      <div className="container mx-auto px-4 pb-12">
-        <motion.div
-          initial="initial"
-          animate="animate"
-          variants={fadeInUp}
-          className="max-w-4xl mx-auto rounded-3xl bg-card/70 border border-brand/30 backdrop-blur-xl p-8 shadow-lg text-center space-y-6"
-        >
-          <div className="space-y-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-brand">Official Documents & Downloads</span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-foreground">
-              Exhibition Folders & Application Forms
+          <div className="text-center space-y-2">
+            <span className="px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-500 text-xs font-bold uppercase tracking-wider">
+              Gem & Jewelry Trade Exhibition
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold font-heading text-foreground">
+              Canada Ceylon Gem Expo 2026
             </h2>
-            <p className="text-xs sm:text-sm text-muted-foreground">
-              Download official event documentation, visa information folders, and application forms below.
+            <p className="text-xs sm:text-sm text-muted-foreground max-w-2xl mx-auto">
+              Showcasing 100% natural Sri Lankan certified gemstones, luxury jewelry, and global trade partnerships in Toronto, Canada.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left pt-2">
-            {/* Download 1: VISA Folder */}
-            <a
-              href="/Folders - VISA FOLDER.pdf"
-              target="_blank"
-              download="VISA_FOLDER_Lanka_Trade_Expo.pdf"
-              className="group p-5 rounded-2xl bg-card border border-border/60 hover:border-brand/50 shadow-sm hover:shadow-glow transition-all duration-300 flex flex-col justify-between"
-            >
-              <div className="space-y-2">
-                <div className="p-3 rounded-xl bg-brand/10 text-brand w-fit group-hover:bg-brand group-hover:text-white transition-colors">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <h3 className="text-sm font-bold text-foreground group-hover:text-brand transition-colors">
-                  VISA Information Folder
-                </h3>
-                <p className="text-[11px] text-muted-foreground">
-                  Official travel and visa guidelines for Canadian expo participants.
-                </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Gem Expo Image */}
+            <div className="lg:col-span-5 max-w-md mx-auto w-full">
+              <div className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl border border-brand/30 bg-slate-950 group">
+                <Image
+                  src="/Gem expo.jpg"
+                  alt="Canada Ceylon Gem Expo 2026 - Toronto, Canada"
+                  width={1080}
+                  height={1080}
+                  className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                  priority
+                />
               </div>
-              <div className="mt-4 pt-3 border-t border-border/30 flex items-center justify-between text-xs font-bold text-brand">
-                <span>Download PDF</span>
-                <span className="text-lg">↓</span>
-              </div>
-            </a>
+            </div>
 
-            {/* Download 2: Gem Expo Application */}
-            <a
-              href="/The Gem Expo Application.pdf"
-              target="_blank"
-              download="The_Gem_Expo_Application.pdf"
-              className="group p-5 rounded-2xl bg-card border border-border/60 hover:border-brand/50 shadow-sm hover:shadow-glow transition-all duration-300 flex flex-col justify-between"
-            >
-              <div className="space-y-2">
-                <div className="p-3 rounded-xl bg-brand/10 text-brand w-fit group-hover:bg-brand group-hover:text-white transition-colors">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                </div>
-                <h3 className="text-sm font-bold text-foreground group-hover:text-brand transition-colors">
-                  Gem Expo Application Form
+            {/* Gem Expo Downloads */}
+            <div className="lg:col-span-7 rounded-3xl bg-card/70 border border-brand/20 backdrop-blur-xl p-6 sm:p-8 shadow-lg space-y-5">
+              <div className="space-y-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-brand">Gem Expo Documentation</span>
+                <h3 className="text-xl sm:text-2xl font-bold font-heading text-foreground">
+                  Official Downloads & Forms
                 </h3>
-                <p className="text-[11px] text-muted-foreground">
-                  Exhibitor booth reservation and registration form.
+                <p className="text-xs text-muted-foreground">
+                  Download official visa guidelines, exhibitor application form, and invitation letter.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-border/30 flex items-center justify-between text-xs font-bold text-brand">
-                <span>Download PDF</span>
-                <span className="text-lg">↓</span>
-              </div>
-            </a>
 
-            {/* Download 3: Gem Expo Letter */}
-            <a
-              href="/The Gem Expo Letter.pdf"
-              target="_blank"
-              download="The_Gem_Expo_Official_Letter.pdf"
-              className="group p-5 rounded-2xl bg-card border border-border/60 hover:border-brand/50 shadow-sm hover:shadow-glow transition-all duration-300 flex flex-col justify-between"
-            >
-              <div className="space-y-2">
-                <div className="p-3 rounded-xl bg-brand/10 text-brand w-fit group-hover:bg-brand group-hover:text-white transition-colors">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <h3 className="text-sm font-bold text-foreground group-hover:text-brand transition-colors">
-                  Official Invitation Letter
-                </h3>
-                <p className="text-[11px] text-muted-foreground">
-                  Official endorsement and invitation letter from Raytronics Group.
-                </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                {/* Download 1: VISA Folder */}
+                <a
+                  href="/Folders - VISA FOLDER.pdf"
+                  target="_blank"
+                  download="VISA_FOLDER_Gem_Expo.pdf"
+                  className="group p-4 rounded-2xl bg-card border border-border/60 hover:border-brand/50 shadow-sm hover:shadow-glow transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div className="space-y-2">
+                    <div className="p-2.5 rounded-xl bg-brand/10 text-brand w-fit group-hover:bg-brand group-hover:text-white transition-colors">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <h4 className="text-xs font-bold text-foreground group-hover:text-brand transition-colors leading-snug">
+                      VISA Information Folder
+                    </h4>
+                    <p className="text-[10px] text-muted-foreground leading-tight">
+                      Official travel & visa guidelines for Gem Expo.
+                    </p>
+                  </div>
+                  <div className="mt-3 pt-2.5 border-t border-border/30 flex items-center justify-between text-[11px] font-bold text-brand">
+                    <span>Download</span>
+                    <span className="text-base">↓</span>
+                  </div>
+                </a>
+
+                {/* Download 2: Application Form */}
+                <a
+                  href="/The Gem Expo Application.pdf"
+                  target="_blank"
+                  download="The_Gem_Expo_Application.pdf"
+                  className="group p-4 rounded-2xl bg-card border border-border/60 hover:border-brand/50 shadow-sm hover:shadow-glow transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div className="space-y-2">
+                    <div className="p-2.5 rounded-xl bg-brand/10 text-brand w-fit group-hover:bg-brand group-hover:text-white transition-colors">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                    </div>
+                    <h4 className="text-xs font-bold text-foreground group-hover:text-brand transition-colors leading-snug">
+                      Application Form
+                    </h4>
+                    <p className="text-[10px] text-muted-foreground leading-tight">
+                      Exhibitor booth reservation form.
+                    </p>
+                  </div>
+                  <div className="mt-3 pt-2.5 border-t border-border/30 flex items-center justify-between text-[11px] font-bold text-brand">
+                    <span>Download</span>
+                    <span className="text-base">↓</span>
+                  </div>
+                </a>
+
+                {/* Download 3: Official Letter */}
+                <a
+                  href="/The Gem Expo Letter.pdf"
+                  target="_blank"
+                  download="The_Gem_Expo_Official_Letter.pdf"
+                  className="group p-4 rounded-2xl bg-card border border-border/60 hover:border-brand/50 shadow-sm hover:shadow-glow transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div className="space-y-2">
+                    <div className="p-2.5 rounded-xl bg-brand/10 text-brand w-fit group-hover:bg-brand group-hover:text-white transition-colors">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <h4 className="text-xs font-bold text-foreground group-hover:text-brand transition-colors leading-snug">
+                      Invitation Letter
+                    </h4>
+                    <p className="text-[10px] text-muted-foreground leading-tight">
+                      Official endorsement letter from Raytronics.
+                    </p>
+                  </div>
+                  <div className="mt-3 pt-2.5 border-t border-border/30 flex items-center justify-between text-[11px] font-bold text-brand">
+                    <span>Download</span>
+                    <span className="text-base">↓</span>
+                  </div>
+                </a>
               </div>
-              <div className="mt-4 pt-3 border-t border-border/30 flex items-center justify-between text-xs font-bold text-brand">
-                <span>Download PDF</span>
-                <span className="text-lg">↓</span>
-              </div>
-            </a>
+            </div>
           </div>
-        </motion.div>
+        </motion.section>
+
+        {/* Divider */}
+        <div className="max-w-5xl mx-auto border-t border-border/40" />
+
+        {/* ==================== 2. META EXPO SECTION ==================== */}
+        <motion.section
+          initial="initial"
+          animate="animate"
+          variants={fadeInUp}
+          className="max-w-5xl mx-auto space-y-8"
+        >
+          <div className="text-center space-y-2">
+            <span className="px-3.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-wider">
+              Trade & Multi-Sector Expo
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold font-heading text-foreground">
+              Canada Ceylon Meta Expo 2026
+            </h2>
+            <p className="text-xs sm:text-sm text-muted-foreground max-w-2xl mx-auto">
+              Connecting Sri Lankan manufacturers, exporters, real estate, tea, garments, and tech innovators with North American markets.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Meta Expo Image */}
+            <div className="lg:col-span-5 max-w-md mx-auto w-full">
+              <div className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl border border-cyan-500/30 bg-slate-950 group">
+                <Image
+                  src="/Meta expo 1.jpg"
+                  alt="Canada Ceylon Meta Expo 2026 - Toronto, Canada"
+                  width={1080}
+                  height={1080}
+                  className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                  priority
+                />
+              </div>
+            </div>
+
+            {/* Meta Expo Downloads */}
+            <div className="lg:col-span-7 rounded-3xl bg-card/70 border border-cyan-500/20 backdrop-blur-xl p-6 sm:p-8 shadow-lg space-y-5">
+              <div className="space-y-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-cyan-400">Meta Expo Documentation</span>
+                <h3 className="text-xl sm:text-2xl font-bold font-heading text-foreground">
+                  Official Downloads & Forms
+                </h3>
+                <p className="text-xs text-muted-foreground">
+                  Download official visa guidelines, exhibitor application form, and invitation letter for Meta Expo.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                {/* Download 1: VISA Folder Meta */}
+                <a
+                  href="/Folders - VISA FOLDER Meta.pdf"
+                  target="_blank"
+                  download="VISA_FOLDER_Meta_Expo.pdf"
+                  className="group p-4 rounded-2xl bg-card border border-border/60 hover:border-cyan-500/50 shadow-sm hover:shadow-glow transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div className="space-y-2">
+                    <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 w-fit group-hover:bg-cyan-500 group-hover:text-white transition-colors">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <h4 className="text-xs font-bold text-foreground group-hover:text-cyan-400 transition-colors leading-snug">
+                      VISA Information Folder
+                    </h4>
+                    <p className="text-[10px] text-muted-foreground leading-tight">
+                      Official travel & visa guidelines for Meta Expo.
+                    </p>
+                  </div>
+                  <div className="mt-3 pt-2.5 border-t border-border/30 flex items-center justify-between text-[11px] font-bold text-cyan-400">
+                    <span>Download</span>
+                    <span className="text-base">↓</span>
+                  </div>
+                </a>
+
+                {/* Download 2: Meta Expo Application */}
+                <a
+                  href="/The Meta Expo Application.pdf"
+                  target="_blank"
+                  download="The_Meta_Expo_Application.pdf"
+                  className="group p-4 rounded-2xl bg-card border border-border/60 hover:border-cyan-500/50 shadow-sm hover:shadow-glow transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div className="space-y-2">
+                    <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 w-fit group-hover:bg-cyan-500 group-hover:text-white transition-colors">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                    </div>
+                    <h4 className="text-xs font-bold text-foreground group-hover:text-cyan-400 transition-colors leading-snug">
+                      Application Form
+                    </h4>
+                    <p className="text-[10px] text-muted-foreground leading-tight">
+                      Exhibitor booth reservation form.
+                    </p>
+                  </div>
+                  <div className="mt-3 pt-2.5 border-t border-border/30 flex items-center justify-between text-[11px] font-bold text-cyan-400">
+                    <span>Download</span>
+                    <span className="text-base">↓</span>
+                  </div>
+                </a>
+
+                {/* Download 3: Meta Expo Letter */}
+                <a
+                  href="/The Meta Expo Letter.pdf"
+                  target="_blank"
+                  download="The_Meta_Expo_Official_Letter.pdf"
+                  className="group p-4 rounded-2xl bg-card border border-border/60 hover:border-cyan-500/50 shadow-sm hover:shadow-glow transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div className="space-y-2">
+                    <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 w-fit group-hover:bg-cyan-500 group-hover:text-white transition-colors">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <h4 className="text-xs font-bold text-foreground group-hover:text-cyan-400 transition-colors leading-snug">
+                      Invitation Letter
+                    </h4>
+                    <p className="text-[10px] text-muted-foreground leading-tight">
+                      Official endorsement letter from Raytronics.
+                    </p>
+                  </div>
+                  <div className="mt-3 pt-2.5 border-t border-border/30 flex items-center justify-between text-[11px] font-bold text-cyan-400">
+                    <span>Download</span>
+                    <span className="text-base">↓</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
       </div>
 
       {/* Registration Form & Modal (COMMENTED OUT FOR NOW) */}

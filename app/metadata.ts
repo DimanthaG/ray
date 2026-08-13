@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Raytronics",
   description:
-    "Raytronics is a digital marketing and social media partner helping brands grow online. Part of the Raytronics Group, we combine strategy, content, and analytics with group-wide expertise.",
+    "Raytronics Group is a premier Sri Lankan conglomerate established in 1993, operating across certified Ceylon gemstones, luxury real estate, global higher education pathways, retail tech e-commerce, and international trade exhibitions.",
   url: "https://raytronics.vercel.app",
   ogImage: "/og-image.jpg",
   logoPath: "/logos/06.svg",

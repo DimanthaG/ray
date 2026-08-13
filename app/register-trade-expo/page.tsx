@@ -24,16 +24,16 @@ export default function TradeExpoRegistrationPage() {
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
           <div className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/10 px-4 py-1.5 text-xs font-bold text-brand">
             <Globe className="h-4 w-4" />
-            <span>Canada Ceylon Trade & Gem Expo 2026</span>
+            <span>Canada Ceylon Gem & Meta Expo 2026</span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-heading text-foreground tracking-tight">
-            Exhibitor <span className="text-gradient">Registration</span>
+            Exhibitor <span className="text-gradient">Registration & Downloads</span>
           </h1>
 
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
             Secure your booth and connect with international buyers in Toronto, Canada. 
-            Join Sri Lankan exporters, real estate developers, and gem merchants on the global stage.
+            Download official event documentation, VISA guidelines, and application forms for Gem Expo & Meta Expo below.
           </p>
         </div>
 
