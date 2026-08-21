@@ -134,23 +134,42 @@ export function Footer() {
 
           {/* Contact Details */}
           <div className="space-y-4 flex flex-col items-center md:items-start">
-            <h4 className="text-xs font-bold text-foreground tracking-wider uppercase">Headquarters</h4>
-            <ul className="space-y-3 text-sm">
-              <li>
+            <h4 className="text-xs font-bold text-foreground tracking-wider uppercase">Contact Us</h4>
+            <ul className="space-y-3 text-xs md:text-sm">
+              <li className="space-y-1.5">
                 <a
-                  href="mailto:lasa_ray@yahoo.com"
-                  className="flex items-start gap-2.5 text-muted-foreground hover:text-brand transition-colors group justify-center md:justify-start"
+                  href="mailto:sales@raytronics.lk"
+                  className="flex items-center gap-2 text-muted-foreground hover:text-brand transition-colors group justify-center md:justify-start text-xs"
                 >
-                  <Mail className="w-4 h-4 mt-0.5 shrink-0 text-brand" />
-                  <span className="break-all">lasa_ray@yahoo.com</span>
+                  <Mail className="w-3.5 h-3.5 shrink-0 text-brand" />
+                  <span className="break-all font-medium">sales@raytronics.lk</span>
+                </a>
+                <a
+                  href="mailto:raytronicslanka@gmail.com"
+                  className="flex items-center gap-2 text-muted-foreground hover:text-brand transition-colors group justify-center md:justify-start text-xs"
+                >
+                  <Mail className="w-3.5 h-3.5 shrink-0 text-brand" />
+                  <span className="break-all font-medium">raytronicslanka@gmail.com</span>
                 </a>
               </li>
-              <li className="flex items-start gap-2.5 text-muted-foreground justify-center md:justify-start">
-                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-brand" />
+              <li className="space-y-1 pt-1 text-xs border-t border-border/30">
+                <a href="tel:+94112813808" className="flex items-center gap-1.5 text-muted-foreground hover:text-brand transition-colors justify-center md:justify-start">
+                  <span className="font-semibold text-foreground">Office:</span> 011 281 3808
+                </a>
+                <a href="tel:+94714727527" className="flex items-center gap-1.5 text-muted-foreground hover:text-brand transition-colors justify-center md:justify-start">
+                  <span className="font-semibold text-foreground">Exhibitions & RayGems:</span> 071 472 7527
+                </a>
+                <a href="tel:+94705599167" className="flex items-center gap-1.5 text-muted-foreground hover:text-brand transition-colors justify-center md:justify-start">
+                  <span className="font-semibold text-foreground">Global Education:</span> 070 559 9167
+                </a>
+                <a href="tel:+94777788275" className="flex items-center gap-1.5 text-muted-foreground hover:text-brand transition-colors justify-center md:justify-start">
+                  <span className="font-semibold text-foreground">RayMart:</span> 077 778 8275
+                </a>
+              </li>
+              <li className="flex items-start gap-2 text-muted-foreground justify-center md:justify-start pt-1 text-xs border-t border-border/30">
+                <MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0 text-brand" />
                 <address className="not-italic leading-relaxed text-center md:text-left">
-                  86 Old Kottawa Rd,
-                  <br />
-                  Nugegoda, Sri Lanka
+                  86 Old Kottawa Rd, Nugegoda, Sri Lanka
                 </address>
               </li>
             </ul>

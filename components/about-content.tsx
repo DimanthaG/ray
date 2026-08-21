@@ -66,7 +66,7 @@ export default function AboutContent() {
             Established in 1993, Raytronics Group has evolved over three decades from an IT pioneer into one of Sri Lanka’s dynamic multi-sector conglomerates. Built on an unyielding foundation of integrity, quality, and forward-thinking vision, we drive growth across international gem trade, prime real estate, retail e-commerce, and global education pathways—connecting Sri Lankan potential with global opportunities.
           </p>
 
-          <div className="flex justify-center pt-2">
+          {/* <div className="flex justify-center pt-2">
             <Button asChild size="lg" className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg transition-all">
               <a
                 href="https://wa.me/94705599167?text=Hi%20Raytronics%2C%20I%20would%20like%20to%20inquire."
@@ -77,7 +77,7 @@ export default function AboutContent() {
                 <span>Inquire on WhatsApp (+94 70 559 9167)</span>
               </a>
             </Button>
-          </div>
+          </div> */}
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-border/40 text-center">
             <div className="p-4 rounded-2xl bg-brand/5 border border-brand/10">

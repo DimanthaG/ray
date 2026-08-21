@@ -13,7 +13,7 @@ const mockAgents = [
     id: "2",
     name: "Shamika Chandupa Manikrathne",
     specialty: "Director",
-    email: "s.chandupa2005@gmail.com",
+    email: "manikrathnasc@gmail.com",
     phone: "+94(72)6645529",
     imageUrl: "/images/Directors/Shamika.png",
     describe:
