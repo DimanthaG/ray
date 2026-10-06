@@ -24,6 +24,7 @@ import {
   Newspaper,
   ExternalLink,
   Briefcase,
+  Handshake,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { siteConfig } from "@/app/metadata"
@@ -350,7 +351,23 @@ export function MinimalistNavbar({ className }: MinimalistNavbarProps) {
                 </Link>
               </li>
 
-              {/* 5. Media & Updates */}
+              {/* 5. Be Our Partner */}
+              <li>
+                <Link
+                  href="/partners"
+                  className={cn(
+                    "px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center gap-1.5",
+                    isActivePath(pathname, "/partners")
+                      ? "text-white bg-brand shadow-md shadow-brand/25"
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                  )}
+                >
+                  <Handshake className="w-3.5 h-3.5" />
+                  <span>Be Our Partner</span>
+                </Link>
+              </li>
+
+              {/* 6. Media & Updates */}
               <li>
                 <Link
                   href="/media"
@@ -540,7 +557,26 @@ export function MinimalistNavbar({ className }: MinimalistNavbarProps) {
                   </Link>
                 </li>
 
-                {/* 5. Media & Updates */}
+                {/* 5. Be Our Partner */}
+                <li>
+                  <Link
+                    href="/partners"
+                    className={cn(
+                      "px-4 py-3 rounded-xl text-sm font-semibold transition-all flex items-center justify-between",
+                      isActivePath(pathname, "/partners")
+                        ? "bg-brand text-white shadow-md shadow-brand/25"
+                        : "text-muted-foreground hover:text-foreground hover:bg-accent/40"
+                    )}
+                    onClick={closeMobileMenu}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Handshake className="w-4 h-4" />
+                      <span>Be Our Partner</span>
+                    </div>
+                  </Link>
+                </li>
+
+                {/* 6. Media & Updates */}
                 <li>
                   <Link
                     href="/media"
