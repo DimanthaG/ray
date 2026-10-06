@@ -6,9 +6,7 @@ import Link from "next/link"
 import {
   Handshake,
   ArrowRight,
-  ExternalLink,
   MessageCircle,
-  FileText,
   Globe2,
   ShieldCheck,
   TrendingUp,
@@ -157,7 +155,6 @@ const partnerCategories: PartnerCategory[] = [
   },
 ]
 
-const GOOGLE_FORM_URL = "https://forms.gle/PBd1o2oPegHS74aY8"
 const GENERAL_WHATSAPP_URL =
   "https://wa.me/94714727527?text=Hi%20Raytronics%20Team%2C%20I%20am%20interested%20in%20becoming%20a%20partner%20to%20sell%20my%20products%20locally%20and%20internationally."
 
@@ -193,24 +190,21 @@ export function PartnersContent() {
             {/* Hero CTAs */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-4">
               <a
-                href={GOOGLE_FORM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-brand hover:bg-brand/90 text-white text-sm font-bold shadow-lg shadow-brand/25 transition-all duration-300 hover:scale-[1.02]"
-              >
-                <FileText className="w-4 h-4" />
-                <span>Fill Partner Application Form</span>
-                <ExternalLink className="w-4 h-4 opacity-80" />
-              </a>
-
-              <a
                 href={GENERAL_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold shadow-lg shadow-emerald-600/25 transition-all duration-300 hover:scale-[1.02]"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold shadow-xl shadow-emerald-600/25 transition-all duration-300 hover:scale-[1.02]"
               >
-                <MessageCircle className="w-4 h-4" />
-                <span>Chat with Partnership Desk</span>
+                <MessageCircle className="w-5 h-5" />
+                <span>Chat with Partnership Desk on WhatsApp</span>
+              </a>
+
+              <a
+                href="tel:+94714727527"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-border/80 bg-card hover:bg-accent text-foreground text-sm font-semibold transition-all duration-300"
+              >
+                <PhoneCall className="w-4 h-4 text-brand" />
+                <span>Call Hotline: +94 71 472 7527</span>
               </a>
             </div>
 
@@ -334,27 +328,16 @@ export function PartnersContent() {
                       ))}
                     </ul>
 
-                    {/* Action Buttons matching the reference image layout */}
-                    <div className="pt-3 flex flex-wrap items-center gap-3">
-                      <a
-                        href={GOOGLE_FORM_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-brand bg-brand text-white text-xs sm:text-sm font-semibold hover:bg-brand/90 transition-all duration-200 shadow-sm shadow-brand/20 hover:scale-[1.02]"
-                      >
-                        <FileText className="w-3.5 h-3.5" />
-                        <span>Apply via Google Form</span>
-                        <ExternalLink className="w-3 h-3 opacity-80" />
-                      </a>
-
+                    {/* Action Button matching the reference image layout */}
+                    <div className="pt-3">
                       <a
                         href={categoryWhatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border/80 bg-card hover:bg-emerald-500/10 hover:border-emerald-500/40 text-foreground hover:text-emerald-500 text-xs sm:text-sm font-semibold transition-all duration-200"
+                        className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-semibold shadow-md shadow-emerald-600/20 hover:scale-[1.02] transition-all duration-200"
                       >
-                        <MessageCircle className="w-3.5 h-3.5 text-emerald-500" />
-                        <span>Chat on WhatsApp</span>
+                        <MessageCircle className="w-4 h-4" />
+                        <span>Inquire on WhatsApp</span>
                       </a>
                     </div>
                   </div>
@@ -460,21 +443,20 @@ export function PartnersContent() {
                 1
               </div>
               <h4 className="text-lg font-bold font-heading text-foreground">
-                Submit Your Details
+                Connect on WhatsApp
               </h4>
               <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Fill out our quick online Google Form or message our partnership
-                desk on WhatsApp with photos and descriptions of your products.
+                Reach out to our partnership desk directly on WhatsApp with photos, specifications, and descriptions of your products.
               </p>
               <div className="pt-2">
                 <a
-                  href={GOOGLE_FORM_URL}
+                  href={GENERAL_WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs font-bold text-brand hover:underline inline-flex items-center gap-1"
+                  className="text-xs font-bold text-emerald-500 hover:underline inline-flex items-center gap-1.5"
                 >
-                  <span>Open Application Form</span>
-                  <ExternalLink className="w-3 h-3" />
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>Message Partnership Desk</span>
                 </a>
               </div>
             </div>
@@ -545,29 +527,18 @@ export function PartnersContent() {
 
               <p className="text-sm sm:text-base text-white/80 leading-relaxed">
                 Whether you produce one signature item or manage high-volume
-                manufacturing, we are here to support your growth. Fill out our
-                form today or message us directly on WhatsApp.
+                manufacturing, we are here to support your growth. Message our
+                partnership desk directly on WhatsApp.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
                 <a
-                  href={GOOGLE_FORM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl bg-white text-slate-900 hover:bg-slate-100 text-sm font-bold shadow-xl transition-all duration-300 hover:scale-[1.02]"
-                >
-                  <FileText className="w-4 h-4 text-brand" />
-                  <span>Fill the Google Form</span>
-                  <ExternalLink className="w-3.5 h-3.5 opacity-60" />
-                </a>
-
-                <a
                   href={GENERAL_WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold shadow-xl transition-all duration-300 hover:scale-[1.02]"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white text-sm font-bold shadow-xl transition-all duration-300 hover:scale-[1.02]"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <MessageCircle className="w-5 h-5" />
                   <span>Chat on WhatsApp: +94 71 472 7527</span>
                 </a>
               </div>
