@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
-import Link from "next/link"
-import Image from "next/image"
-import { Newspaper, ArrowRight, Sparkles, ExternalLink, Calendar, MessageCircle, MapPin, Phone, Award } from "lucide-react"
+import { Newspaper } from "lucide-react"
+import { MediaContent, type MediaUpdateItem } from "@/components/media/media-content"
 
 export const metadata: Metadata = {
   title: "Media & Updates | Raytronics Group Press & Announcements",
@@ -9,7 +8,7 @@ export const metadata: Metadata = {
     "Explore the latest updates from Raytronics Group: Ceylon Birthstone Gemstones, Live Classroom Studio rentals at Raytronics Institute, and 4-Destination Visa Consulting.",
 }
 
-const updates = [
+const updates: MediaUpdateItem[] = [
   {
     id: "birthstone-gems",
     date: "Latest Feature",
@@ -90,77 +89,14 @@ export default function MediaPage() {
           </h1>
 
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Stay updated with official announcements, product highlights, and corporate updates across Raytronics Group.
+            Stay updated with official announcements, product highlights, and corporate updates across Raytronics Group. Click any photo to inspect in full resolution.
           </p>
         </div>
 
-        {/* Media Articles Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-20">
-          {updates.map((item) => {
-            const whatsappUrl = `https://wa.me/94714727527?text=${encodeURIComponent(item.whatsappMsg)}`
-
-            return (
-              <article
-                key={item.id}
-                className="group overflow-hidden rounded-3xl bg-card/70 border border-border/60 hover:border-brand/50 backdrop-blur-xl shadow-sm hover:shadow-glow transition-all duration-300 flex flex-col justify-between"
-              >
-                <div>
-                  {/* Post Poster Image Container (1080px x 1080px 1:1 Aspect Ratio) */}
-                  <div className="aspect-square relative overflow-hidden bg-slate-950">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      priority
-                      className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent" />
-                    <div className="absolute top-4 left-4 z-10">
-                      <span className="px-3.5 py-1 rounded-full bg-brand/90 backdrop-blur-md text-white text-xs font-bold shadow-md">
-                        {item.category}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Post Content */}
-                  <div className="p-6 space-y-4">
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground font-medium">
-                      <Calendar className="w-3.5 h-3.5 text-brand" />
-                      <span>{item.date}</span>
-                    </div>
-
-                    <h3 className="text-xl font-bold font-heading text-foreground group-hover:text-brand transition-colors leading-snug">
-                      {item.title}
-                    </h3>
-
-                    {/* Formatted Full Caption */}
-                    <div className="space-y-2 text-xs text-muted-foreground leading-relaxed pt-2 border-t border-border/40">
-                      {item.fullCaption.map((line, idx) => (
-                        <p key={idx} className={line.startsWith("💎") || line.startsWith("✅") || line.startsWith("📍") ? "font-medium text-foreground/90" : ""}>
-                          {line}
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* WhatsApp Call to Action */}
-                <div className="p-6 pt-0">
-                  <a
-                    href={whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md hover:shadow-emerald-600/30 transition-all duration-300"
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                    <span>Inquire Details on WhatsApp</span>
-                  </a>
-                </div>
-              </article>
-            )
-          })}
-        </div>
+        {/* Media Articles Grid with Lightbox Modal */}
+        <MediaContent updates={updates} />
       </div>
     </div>
   )
 }
+
