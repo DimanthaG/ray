@@ -9,6 +9,7 @@ const footerLinks = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
   { name: "Trade Exhibitions", href: "/register-trade-expo" },
+  { name: "Be Our Partner", href: "/partners" },
   { name: "Raytronics Institute", href: "/institute" },
   { name: "Media & Updates", href: "/media" },
   { name: "Contact Us", href: "/contact" },
