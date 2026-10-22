@@ -133,7 +133,7 @@ const slides = [
     whatsappMsg: "Hi Raytronics, I would like to inquire about Ray Gems precious gemstones.",
     whatsappText: "Inquire on WhatsApp",
     secondaryBtnText: "Visit Ray Gems Website",
-    secondaryBtnLink: "https://www.raygems.com/",
+    secondaryBtnLink: "https://www.raygems.lk/",
   },
   {
     id: "ray-mart",
